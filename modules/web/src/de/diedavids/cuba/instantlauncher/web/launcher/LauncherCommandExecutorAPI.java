@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web.components;
+package de.diedavids.cuba.instantlauncher.web.launcher;
 
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 

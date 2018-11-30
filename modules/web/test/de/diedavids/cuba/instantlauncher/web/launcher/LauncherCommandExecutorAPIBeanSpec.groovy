@@ -1,13 +1,16 @@
-package de.diedavids.cuba.instantlauncher.web.components
+package de.diedavids.cuba.instantlauncher.web.launcher
 
 import com.haulmont.cuba.core.global.DataManager
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutor
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutorAPI
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutorAPIBean
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutorFactory
 import spock.lang.Specification
 
 class LauncherCommandExecutorAPIBeanSpec extends Specification {
 
-          LauncherCommandExecutorAPI     sut
+  LauncherCommandExecutorAPI sut
   private LauncherCommandExecutorFactory launcherCommandExecutorFactory = Mock(LauncherCommandExecutorFactory)
   private DataManager                    dataManager = Mock(DataManager)
 

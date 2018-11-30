@@ -1,12 +1,10 @@
-package de.diedavids.cuba.instantlauncher.web.components;
+package de.diedavids.cuba.instantlauncher.web.launcher;
 
 import com.haulmont.addon.search.context.SearchContext;
 import com.haulmont.addon.search.strategy.DefaultSearchEntry;
 import com.haulmont.addon.search.strategy.SearchEntry;
 import com.haulmont.addon.search.strategy.SearchStrategy;
-import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
-import com.haulmont.cuba.core.global.Security;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;

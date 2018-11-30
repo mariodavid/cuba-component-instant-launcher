@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web.components;
+package de.diedavids.cuba.instantlauncher.web.launcher;
 
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface LauncherCommmandRepository {
 
-  static final String NAME = "ddcil_LauncherCommandRepositoryBean";
+  String NAME = "ddcil_LauncherCommandRepositoryBean";
 
   List<LauncherCommandTranslation> findAllLauncherCommandTranslationByTextAndLocale(String query,
       Locale locale);

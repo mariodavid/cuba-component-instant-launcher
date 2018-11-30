@@ -1,25 +1,31 @@
-package de.diedavids.cuba.instantlauncher.web.components
+package de.diedavids.cuba.instantlauncher.web.launcher
 
 import com.haulmont.cuba.core.global.BeanLocator
 import de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandType
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
+import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommandType
 import de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutor
-import de.diedavids.cuba.instantlauncher.web.launcher.ScreenLauncherCommandExecutor
-import de.diedavids.cuba.instantlauncher.web.launcher.ScriptLauncherCommandExecutor
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutorFactory
+import de.diedavids.cuba.instantlauncher.web.launcher.executor.AbstractScreenLauncherCommandExecutor
+import de.diedavids.cuba.instantlauncher.web.launcher.executor.EditorScreenLauncherCommandExecutor
+import de.diedavids.cuba.instantlauncher.web.launcher.executor.GeneralScreenLauncherCommandExecutor
+import de.diedavids.cuba.instantlauncher.web.launcher.executor.ScriptLauncherCommandExecutor
 import spock.lang.Specification
 
 class LauncherCommandExecutorFactorySpec extends Specification {
 
   LauncherCommandExecutorFactory sut
-  ScreenLauncherCommandExecutor screenLauncherCommandExecutor = Mock(ScreenLauncherCommandExecutor)
+  GeneralScreenLauncherCommandExecutor generalScreenLauncherCommandExecutor = Mock(GeneralScreenLauncherCommandExecutor)
+  EditorScreenLauncherCommandExecutor editorScreenLauncherCommandExecutor = Mock(EditorScreenLauncherCommandExecutor)
   ScriptLauncherCommandExecutor scriptLauncherCommandExecutor = Mock(ScriptLauncherCommandExecutor)
   BeanLocator beanLocator = Mock(BeanLocator)
 
   def setup() {
     sut = new LauncherCommandExecutorFactory(
-        screenLauncherCommandExecutor: screenLauncherCommandExecutor,
+        generalScreenLauncherCommandExecutor: generalScreenLauncherCommandExecutor,
+        editorScreenLauncherCommandExecutor: editorScreenLauncherCommandExecutor,
         scriptLauncherCommandExecutor: scriptLauncherCommandExecutor,
         beanLocator: beanLocator
     )
@@ -35,14 +41,27 @@ class LauncherCommandExecutorFactorySpec extends Specification {
     result == scriptLauncherCommandExecutor
   }
 
-  def "create gives the screen executor back in case of a ScreenLaunchCommand"() {
+  def "create gives the screen executor back in case of a ScreenLaunchCommand with type GENERAL"() {
     given:
     def launcherCommand = new ScreenLauncherCommand(type: LauncherCommandType.SCREEN_LAUNCHER)
 
     when:
     def result = sut.create(launcherCommand)
     then:
-    result == screenLauncherCommandExecutor
+    result == generalScreenLauncherCommandExecutor
+  }
+
+  def "create gives the screen executor back in case of a ScreenLaunchCommand with type EDITOR"() {
+    given:
+    def launcherCommand = new ScreenLauncherCommand(
+        type: LauncherCommandType.SCREEN_LAUNCHER,
+        screenLauncherCommandType: ScreenLauncherCommandType.EDITOR
+    )
+
+    when:
+    def result = sut.create(launcherCommand)
+    then:
+    result == editorScreenLauncherCommandExecutor
   }
 
   def "create searches for a Spring bean of given name when type is BeanLaunchCommand"() {
