@@ -8,6 +8,7 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.Security;
 import com.haulmont.cuba.core.global.UserSessionSource;
+import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
 import java.util.Locale;
 import java.util.UUID;
@@ -22,79 +23,86 @@ import java.util.stream.Collectors;
 public class LauncherCommandSearchStrategy implements SearchStrategy {
 
 
-    @Nonnull
-    @Override
-    public String name() {
-        return "instantLauncherSearchStrategy";
+  @Nonnull
+  @Override
+  public String name() {
+    return "instantLauncherSearchStrategy";
+  }
+
+
+  @Inject
+  LauncherCommandExecutorAPI launcherCommandExecutorAPI;
+
+  @Inject
+  protected LauncherCommmandRepository launcherCommmandRepository;
+
+  @Inject
+  protected UserSessionSource userSessionSource;
+
+
+  @Inject
+  protected Messages messages;
+
+  @Nonnull
+  @Override
+  public List<SearchEntry> load(@Nonnull SearchContext context, String query) {
+    return findMatchingLaunchers(query);
+  }
+
+  private List<SearchEntry> findMatchingLaunchers(String query) {
+
+    Locale currentLocale = getCurrentLocale();
+
+    List<LauncherCommandTranslation> matchingLauncherCommands = findMatchingLauncherCommands(
+        query, currentLocale);
+
+    return toSearchEntries(query, matchingLauncherCommands);
+  }
+
+  private List<SearchEntry> toSearchEntries(String query,
+      List<LauncherCommandTranslation> matchingLauncherCommands) {
+    return matchingLauncherCommands.stream()
+        .map(launcherCommandTranslation -> createSearchEntry(query, launcherCommandTranslation))
+        .collect(Collectors.toList());
+  }
+
+  private List<LauncherCommandTranslation> findMatchingLauncherCommands(String query,
+      Locale currentLocale) {
+    return launcherCommmandRepository.findAllLauncherCommandTranslationByTextAndLocale(query, currentLocale);
+  }
+
+  private Locale getCurrentLocale() {
+
+    if (userSessionSource.checkCurrentUserSession()) {
+      return userSessionSource.getLocale();
+    } else {
+      return messages.getTools().getDefaultLocale();
     }
+  }
 
+  private SearchEntry createSearchEntry(String query,
+      LauncherCommandTranslation launcherCommandTranslation) {
+    return new DefaultSearchEntry(
+        launcherCommandTranslation.getId().toString(),
+        query,
+        launcherCommandTranslation.getText(),
+        name()
+    );
+  }
 
-    @Inject
-    LauncherCommandExecutorAPI launcherCommandExecutorAPI;
+  @Override
+  public void invoke(@Nonnull SearchContext context, SearchEntry value) {
+    DefaultSearchEntry searchEntry = (DefaultSearchEntry) value;
 
-    @Inject
-    Security security;
+    LauncherCommand launcherCommand = findLauncherCommandByTranslationId(
+        searchEntry.getId());
 
-    @Inject
-    private DataManager dataManager;
+    launcherCommandExecutorAPI.launchCommand(launcherCommand);
+  }
 
-    @Inject
-    protected UserSessionSource userSessionSource;
-
-
-    @Inject
-    protected Messages messages;
-
-    @Nonnull
-    @Override
-    public List<SearchEntry> load(@Nonnull SearchContext context, String query) {
-        return findMatchingLaunchers(query);
-    }
-
-    private List<SearchEntry> findMatchingLaunchers(String query) {
-
-        Locale currentLocale = null;
-
-        if (userSessionSource.checkCurrentUserSession()) {
-            currentLocale = userSessionSource.getLocale();
-        }
-        else {
-            currentLocale = messages.getTools().getDefaultLocale();
-        }
-
-
-        List<LauncherCommandTranslation> matchingLauncherCommands = dataManager.load(
-            LauncherCommandTranslation.class)
-                .query("select e from ddcil$LauncherCommandTranslation e where e.text LIKE :query and e.locale = :locale")
-                .parameter("query", "(?i)%" + query + "%")
-            .parameter("locale", currentLocale)
-                .list();
-
-        return matchingLauncherCommands.stream()
-                .map(launcherCommandTranslation -> createSearchEntry(query, launcherCommandTranslation))
-                .collect(Collectors.toList());
-    }
-
-    private SearchEntry createSearchEntry(String query, LauncherCommandTranslation launcherCommandTranslation) {
-        return new DefaultSearchEntry(
-                launcherCommandTranslation.getId().toString(),
-                query,
-                launcherCommandTranslation.getText(),
-                name()
-        );
-    }
-
-    @Override
-    public void invoke(@Nonnull SearchContext context, SearchEntry value) {
-        DefaultSearchEntry searchEntry = (DefaultSearchEntry) value;
-
-        LauncherCommandTranslation launcherCommandTranslation = dataManager.load(LauncherCommandTranslation.class)
-                .id(UUID.fromString(searchEntry.getId()))
-                .view("launcherCommandTranslation-with-launcherCommand")
-                .one();
-
-        launcherCommandExecutorAPI.launchCommand(launcherCommandTranslation.getLauncherCommand());
-    }
+  private LauncherCommand findLauncherCommandByTranslationId(String launchCommandTranslationId) {
+    return launcherCommmandRepository.findLauncherCommandByTranslationId(UUID.fromString(launchCommandTranslationId));
+  }
 
 
 }

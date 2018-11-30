@@ -22,24 +22,22 @@ class LauncherCommandExecutorFactory {
 
   @Inject
   ScriptLauncherCommandExecutor scriptLauncherCommandExecutor
-  @Inject
-  ScreenLauncherCommandExecutor screenLauncherCommandExecutor
 
   @Inject
-  DataManager dataManager
+  ScreenLauncherCommandExecutor screenLauncherCommandExecutor
 
 
   LauncherCommandExecutor create(LauncherCommand launcherCommand) {
 
     switch (launcherCommand.type) {
-      case LauncherCommandType.BEAN_LAUNCHER: return createBeanLaunchCommandExecutor(launcherCommand)
+      case LauncherCommandType.BEAN_LAUNCHER: return createBeanLaunchCommandExecutor(launcherCommand as BeanLauncherCommand)
       case LauncherCommandType.SCRIPT_LAUNCHER: return scriptLauncherCommandExecutor
       case LauncherCommandType.SCREEN_LAUNCHER: return screenLauncherCommandExecutor
+      default: return null
     }
   }
 
-  LauncherCommandExecutor createBeanLaunchCommandExecutor(LauncherCommand launcherCommand) {
-    BeanLauncherCommand beanLauncherCommand = dataManager.reload(launcherCommand as BeanLauncherCommand, "launcherCommand-with-translations")
-    beanLocator.get(beanLauncherCommand.getBeanName())
+  LauncherCommandExecutor createBeanLaunchCommandExecutor(BeanLauncherCommand launcherCommand) {
+    beanLocator.get(launcherCommand.getBeanName())
   }
 }

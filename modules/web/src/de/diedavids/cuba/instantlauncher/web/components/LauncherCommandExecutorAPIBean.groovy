@@ -22,7 +22,7 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
 
     LauncherCommand reloadedLauncherCommand = dataManager.reload(launcherCommand, "launcherCommand-with-translations")
 
-    def executor = launcherCommandExecutorFactory.create(launcherCommand)
+    def executor = launcherCommandExecutorFactory.create(reloadedLauncherCommand)
     executor.execute(reloadedLauncherCommand)
   }
 }
