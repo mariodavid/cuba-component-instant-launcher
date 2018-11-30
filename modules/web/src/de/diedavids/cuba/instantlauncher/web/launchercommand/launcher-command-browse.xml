@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="de.diedavids.cuba.instantlauncher.web.launchercommand.LauncherCommandBrowse"
+        focusComponent="launcherCommandsTable"
+        lookupComponent="launcherCommandsTable"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.launchercommand">
+    <dsContext>
+        <groupDatasource id="launcherCommandsDs"
+                         class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ddcil$LauncherCommand e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="launcherCommandsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="launcherCommandsTable"
+                datasource="launcherCommandsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="launcherCommandsTable"
+                    width="100%">
+            <actions>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="code"/>
+                <column id="type"/>
+            </columns>
+            <rows datasource="launcherCommandsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <popupButton id="createPopupBtn"
+                             caption="msg://create"
+                             icon="CREATE_ACTION">
+                    <actions>
+                        <action id="createScreenLauncher"
+                                caption="msg://createScreen"
+                                invoke="createScreen"/>
+                        <action id="createScriptLauncher"
+                                caption="msg://createScript"
+                                invoke="createScript"/>
+                        <action id="createBeanLauncher"
+                                caption="msg://createBean"
+                                invoke="createBean"/>
+                    </actions>
+                </popupButton>
+                <button id="editBtn"
+                        action="launcherCommandsTable.edit"/>
+                <button id="removeBtn"
+                        action="launcherCommandsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

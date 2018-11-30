@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+    <view class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"
+          extends="_local"
+          name="launcherCommand-with-translations">
+        <property name="translations"
+                  view="_local"/>
+    </view>
+    <view class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
+          extends="_local"
+          name="launcherCommand-with-translations">
+        <property name="translations"
+                  view="_local"/>
+    </view>
+    <view class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
+          extends="_local"
+          name="launcherCommand-with-translations">
+        <property name="translations"
+                  view="_local"/>
+    </view>
+    <view class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
+          extends="_local"
+          name="launcherCommand-with-translations">
+        <property name="translations"
+                  view="_local"/>
+    </view>
+    <view class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"
+          extends="_local"
+          name="launcherCommandTranslation-with-launcherCommand">
+        <property name="launcherCommand"
+                  view="_local"/>
+    </view>
+</views>

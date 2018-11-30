@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.instantlauncher.web.scriptlaunchercommand.ScriptLauncherCommandEdit"
+        datasource="launcherCommandDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.scriptlaunchercommand">
+
+    <dsContext>
+        <datasource id="launcherCommandDs"
+          class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
+          view="launcherCommand-with-translations">
+            <collectionDatasource id="translationsDs"
+              property="translations"/>
+        </datasource>
+    </dsContext>
+    <dialogMode height="600"
+      width="800"/>
+    <layout expand="windowActions"
+      spacing="true">
+        <fieldGroup id="fieldGroup"
+          datasource="launcherCommandDs">
+            <column width="250px">
+                <field property="code"/>
+            </column>
+        </fieldGroup>
+        <tabSheet id="mainTabSheet">
+            <tab id="contentTab"
+              caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand"
+              margin="true"
+              spacing="true">
+
+                <sourceCodeEditor id="contentSourceCodeEditor"
+                  datasource="launcherCommandDs"
+                  handleTabKey="true"
+                  mode="Groovy"
+                  property="launchScript"
+                  width="100%"/>
+            </tab>
+            <tab id="translationTab"
+              caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
+              margin="true"
+              spacing="true">
+                <table id="translationsTable"
+                  height="200px"
+                  width="100%">
+                    <actions>
+                        <action id="create"
+                          openType="DIALOG"/>
+                        <action id="edit"
+                          openType="DIALOG"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="locale"/>
+                        <column id="text"/>
+                    </columns>
+                    <rows datasource="translationsDs"/>
+                    <buttonsPanel>
+                        <button action="translationsTable.create"/>
+                        <button action="translationsTable.edit"/>
+                        <button action="translationsTable.remove"/>
+                    </buttonsPanel>
+                </table>
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+          screen="editWindowActions"/>
+    </layout>
+</window>

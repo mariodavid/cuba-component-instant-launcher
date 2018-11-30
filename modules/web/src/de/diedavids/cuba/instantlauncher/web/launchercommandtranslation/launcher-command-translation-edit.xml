@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.instantlauncher.web.launchercommandtranslation.LauncherCommandTranslationEdit"
+        datasource="launcherCommandTranslationDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.launchercommandtranslation">
+    <dsContext>
+        <datasource id="launcherCommandTranslationDs"
+                    class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"
+                    view="_local"/>
+    </dsContext>
+    <layout expand="windowActions"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="launcherCommandTranslationDs">
+            <column width="250px">
+                <field property="locale" custom="true"/>
+                <field property="text"/>
+            </column>
+        </fieldGroup>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

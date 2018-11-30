@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata xmlns="http://schemas.haulmont.com/cuba/metadata.xsd">
+
+    <datatypes>
+        <datatype
+          id="Locale"
+          class="de.diedavids.cuba.instantlauncher.LocaleDatatype"
+          javaType="java.util.Locale"
+          sqlType="varchar(255)"
+        />
+    </datatypes>
+    <metadata-model root-package="de.diedavids.cuba.instantlauncher" namespace="ddcil"/>
+
+</metadata>
