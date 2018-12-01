@@ -38,7 +38,12 @@
                         <field property="screenEntity"/>
                     </column>
                 </fieldGroup>
-                <sourceCodeEditor id="contentSourceCodeEditor"
+            </tab>
+            <tab id="screenParametersScriptTab"
+              caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand.screenParametersScript"
+              margin="true"
+              spacing="true">
+                <sourceCodeEditor id="screenParametersScriptCodeEditor"
                   datasource="launcherCommandDs"
                   handleTabKey="true"
                   mode="Groovy"

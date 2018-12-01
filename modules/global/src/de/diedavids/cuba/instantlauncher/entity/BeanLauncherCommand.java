@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -22,6 +23,11 @@ public class BeanLauncherCommand extends LauncherCommand {
 
     public String getBeanName() {
         return beanName;
+    }
+
+    @PostConstruct
+    protected void initType() {
+        setType(LauncherCommandType.BEAN_LAUNCHER);
     }
 
 

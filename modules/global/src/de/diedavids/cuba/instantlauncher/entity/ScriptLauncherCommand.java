@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -28,5 +29,10 @@ public class ScriptLauncherCommand extends LauncherCommand {
         return launchScript;
     }
 
+
+    @PostConstruct
+    protected void initType() {
+        setType(LauncherCommandType.SCRIPT_LAUNCHER);
+    }
 
 }

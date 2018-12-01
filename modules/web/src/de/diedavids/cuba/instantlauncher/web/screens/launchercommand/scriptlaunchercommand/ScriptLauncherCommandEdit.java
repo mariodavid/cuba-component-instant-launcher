@@ -6,10 +6,4 @@ import de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand;
 
 public class ScriptLauncherCommandEdit extends AbstractEditor<ScriptLauncherCommand> {
 
-
-  @Override
-  protected void initNewItem(ScriptLauncherCommand item) {
-    super.initNewItem(item);
-    item.setType(LauncherCommandType.SCRIPT_LAUNCHER);
-  }
 }

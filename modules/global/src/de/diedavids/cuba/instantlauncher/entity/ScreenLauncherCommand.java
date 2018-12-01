@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -77,5 +78,10 @@ public class ScreenLauncherCommand extends LauncherCommand {
         return screenParametersScript;
     }
 
+
+    @PostConstruct
+    protected void initType() {
+        setType(LauncherCommandType.SCREEN_LAUNCHER);
+    }
 
 }
