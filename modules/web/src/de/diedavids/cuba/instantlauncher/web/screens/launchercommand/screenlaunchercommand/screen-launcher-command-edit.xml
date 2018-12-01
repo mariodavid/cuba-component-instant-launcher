@@ -32,10 +32,10 @@
                 <fieldGroup id="screenFieldGroup"
                   datasource="launcherCommandDs">
                     <column width="250px">
-                        <field property="screenId"/>
-                        <field property="screenLauncherCommandType"/>
+                        <field property="screenId" custom="true"/>
                         <field property="openType"/>
-                        <field property="screenEntity"/>
+                        <field property="screenLauncherCommandType"/>
+                        <field property="screenEntity" custom="true" visible="false"/>
                     </column>
                 </fieldGroup>
             </tab>

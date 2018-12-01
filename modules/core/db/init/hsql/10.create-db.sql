@@ -42,7 +42,7 @@ create table DDCIL_SCREEN_LAUNCHER_CMD (
     SCREEN_ID varchar(255) not null,
     SCREEN_LAUNCHER_COMMAND_TYPE varchar(50) not null,
     SCREEN_PARAMETERS_SCRIPT longvarchar,
-    OPEN_TYPE varchar(50),
+    OPEN_TYPE varchar(50) not null,
     SCREEN_ENTITY varchar(255),
     --
     primary key (ID)

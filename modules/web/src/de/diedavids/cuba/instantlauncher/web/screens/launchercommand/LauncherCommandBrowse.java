@@ -65,4 +65,6 @@ public class LauncherCommandBrowse extends AbstractLookup {
     });
   }
 
+  public void createEditorScreen() {
+  }
 }

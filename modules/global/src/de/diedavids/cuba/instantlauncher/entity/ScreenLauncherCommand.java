@@ -29,7 +29,8 @@ public class ScreenLauncherCommand extends LauncherCommand {
     @Column(name = "SCREEN_PARAMETERS_SCRIPT")
     protected String screenParametersScript;
 
-    @Column(name = "OPEN_TYPE")
+    @NotNull
+    @Column(name = "OPEN_TYPE", nullable = false)
     protected String openType;
 
     @Column(name = "SCREEN_ENTITY")
