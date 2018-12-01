@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/mariodavid/cuba-component-instant-launcher.svg?branch=master)](https://travis-ci.org/mariodavid/cuba-component-instant-launcher)
+[![Build Status](https://travis-ci.com/mariodavid/cuba-component-instant-launcher.svg?branch=master)](https://travis-ci.com/mariodavid/cuba-component-instant-launcher)
 [ ![Download](https://api.bintray.com/packages/mariodavid/cuba-components/cuba-component-instant-launcher/images/download.svg) ](https://bintray.com/mariodavid/cuba-components/cuba-component-instant-launcher/_latestVersion)
 [![license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
 
