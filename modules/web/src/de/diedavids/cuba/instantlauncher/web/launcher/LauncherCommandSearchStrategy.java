@@ -8,14 +8,14 @@ import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
+import de.diedavids.cuba.instantlauncher.web.launcher.repository.LauncherCommmandRepository;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import org.springframework.stereotype.Component;
-
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 @Component("ddcil_launcherCommandSearchStrategy")
 public class LauncherCommandSearchStrategy implements SearchStrategy {

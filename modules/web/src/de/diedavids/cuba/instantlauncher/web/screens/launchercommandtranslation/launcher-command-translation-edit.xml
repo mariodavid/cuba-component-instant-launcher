@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.instantlauncher.web.launchercommandtranslation.LauncherCommandTranslationEdit"
+        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommandtranslation.LauncherCommandTranslationEdit"
         datasource="launcherCommandTranslationDs"
         focusComponent="fieldGroup"
-        messagesPack="de.diedavids.cuba.instantlauncher.web.launchercommandtranslation">
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommandtranslation">
     <dsContext>
         <datasource id="launcherCommandTranslationDs"
                     class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"

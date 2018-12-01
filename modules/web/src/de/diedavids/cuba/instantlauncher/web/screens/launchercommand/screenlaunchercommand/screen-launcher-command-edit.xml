@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.instantlauncher.web.scriptlaunchercommand.ScriptLauncherCommandEdit"
+        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand.ScreenLauncherCommandEdit"
         datasource="launcherCommandDs"
         focusComponent="fieldGroup"
-        messagesPack="de.diedavids.cuba.instantlauncher.web.scriptlaunchercommand">
-
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand">
     <dsContext>
         <datasource id="launcherCommandDs"
-          class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
-          view="launcherCommand-with-translations">
+                    class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
+                    view="launcherCommand-with-translations">
             <collectionDatasource id="translationsDs"
-              property="translations"/>
+                                  property="translations"/>
         </datasource>
     </dsContext>
     <dialogMode height="600"
-      width="800"/>
+                width="800"/>
     <layout expand="windowActions"
-      spacing="true">
+            spacing="true">
         <fieldGroup id="fieldGroup"
           datasource="launcherCommandDs">
             <column width="250px">
@@ -30,11 +29,20 @@
               margin="true"
               spacing="true">
 
+                <fieldGroup id="screenFieldGroup"
+                  datasource="launcherCommandDs">
+                    <column width="250px">
+                        <field property="screenId"/>
+                        <field property="screenLauncherCommandType"/>
+                        <field property="openType"/>
+                        <field property="screenEntity"/>
+                    </column>
+                </fieldGroup>
                 <sourceCodeEditor id="contentSourceCodeEditor"
                   datasource="launcherCommandDs"
                   handleTabKey="true"
                   mode="Groovy"
-                  property="launchScript"
+                  property="screenParametersScript"
                   width="100%"/>
             </tab>
             <tab id="translationTab"
@@ -65,6 +73,6 @@
             </tab>
         </tabSheet>
         <frame id="windowActions"
-          screen="editWindowActions"/>
+               screen="editWindowActions"/>
     </layout>
 </window>

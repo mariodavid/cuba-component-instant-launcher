@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web;
+package de.diedavids.cuba.instantlauncher.web.screens.main;
 
 import com.haulmont.cuba.web.app.mainwindow.AppMainWindow;
 

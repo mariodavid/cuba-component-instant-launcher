@@ -1,9 +1,8 @@
-package de.diedavids.cuba.instantlauncher.web.launchercommand;
+package de.diedavids.cuba.instantlauncher.web.screens.launchercommand;
 
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.WindowManager.OpenType;
 import com.haulmont.cuba.gui.components.AbstractLookup;
-import com.haulmont.cuba.gui.components.Action.BeforeActionPerformedHandler;
 import com.haulmont.cuba.gui.components.GroupTable;
 import com.haulmont.cuba.gui.components.actions.EditAction;
 import com.haulmont.cuba.gui.data.GroupDatasource;

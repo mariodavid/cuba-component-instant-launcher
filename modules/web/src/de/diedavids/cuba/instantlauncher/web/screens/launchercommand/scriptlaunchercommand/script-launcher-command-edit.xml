@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-  caption="msg://editorCaption"
-  class="de.diedavids.cuba.instantlauncher.web.beanlaunchercommand.BeanLauncherCommandEdit"
-  datasource="launcherCommandDs"
-  focusComponent="fieldGroup"
-  messagesPack="de.diedavids.cuba.instantlauncher.web.beanlaunchercommand">
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.scriptlaunchercommand.ScriptLauncherCommandEdit"
+        datasource="launcherCommandDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.scriptlaunchercommand">
 
     <dsContext>
         <datasource id="launcherCommandDs"
-          class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
+          class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
           view="launcherCommand-with-translations">
             <collectionDatasource id="translationsDs"
               property="translations"/>
@@ -26,16 +26,16 @@
         </fieldGroup>
         <tabSheet id="mainTabSheet">
             <tab id="contentTab"
-              caption="msg://de.diedavids.cuba.instantlauncher.entity/BeanLauncherCommand"
+              caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand"
               margin="true"
               spacing="true">
 
-                <fieldGroup id="beanFieldGroup"
-                  datasource="launcherCommandDs">
-                    <column width="250px">
-                        <field property="beanName"/>
-                    </column>
-                </fieldGroup>
+                <sourceCodeEditor id="contentSourceCodeEditor"
+                  datasource="launcherCommandDs"
+                  handleTabKey="true"
+                  mode="Groovy"
+                  property="launchScript"
+                  width="100%"/>
             </tab>
             <tab id="translationTab"
               caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"

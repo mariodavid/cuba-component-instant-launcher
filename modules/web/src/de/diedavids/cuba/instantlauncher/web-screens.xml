@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
     <screen id="ddcil$LauncherCommand.browse"
-            template="de/diedavids/cuba/instantlauncher/web/launchercommand/launcher-command-browse.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/launcher-command-browse.xml"/>
     <screen id="mainWindow"
-            template="de/diedavids/cuba/instantlauncher/web/instant-launcher-mainwindow.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/main/instant-launcher-mainwindow.xml"/>
     <screen id="ddcil$LauncherCommandTranslation.edit"
-            template="de/diedavids/cuba/instantlauncher/web/launchercommandtranslation/launcher-command-translation-edit.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommandtranslation/launcher-command-translation-edit.xml"/>
     <screen id="ddcil$ScriptLauncherCommand.edit"
-            template="de/diedavids/cuba/instantlauncher/web/scriptlaunchercommand/script-launcher-command-edit.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/scriptlaunchercommand/script-launcher-command-edit.xml"/>
     <screen id="ddcil$ScreenLauncherCommand.edit"
-            template="de/diedavids/cuba/instantlauncher/web/screenlaunchercommand/screen-launcher-command-edit.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/screenlaunchercommand/screen-launcher-command-edit.xml"/>
     <screen id="ddcil$BeanLauncherCommand.edit"
-            template="de/diedavids/cuba/instantlauncher/web/beanlaunchercommand/bean-launcher-command-edit.xml"/>
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/beanlaunchercommand/bean-launcher-command-edit.xml"/>
 </screen-config>

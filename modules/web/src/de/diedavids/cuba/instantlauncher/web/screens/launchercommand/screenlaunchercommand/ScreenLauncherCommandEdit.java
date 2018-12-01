@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web.screenlaunchercommand;
+package de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand;
 
 import com.haulmont.cuba.gui.components.AbstractEditor;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandType;

@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web.launcher;
+package de.diedavids.cuba.instantlauncher.web.launcher.repository;
 
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;

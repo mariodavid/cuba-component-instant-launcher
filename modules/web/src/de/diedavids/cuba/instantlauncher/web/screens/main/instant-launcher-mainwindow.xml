@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-        class="de.diedavids.cuba.instantlauncher.web.InstantLauncherAppMainWindow"
+        class="de.diedavids.cuba.instantlauncher.web.screens.main.InstantLauncherAppMainWindow"
         extends="/com/haulmont/cuba/web/app/mainwindow/mainwindow.xml"
         messagesPack="de.diedavids.cuba.instantlauncher.web"
         xmlns:ext="http://schemas.haulmont.com/cuba/window-ext.xsd"
