@@ -20,7 +20,14 @@ buildscript {
     }
 }
 
+
+plugins {
+    id 'net.researchgate.release' version '2.6.0'
+}
+
 apply plugin: "com.github.kt3k.coveralls"
+
+
 
 def modulePrefix = 'instantlauncher'
 
