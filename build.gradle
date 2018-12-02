@@ -54,8 +54,6 @@ cuba {
     }
 }
 
-println "hello123 - " + System.getenv('UPLOAD_REPOSITORY_USERNAME') + " - is there"
-
 subprojects {
     apply plugin: 'com.jfrog.bintray'
 
