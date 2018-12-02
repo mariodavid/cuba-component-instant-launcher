@@ -14,7 +14,7 @@ script:
 - "./gradlew --no-daemon check"
 deploy:
   provider: script
-  script: bash ./upload-to-repository.sh
+  script: ./upload-to-repository.sh
   on:
     tags: true
 env:
