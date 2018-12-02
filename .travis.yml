@@ -1,20 +1,23 @@
 language: groovy
 jdk:
-  - openjdk8
+- openjdk8
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 before_install:
-  - chmod +x ./gradlew
-  - ./gradlew --no-daemon startDb
-
+- chmod +x ./gradlew
+- "./gradlew --no-daemon startDb"
 install:
-  - ./gradlew --no-daemon createTestDb
-
+- "./gradlew --no-daemon createTestDb"
 script:
-  - ./gradlew --no-daemon assemble
-
-script:
-  - ./gradlew --no-daemon check
+- "./gradlew --no-daemon check"
+deploy:
+  provider: script
+  script: bash ./upload-to-repository.sh
+  on:
+    tags: true
+env:
+  global:
+  - secure: OdJHCLep1gAqgeRjvRFonMS7vghysqBGR5q3LDcjCJpBjg/7zNErN0L6YgcAwaUU5MgNCCK33C1AQkY7t0eDIrf9Tw5054AkFfL6sEcgqyije+18TFip378vx9iF5BbrwzOqXICiK3dtPcz3cznE8ciaTRU4zFoIqJwelHOzdwt04/kgiz5u/771RaL7hZqmetkn8x3d49JiQOUiHRG5b3GV8U+zDGYzlYZR9Msms7jzCeC4a6f4J9ZiXluaXImsgMKEq5Rgg48Yn9zM4HmexlKld5pisw4+ZpH4XdnSx8fi916asryYBQZHb6VCEIxF0fZGF7Ql/tI7mh3sR1iONMJb4rdPvc0WXf4UsLKGQnogSEN71piNzlygfNXb71sXmQedrqTfcjO1Ztp+3q83lrrLQdu+eu0wxCVyMf8qWt6CsPZRd9iAq6N8c6jMeb2fPEfCK0XspqAZM4lEJHS/ZhyzZfuY9/Ktaq1UIts7eYRaFvJBOXvbXre9uOU8bPwDI/baNz8nqymk2aBgRs0pp+L4jRf7cl5j56HYbrc2njkUiciYlN0On2PFOnVI2oMA9jt60z/rEKUkb1wrnSB0BWMOLyM1fk0rdMVWAhkHgyAru24KSML2Q4/u+QTj9D38/ol5/wJNMLRmyFTOLCw6TCG5XnP7plvtNALyjYtL3RU=
+  - secure: YPXAosytSOczoz3J0hF23JDn73EE0eYV0nNQX1qKnvWEk61GKF6bcmWX/GWhd51JRP9dX3lP4EEOT6uXn8WXs5JrblvuZzPmSf6cUVHzo1hZ19g0ncR+coQo541PJJz0ZxB37hgorEfHjZzSPnKdkBU4CxR7BR393dBPTRDOXJll4S++rxx0FHckGCL897/mWSTCfJnwi6zXuhK3v2vkcwnkHcI+gHbaHWYv9GKdLXAJ7jOTbj3LN3qSUvQ6oGAv5wYIzATuWLru4xBZ8q8RukPOF4AIvTRukNThDe+KQ7R8ZClWxi92yX7YITd+MMix2ZMotNyVJzqnH4qHLyHsAdVXRUTL7z7KqI2Fy653845ojcDpU8vGC1mCenxye0br+g9nEhBAkgkQu4ZAY2+KPKsL9IbYby9ElxweV87My1oTKdmwQmAkeaOKgKO7+Rgzqh2AiMkW5wcVxrzvqs2oS28ut0qaXswv/Q85jhHH433xnWVxlUQnpNBhOUdj8NGJBJ2XeNYB7DfohbozQHTlyS30iQ+0iq0Woiloy0vGdV2xmjsHHM1OJ8ABMLU/2ETlnYBj6r7SVnKqWx8KHWHLubCbDdKJb01n8CCQ1PIJT3GPZsiN1Dww4TdJ6qpd3hKUxKeFLGQGOfONeNG0iYL+er+0zcvnOAyaKYs/n4zwnZo=
