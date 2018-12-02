@@ -17,80 +17,69 @@ import javax.inject.Named
 class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
 
   @Inject
-  protected FieldGroup screenFieldGroup;
+  protected FieldGroup screenFieldGroup
   @Inject
-  protected ComponentsFactory componentsFactory;
+  protected ComponentsFactory componentsFactory
 
   @Inject
-  protected Datasource<ScreenLauncherCommand> launcherCommandDs;
+  protected Datasource<ScreenLauncherCommand> launcherCommandDs
 
   @Inject
   MetadataSelector metadataSelector
 
-  @Named("screenFieldGroup.screenLauncherCommandType")
+  @Named('screenFieldGroup.screenLauncherCommandType')
   LookupField screenTypeLookupField
 
+  private final String SCREEN_ENTITIY_ATTRIBUTE = 'screenEntity'
+  private final String SCREEN_ENTITY_ATTRIBUTE = 'screenId'
 
   @Override
-  public void init(Map<String, Object> params) {
-    super.init(params);
+  void init(Map<String, Object> params) {
+    super.init(params)
 
-    initScreenFilter();
-
-    initScreenEntity();
-
+    initScreenIdLookupField()
+    initScreenEntityLookupField()
   }
 
-
-  private void initScreenEntity() {
-    FieldConfig screenEntityFieldConfig = screenFieldGroup.getField("screenEntity");
+  private void initScreenEntityLookupField() {
+    FieldConfig screenEntityFieldConfig = screenFieldGroup.getField(SCREEN_ENTITIY_ATTRIBUTE)
 
     LookupField lookupField = componentsFactory.createComponent(LookupField)
     lookupField.optionsMap = metadataSelector.entitiesLookupFieldOptions
-    lookupField.nullOptionVisible = false
-    lookupField.setDatasource(launcherCommandDs, "screenEntity")
-
-
+    lookupField.setDatasource(launcherCommandDs, SCREEN_ENTITIY_ATTRIBUTE)
     screenEntityFieldConfig.setComponent(lookupField)
-
-
     screenEntityFieldConfig.visible = false
 
+    registerVisibilityChangeForEntityScreen(screenEntityFieldConfig)
+  }
 
+  protected registerVisibilityChangeForEntityScreen(screenEntityFieldConfig) {
     screenTypeLookupField.addValueChangeListener(new ValueChangeListener() {
       @Override
       void valueChanged(ValueChangeEvent e) {
-
-        if (e.value == ScreenLauncherCommandType.EDITOR) {
-          screenEntityFieldConfig.visible = true
-        }
-        else {
-          screenEntityFieldConfig.visible = false
-        }
+        screenEntityFieldConfig.visible = e.value == ScreenLauncherCommandType.EDITOR
       }
     })
   }
 
-  protected void initScreenFilter() {
+  protected void initScreenIdLookupField() {
 
-    FieldConfig fieldConfig = screenFieldGroup.getField("screenId");
-    LookupField screenField = componentsFactory.createComponent(LookupField.class);
+    FieldConfig fieldConfig = screenFieldGroup.getField(SCREEN_ENTITY_ATTRIBUTE)
+    LookupField screenField = componentsFactory.createComponent(LookupField)
 
-    screenField.setOptionsMap(metadataSelector.sceenLookupFieldOptions);
-    screenField.setDatasource(launcherCommandDs, "screenId");
-    fieldConfig.setComponent(screenField);
+    screenField.setOptionsMap(metadataSelector.sceenLookupFieldOptions)
+    screenField.setDatasource(launcherCommandDs, SCREEN_ENTITY_ATTRIBUTE)
+    fieldConfig.setComponent(screenField)
   }
 
   @Override
   protected boolean preCommit() {
 
     if (item.screenLauncherCommandType == ScreenLauncherCommandType.EDITOR && !item.screenEntity) {
-      showNotification("Screen Entity is required for Screen Type: Editor", NotificationType.TRAY)
+      showNotification('Screen Entity is required for Screen Type: Editor', NotificationType.TRAY)
       return false
     }
-    else {
-      return super.preCommit()
-    }
 
+    super.preCommit()
   }
 }

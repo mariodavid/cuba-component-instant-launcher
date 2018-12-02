@@ -12,6 +12,7 @@ import groovy.util.logging.Slf4j
 import javax.inject.Inject
 
 @Slf4j
+@SuppressWarnings('AbstractClassWithoutAbstractMethod')
 abstract class AbstractScreenLauncherCommandExecutor implements LauncherCommandExecutor<ScreenLauncherCommand> {
 
   @Inject
@@ -21,16 +22,12 @@ abstract class AbstractScreenLauncherCommandExecutor implements LauncherCommandE
   protected Map<String, Object> getScreenParameters(ScreenLauncherCommand screenLauncherCommand) {
 
     try {
-      def screenParametersScript = scripting.evaluateGroovy(screenLauncherCommand.getScreenParametersScript(), new Binding())
+      def screenParameters = scripting.evaluateGroovy(screenLauncherCommand.screenParametersScript, new Binding())
 
-      if (screenParametersScript != null && screenParametersScript instanceof Map) {
-        return screenParametersScript
-      } else {
-        return [:]
-      }
+      return screenParameters instanceof Map ? screenParameters : [:]
     }
     catch (Exception e) {
-      log.error("Error while executing screen parameters script", e)
+      log.error('Error while executing screen parameters script', e)
       return [:]
     }
   }
@@ -40,7 +37,6 @@ abstract class AbstractScreenLauncherCommandExecutor implements LauncherCommandE
   }
 
   protected Frame getFrame() {
-    AppUI.getCurrent()
-         .getTopLevelWindow()
+    AppUI.current.topLevelWindow
   }
 }

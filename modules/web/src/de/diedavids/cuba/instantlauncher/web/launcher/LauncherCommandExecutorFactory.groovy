@@ -6,7 +6,6 @@ import de.diedavids.cuba.instantlauncher.entity.LauncherCommand
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandType
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommandType
-import de.diedavids.cuba.instantlauncher.web.launcher.executor.AbstractScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.EditorScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.GeneralScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.ScriptLauncherCommandExecutor
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component
 
 import javax.inject.Inject
 
-@Component("ddcil_LauncherCommandExecutorFactory")
+@Component('ddcil_LauncherCommandExecutorFactory')
 @Slf4j
 class LauncherCommandExecutorFactory {
 
@@ -47,6 +46,6 @@ class LauncherCommandExecutorFactory {
   }
 
   LauncherCommandExecutor createBeanLaunchCommandExecutor(BeanLauncherCommand launcherCommand) {
-    beanLocator.get(launcherCommand.getBeanName())
+    beanLocator.get(launcherCommand.beanName)
   }
 }

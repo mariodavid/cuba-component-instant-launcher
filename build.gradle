@@ -297,7 +297,7 @@ configure(coreModule) {
         dbName = hsqlDbName
         dbUser = 'sa'
         dbPassword = ''
-        auxiliaryScript = file('test/de/diedavids/cuba/instantlauncher/create-db.sql')
+        //auxiliaryScript = file('test/de/diedavids/cuba/instantlauncher/create-db.sql')
     }
 }
 

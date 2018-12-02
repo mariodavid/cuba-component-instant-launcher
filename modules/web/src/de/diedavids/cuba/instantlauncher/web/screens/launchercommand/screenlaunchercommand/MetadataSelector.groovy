@@ -1,11 +1,7 @@
 package de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand
 
 import com.haulmont.chile.core.model.MetaClass
-import com.haulmont.chile.core.model.MetaProperty
-import com.haulmont.cuba.core.app.dynamicattributes.DynamicAttributes
-import com.haulmont.cuba.core.entity.CategoryAttribute
 import com.haulmont.cuba.core.entity.Entity
-import com.haulmont.cuba.core.global.AppBeans
 import com.haulmont.cuba.core.global.MessageTools
 import com.haulmont.cuba.core.global.Messages
 import com.haulmont.cuba.core.global.Metadata
@@ -24,87 +20,79 @@ import javax.inject.Inject
 @CompileStatic
 class MetadataSelector {
 
+  @Inject
+  Metadata metadata
 
-    @Inject
-    Metadata metadata
+  @Inject
+  Messages messages
 
-    @Inject
-    Messages messages
+  @Inject
+  Security security
 
-    @Inject
-    Security security
+  @Inject
+  WindowConfig windowConfig
 
-    @Inject
-    WindowConfig windowConfig
+  private static final String ENTITY_NAME_SEPARATOR = '$'
+  private static final String OPEN_BRACKET = ' ('
+  private static final String CLOSED_BRACKET = ')'
 
-    Map<String, Object> getEntitiesLookupFieldOptions() {
-        Map<String, Object> options = new TreeMap<>()
+  Map<String, Object> getEntitiesLookupFieldOptions() {
+    Map<String, Object> options = new TreeMap<>()
 
-        for (MetaClass metaClass : metadataTools.allPersistentMetaClasses) {
-            if (readPermitted(metaClass)) {
-                Class javaClass = metaClass.javaClass
-                if (Entity.isAssignableFrom(javaClass)) {
-                    options.put(messageTools.getEntityCaption(metaClass) + ' (' + metaClass.name + ')', metaClass.name)
-                }
-            }
+    for (MetaClass metaClass : metadataTools.allPersistentMetaClasses) {
+      if (readPermitted(metaClass)) {
+        Class javaClass = metaClass.javaClass
+        if (Entity.isAssignableFrom(javaClass)) {
+          options.put(messageTools.getEntityCaption(metaClass) + OPEN_BRACKET + metaClass.name + CLOSED_BRACKET, metaClass.name)
         }
-
-        options
+      }
     }
 
+    options
+  }
 
-    protected boolean readPermitted(MetaClass metaClass) {
-        entityOpPermitted(metaClass, EntityOp.READ)
+  protected boolean readPermitted(MetaClass metaClass) {
+    entityOpPermitted(metaClass, EntityOp.READ)
+  }
+
+  protected boolean entityOpPermitted(MetaClass metaClass, EntityOp entityOp) {
+    security.isEntityOpPermitted(metaClass, entityOp)
+  }
+
+  private MessageTools getMessageTools() {
+    messages.tools
+  }
+
+  private MetadataTools getMetadataTools() {
+    metadata.tools
+  }
+
+  Map<String, Object> getSceenLookupFieldOptions() {
+    Collection<WindowInfo> windows = sortWindowInfos(windowConfig.windows)
+    Map<String, Object> screens = [:]
+
+    windows.each { WindowInfo windowInfo ->
+      String id = windowInfo.id
+      String menuId = "menu-config.$id"
+      String localeMsg = messages.getMessage(AppConfig.messagesPack, menuId)
+      String title = menuId == localeMsg ? id : localeMsg + OPEN_BRACKET + id + CLOSED_BRACKET
+      screens[title] = id
     }
 
-    protected boolean entityOpPermitted(MetaClass metaClass, EntityOp entityOp) {
-        security.isEntityOpPermitted(metaClass, entityOp)
+    screens
+  }
+
+  protected Collection<WindowInfo> sortWindowInfos(Collection<WindowInfo> infos) {
+    List<WindowInfo> infosContainer = new ArrayList<>(infos)
+
+    infosContainer.sort { o1, o2 ->
+      if (o1.id.contains(ENTITY_NAME_SEPARATOR) != o2.id.contains(ENTITY_NAME_SEPARATOR)) {
+        return o1.id.contains(ENTITY_NAME_SEPARATOR)? -1 : 1
+      }
+
+      o1.id <=> o2.id
     }
 
-
-    private MessageTools getMessageTools() {
-        messages.tools
-    }
-
-    private MetadataTools getMetadataTools() {
-        metadata.tools
-    }
-
-
-
-    Map<String, Object> getSceenLookupFieldOptions() {
-        Collection<WindowInfo> windows = sortWindowInfos(windowConfig.getWindows());
-        Map<String, Object> screens = [:]
-
-        windows.each { WindowInfo windowInfo ->
-            String id = windowInfo.getId();
-            String menuId = "menu-config." + id;
-            String localeMsg = messages.getMessage(AppConfig.getMessagesPack(), menuId);
-            String title = menuId.equals(localeMsg) ? id : localeMsg + " (" + id + ")";
-            screens[title] = id
-        }
-
-        screens
-    }
-
-    protected Collection<WindowInfo> sortWindowInfos(Collection<WindowInfo> infos) {
-        List<WindowInfo> infosContainer = new ArrayList<>(infos);
-
-        def sortedInfosContainer = infosContainer.sort {o1, o2 ->
-            if (o1.getId().contains('$') != o2.getId().contains('$')) {
-                if (o1.getId().contains('$')) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-            else {
-                o1.getId() <=> o2.getId();
-            }
-        }
-
-
-        return sortedInfosContainer;
-    }
-
+    infosContainer
+  }
 }

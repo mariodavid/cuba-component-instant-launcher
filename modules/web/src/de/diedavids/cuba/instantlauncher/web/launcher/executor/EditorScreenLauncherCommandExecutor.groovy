@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 
 import javax.inject.Inject
 
-@Component("ddcil_EditorScreenLauncherCommandExecutor")
+@Component('ddcil_EditorScreenLauncherCommandExecutor')
 class EditorScreenLauncherCommandExecutor extends AbstractScreenLauncherCommandExecutor {
 
   @Inject
@@ -16,11 +16,11 @@ class EditorScreenLauncherCommandExecutor extends AbstractScreenLauncherCommandE
 
   @Override
   void execute(ScreenLauncherCommand launcherCommand) {
-    Entity entity = metadata.create(launcherCommand.getScreenEntity())
+    Entity entity = metadata.create(launcherCommand.screenEntity)
     Map<String, Object> params = getScreenParameters(launcherCommand)
-    OpenType openType = toOpenType(launcherCommand.getOpenType())
+    OpenType openType = toOpenType(launcherCommand.openType)
 
-    frame.openEditor(launcherCommand.getScreenId(), entity, openType, params)
+    frame.openEditor(launcherCommand.screenId, entity, openType, params)
   }
 
 

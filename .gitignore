@@ -12,3 +12,4 @@ modules/*/build/*
 out
 test-run
 .DS_Store
+test-home/
