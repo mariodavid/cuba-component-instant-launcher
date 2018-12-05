@@ -10,7 +10,8 @@ create table DDCIL_LAUNCHER_CMD (
     DELETED_BY varchar(50),
     DTYPE varchar(31),
     --
-    CODE varchar(255) not null,
+    NAME varchar(255) not null,
+    DESCRIPTION longvarchar,
     TYPE_ varchar(50) not null,
     --
     primary key (ID)

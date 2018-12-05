@@ -30,8 +30,9 @@
                 <action id="remove"/>
             </actions>
             <columns>
-                <column id="code"/>
+                <column id="name"/>
                 <column id="type"/>
+                <column id="description"/>
             </columns>
             <rows datasource="launcherCommandsDs"/>
             <rowsCount/>

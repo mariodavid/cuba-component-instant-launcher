@@ -1,54 +1,59 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-  caption="msg://editorCaption"
-  class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand.BeanLauncherCommandEdit"
-  datasource="launcherCommandDs"
-  focusComponent="fieldGroup"
-  messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand">
-
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand.BeanLauncherCommandEdit"
+        datasource="launcherCommandDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand">
     <dsContext>
         <datasource id="launcherCommandDs"
-          class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
-          view="launcherCommand-with-translations">
+                    class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
+                    view="launcherCommand-with-translations">
             <collectionDatasource id="translationsDs"
-              property="translations"/>
+                                  property="translations"/>
         </datasource>
     </dsContext>
     <dialogMode height="600"
-      width="800"/>
+                width="800"/>
     <layout expand="windowActions"
-      spacing="true">
-        <fieldGroup id="fieldGroup"
-          datasource="launcherCommandDs">
-            <column width="250px">
-                <field property="code"/>
-            </column>
-        </fieldGroup>
+            spacing="true">
         <tabSheet id="mainTabSheet">
-            <tab id="contentTab"
-              caption="msg://de.diedavids.cuba.instantlauncher.entity/BeanLauncherCommand"
+            <tab id="generalTab"
+              caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
               margin="true"
               spacing="true">
-
-                <fieldGroup id="beanFieldGroup"
+                <fieldGroup id="fieldGroup"
                   datasource="launcherCommandDs">
+                    <column width="250px">
+                        <field property="name"/>
+                        <field property="description"
+                          rows="5"/>
+                    </column>
+                </fieldGroup>
+            </tab>
+            <tab id="contentTab"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/BeanLauncherCommand"
+                 margin="true"
+                 spacing="true">
+                <fieldGroup id="beanFieldGroup"
+                            datasource="launcherCommandDs">
                     <column width="250px">
                         <field property="beanName"/>
                     </column>
                 </fieldGroup>
             </tab>
             <tab id="translationTab"
-              caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
-              margin="true"
-              spacing="true">
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
+                 margin="true"
+                 spacing="true">
                 <table id="translationsTable"
-                  height="200px"
-                  width="100%">
+                       height="200px"
+                       width="100%">
                     <actions>
                         <action id="create"
-                          openType="DIALOG"/>
+                                openType="DIALOG"/>
                         <action id="edit"
-                          openType="DIALOG"/>
+                                openType="DIALOG"/>
                         <action id="remove"/>
                     </actions>
                     <columns>
@@ -65,6 +70,6 @@
             </tab>
         </tabSheet>
         <frame id="windowActions"
-          screen="editWindowActions"/>
+               screen="editWindowActions"/>
     </layout>
 </window>

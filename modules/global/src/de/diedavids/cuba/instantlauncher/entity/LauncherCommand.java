@@ -23,10 +23,14 @@ import javax.persistence.DiscriminatorValue;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "DDCIL_LAUNCHER_CMD")
 @Entity(name = "ddcil$LauncherCommand")
-public class LauncherCommand extends StandardEntity {
-    @NotNull
-    @Column(name = "CODE", nullable = false)
-    protected String code;
+public class LauncherCommand extends StandardEntity {    @NotNull
+    @Column(name = "NAME", nullable = false)
+    protected String name;
+
+    @Lob
+    @Column(name = "DESCRIPTION")
+    protected String description;
+
     @NotNull
     @Column(name = "TYPE_", nullable = false)
     protected String type;
@@ -37,6 +41,24 @@ public class LauncherCommand extends StandardEntity {
     protected List<LauncherCommandTranslation> translations;
 
 
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 
 
     public void setType(LauncherCommandType type) {
@@ -56,12 +78,4 @@ public class LauncherCommand extends StandardEntity {
         return translations;
     }
 
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }
