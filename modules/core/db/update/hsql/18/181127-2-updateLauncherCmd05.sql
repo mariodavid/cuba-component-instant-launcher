@@ -1,1 +1,0 @@
-alter table DDCIL_LAUNCHER_CMD add column LAUNCH_SCREEN_POPULATE_ENTITY_SCRIPT longvarchar ;
