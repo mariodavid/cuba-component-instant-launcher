@@ -66,7 +66,7 @@ To see this application component in action, check out this example: [cuba-examp
 ![launcher-commands-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/1-launcher-commands-overview.png)
 
 #### Script launcher definition
-![script-launcher-definition](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/2-script-launcher.png)
+![script-launcher-definition](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/2-script-launcher-definition.png)
 
 #### Launcher execution
 ![launcher execution](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/3-launcher-execution.png)
