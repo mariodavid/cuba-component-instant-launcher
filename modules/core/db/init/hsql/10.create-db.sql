@@ -11,6 +11,7 @@ create table DDCIL_LAUNCHER_CMD (
     DTYPE varchar(31),
     --
     NAME varchar(255) not null,
+    GROUP_ID varchar(36),
     DESCRIPTION longvarchar,
     TYPE_ varchar(50) not null,
     --
@@ -67,3 +68,20 @@ create table DDCIL_BEAN_LAUNCHER_COMMAND (
     primary key (ID)
 )^
 -- end DDCIL_BEAN_LAUNCHER_COMMAND
+-- begin DDCIL_LAUNCHER_COMMAND_GROUP
+create table DDCIL_LAUNCHER_COMMAND_GROUP (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    CODE varchar(255),
+    --
+    primary key (ID)
+)^
+-- end DDCIL_LAUNCHER_COMMAND_GROUP

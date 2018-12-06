@@ -9,5 +9,6 @@
         <class>de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand</class>
         <class>de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand</class>
         <class>de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand</class>
+        <class>de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup</class>
     </persistence-unit>
 </persistence>

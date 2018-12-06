@@ -10,8 +10,10 @@
             template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/scriptlaunchercommand/script-launcher-command-edit.xml"/>
     <screen id="ddcil$ScreenLauncherCommand.edit"
             template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/screenlaunchercommand/screen-launcher-command-edit.xml"/>
-    <screen id="ddcil$EditorScreenLauncherCommand.edit"
-            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/screenlaunchercommand/screen-launcher-command-edit.xml"/>
     <screen id="ddcil$BeanLauncherCommand.edit"
             template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommand/beanlaunchercommand/bean-launcher-command-edit.xml"/>
+    <screen id="ddcil$LauncherCommandGroup.browse"
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommandgroup/launcher-command-group-browse.xml"/>
+    <screen id="ddcil$LauncherCommandGroup.edit"
+            template="/de/diedavids/cuba/instantlauncher/web/screens/launchercommandgroup/launcher-command-group-edit.xml"/>
 </screen-config>

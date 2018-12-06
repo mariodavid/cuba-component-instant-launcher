@@ -12,6 +12,11 @@
             <collectionDatasource id="translationsDs"
                                   property="translations"/>
         </datasource>
+        <collectionDatasource id="groupsDs"
+                              class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
+                              view="_minimal">
+            <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
+        </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -19,15 +24,17 @@
             spacing="true">
         <tabSheet id="mainTabSheet">
             <tab id="generalTab"
-              caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
-              margin="true"
-              spacing="true">
+                 caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
+                 margin="true"
+                 spacing="true">
                 <fieldGroup id="fieldGroup"
-                  datasource="launcherCommandDs">
+                            datasource="launcherCommandDs">
                     <column width="250px">
                         <field property="name"/>
                         <field property="description"
-                          rows="5"/>
+                               rows="5"/>
+                        <field optionsDatasource="groupsDs"
+                               property="group"/>
                     </column>
                 </fieldGroup>
             </tab>

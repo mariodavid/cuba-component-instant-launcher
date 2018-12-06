@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
-    <item insertAfter="jmxConsole"
-          screen="ddcil$LauncherCommand.browse"/>
+    <menu id="application-ddcil"
+      insertAfter="jmxConsole">
+        <item screen="ddcil$LauncherCommand.browse"/>
+        <item screen="ddcil$LauncherCommandGroup.browse"/>
+    </menu>
 </menu-config>

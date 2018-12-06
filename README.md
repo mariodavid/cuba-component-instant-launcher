@@ -57,5 +57,16 @@ The following types of instant launchers are supported:
 ### Example usage
 To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
 
+### Screenshots
 
-![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/overview.png)
+#### Overview
+![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/overview.gif)
+
+#### Launcher Commands definition
+![1-launcher-commands-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/1-launcher-commands-overview.png)
+
+#### Script launcher definition
+![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/2-script-launcher.png)
+
+#### Script launcher definition
+![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/3-launcher-execution.png)
