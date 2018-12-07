@@ -4,8 +4,9 @@
 
 # CUBA Platform Component - Instant Launcher
 
-This application component let's you define launcher commands at runtime that can be executed via the search box.
+This application component let's you define launcher commands at runtime that can be directly executed via a search box. 
 
+Instant launcher uses [rich-search](https://github.com/cuba-platform/rich-search-addon) under the hood. It adds a specific search result type to the search results of `rich-search` called `Launcher Commands`. Those Launcher Commands are configurations or scripts, that can be defined at runtime of the application. 
 
 
 ## Installation
@@ -46,13 +47,19 @@ The following databases are supported by this application component:
 
 ## Using the application component
 
-The `instant-launcher` application component let's you define launcher commands at runtime that can be executed via the search box.
+The `instant-launcher` application component let's you define `Launcher Commands` at runtime that can be executed via a search box.
 
 The following types of instant launchers are supported: 
 
 * Screen Launchers
 * Script Launchers
 * Bean Launchers
+
+A `Launcher Command` can execute any kind of business logic via a groovy script. For certain specific use cases there are pre-defined Launchers like the Screen Launcher.  Here are some example use cases:
+
+* opening the screen to create a new user
+* shortcut for running a specific report and starts the download of the file
+
 
 ### Example usage
 To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
