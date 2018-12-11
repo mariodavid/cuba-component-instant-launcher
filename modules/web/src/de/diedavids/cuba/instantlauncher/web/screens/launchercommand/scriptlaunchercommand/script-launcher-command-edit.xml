@@ -39,7 +39,7 @@
                 </fieldGroup>
             </tab>
             <tab id="contentTab"
-                 caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/ScriptLauncherCommand.launchScript"
                  margin="true"
                  spacing="true">
                 <sourceCodeEditor id="contentSourceCodeEditor"
