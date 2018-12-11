@@ -44,6 +44,7 @@ The Changelog also contains information about breaking changes and tips on how t
 The following databases are supported by this application component:
 
 * HSQLDB
+* PostgreSQL
 
 ## Using the application component
 

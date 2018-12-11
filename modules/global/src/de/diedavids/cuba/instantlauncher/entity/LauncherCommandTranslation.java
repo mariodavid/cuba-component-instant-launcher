@@ -18,7 +18,7 @@ import java.util.Locale;
 
 @NamePattern("%s|text")
 @Table(name = "DDCIL_LAUNCHER_CMD_TRANSLATION", indexes = {
-    @Index(name = "IDX_DDCIL_LAUNCHER_COMMAND_TRANSLATION", columnList = "LOCALE, TEXT")
+    @Index(name = "IDX_DDCIL_LAUNCHER_COMMAND_TRANSLATION", columnList = "LOCALE_, TEXT")
 })
 @Entity(name = "ddcil$LauncherCommandTranslation")
 public class LauncherCommandTranslation extends StandardEntity {
@@ -26,7 +26,7 @@ public class LauncherCommandTranslation extends StandardEntity {
 
     @MetaProperty(datatype = "Locale", mandatory = true)
     @NotNull
-    @Column(name = "LOCALE", nullable = false)
+    @Column(name = "LOCALE_", nullable = false)
     protected Locale locale;
 
     @NotNull

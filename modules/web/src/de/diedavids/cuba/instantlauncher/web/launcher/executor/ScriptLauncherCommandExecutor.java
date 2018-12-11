@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.web.launcher.executor;
 
+import com.haulmont.cuba.core.global.BeanLocator;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.Scripting;
@@ -24,6 +25,9 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
     @Inject
     Messages messages;
 
+    @Inject
+    BeanLocator beanLocator;
+
 
     @Override
     public void execute(ScriptLauncherCommand launcherCommand) {
@@ -36,6 +40,7 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
         binding.setVariable("frame", getFrame());
         binding.setVariable("dataManager", dataManager);
         binding.setVariable("messages", messages);
+        binding.setVariable("beanLocator", beanLocator);
 
         addAdditionalBindings(binding);
         return binding;

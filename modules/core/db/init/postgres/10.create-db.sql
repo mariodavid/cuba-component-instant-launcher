@@ -1,6 +1,6 @@
 -- begin DDCIL_LAUNCHER_CMD
 create table DDCIL_LAUNCHER_CMD (
-    ID varchar(36) not null,
+    ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
     CREATED_BY varchar(50),
@@ -11,8 +11,8 @@ create table DDCIL_LAUNCHER_CMD (
     DTYPE varchar(31),
     --
     NAME varchar(255) not null,
-    GROUP_ID varchar(36),
-    DESCRIPTION longvarchar,
+    GROUP_ID uuid,
+    DESCRIPTION text,
     TYPE_ varchar(50) not null,
     --
     primary key (ID)
@@ -20,7 +20,7 @@ create table DDCIL_LAUNCHER_CMD (
 -- end DDCIL_LAUNCHER_CMD
 -- begin DDCIL_LAUNCHER_CMD_TRANSLATION
 create table DDCIL_LAUNCHER_CMD_TRANSLATION (
-    ID varchar(36) not null,
+    ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
     CREATED_BY varchar(50),
@@ -31,19 +31,18 @@ create table DDCIL_LAUNCHER_CMD_TRANSLATION (
     --
     LOCALE_ varchar(255) not null,
     TEXT varchar(255) not null,
-    LAUNCHER_COMMAND_ID varchar(36) not null,
+    LAUNCHER_COMMAND_ID uuid not null,
     --
     primary key (ID)
 )^
 -- end DDCIL_LAUNCHER_CMD_TRANSLATION
-
 -- begin DDCIL_SCREEN_LAUNCHER_CMD
 create table DDCIL_SCREEN_LAUNCHER_CMD (
-    ID varchar(36) not null,
+    ID uuid,
     --
     SCREEN_ID varchar(255) not null,
     SCREEN_LAUNCHER_COMMAND_TYPE varchar(50) not null,
-    SCREEN_PARAMETERS_SCRIPT longvarchar,
+    SCREEN_PARAMETERS_SCRIPT text,
     OPEN_TYPE varchar(50) not null,
     SCREEN_ENTITY varchar(255),
     --
@@ -52,16 +51,16 @@ create table DDCIL_SCREEN_LAUNCHER_CMD (
 -- end DDCIL_SCREEN_LAUNCHER_CMD
 -- begin DDCIL_SCRIPT_LAUNCHER_CMD
 create table DDCIL_SCRIPT_LAUNCHER_CMD (
-    ID varchar(36) not null,
+    ID uuid,
     --
-    LAUNCH_SCRIPT longvarchar not null,
+    LAUNCH_SCRIPT text not null,
     --
     primary key (ID)
 )^
 -- end DDCIL_SCRIPT_LAUNCHER_CMD
 -- begin DDCIL_BEAN_LAUNCHER_COMMAND
 create table DDCIL_BEAN_LAUNCHER_COMMAND (
-    ID varchar(36) not null,
+    ID uuid,
     --
     BEAN_NAME varchar(255) not null,
     --
@@ -70,7 +69,7 @@ create table DDCIL_BEAN_LAUNCHER_COMMAND (
 -- end DDCIL_BEAN_LAUNCHER_COMMAND
 -- begin DDCIL_LAUNCHER_COMMAND_GROUP
 create table DDCIL_LAUNCHER_COMMAND_GROUP (
-    ID varchar(36) not null,
+    ID uuid,
     VERSION integer not null,
     CREATE_TS timestamp,
     CREATED_BY varchar(50),
