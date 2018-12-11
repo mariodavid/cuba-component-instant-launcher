@@ -9,6 +9,8 @@ This application component let's you define launcher commands at runtime that ca
 Instant launcher uses [rich-search](https://github.com/cuba-platform/rich-search-addon) under the hood. It adds a specific search result type to the search results of `rich-search` called `Launcher Commands`. Those Launcher Commands are configurations or scripts, that can be defined at runtime of the application. 
 
 
+![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/overview.gif)
+
 ## Installation
 
 1. `instant-launcher` is available in the [CUBA marketplace](https://www.cuba-platform.com/marketplace/instant-launcher)
@@ -66,9 +68,6 @@ A `Launcher Command` can execute any kind of business logic via a groovy script.
 To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
 
 ### Screenshots
-
-#### Overview
-![instant-launcher-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/overview.gif)
 
 #### Launcher Commands definition
 ![launcher-commands-overview](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/1-launcher-commands-overview.png)
