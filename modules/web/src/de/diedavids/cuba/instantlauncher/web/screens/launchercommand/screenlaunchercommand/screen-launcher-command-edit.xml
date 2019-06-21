@@ -15,7 +15,9 @@
         <collectionDatasource id="groupsDs"
                               class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
                               view="_minimal">
-            <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
+            <query>
+                <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
+            </query>
         </collectionDatasource>
     </dsContext>
     <dialogMode height="600"
