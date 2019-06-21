@@ -1,5 +1,5 @@
 buildscript {
-    ext.cubaVersion = '7.0.4'
+    ext.cubaVersion = '7.0.7'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -212,7 +212,7 @@ configure(globalModule) {
         }
          test {
             enabled = true
-            persistenceConfig = 'instantlauncher-test-persistence.xml'
+//            persistenceConfig = 'instantlauncher-test-persistence.xml'
         }
     }
 
@@ -230,7 +230,7 @@ configure(coreModule) {
         main { enabled = true }
         test {
             enabled = true
-            persistenceConfig = 'instantlauncher-test-persistence.xml'
+//            persistenceConfig = 'instantlauncher-test-persistence.xml'
         }
 
     }
