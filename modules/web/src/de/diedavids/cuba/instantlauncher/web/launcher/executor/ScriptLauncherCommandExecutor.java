@@ -4,8 +4,15 @@ import com.haulmont.cuba.core.global.BeanLocator;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.Scripting;
+import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.Screens;
+import com.haulmont.cuba.gui.builders.ScreenBuilder;
 import com.haulmont.cuba.gui.components.Frame;
+import com.haulmont.cuba.gui.screen.FrameOwner;
+import com.haulmont.cuba.gui.screen.ScreenContext;
+import com.haulmont.cuba.gui.screen.UiControllerUtils;
 import com.haulmont.cuba.web.AppUI;
+import com.haulmont.cuba.web.app.mainwindow.AppMainWindow;
 import de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand;
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutor;
 
@@ -37,7 +44,14 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
     protected Binding createBinding() {
         Binding binding = new Binding();
 
+        ScreenContext screenContext = getScreenContext();
+
         binding.setVariable("frame", getFrame());
+        binding.setVariable("notifications", screenContext.getNotifications());
+        binding.setVariable("dialogs", screenContext.getDialogs());
+        binding.setVariable("urlRouting", screenContext.getUrlRouting());
+        binding.setVariable("screens", screenContext.getScreens());
+
         binding.setVariable("dataManager", dataManager);
         binding.setVariable("messages", messages);
         binding.setVariable("beanLocator", beanLocator);
@@ -46,11 +60,20 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
         return binding;
     }
 
+    protected ScreenContext getScreenContext() {
+        return UiControllerUtils.getScreenContext(getFrame().getFrameOwner());
+    }
+
     protected void addAdditionalBindings(Binding binding) {
 
     }
 
     protected Frame getFrame() {
-        return AppUI.getCurrent().getTopLevelWindow();
+        return getApp().getTopLevelWindow();
+
+    }
+
+    private AppUI getApp() {
+        return AppUI.getCurrent();
     }
 }

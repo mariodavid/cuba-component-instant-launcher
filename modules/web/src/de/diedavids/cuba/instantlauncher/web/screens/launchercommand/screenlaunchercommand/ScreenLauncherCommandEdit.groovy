@@ -1,25 +1,25 @@
 package de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand
 
+import com.haulmont.cuba.gui.UiComponents
 import com.haulmont.cuba.gui.components.AbstractEditor
-import com.haulmont.cuba.gui.components.Component.ValueChangeEvent
-import com.haulmont.cuba.gui.components.Component.ValueChangeListener
 import com.haulmont.cuba.gui.components.FieldGroup
 import com.haulmont.cuba.gui.components.FieldGroup.FieldConfig
+import com.haulmont.cuba.gui.components.HasValue
 import com.haulmont.cuba.gui.components.LookupField
 import com.haulmont.cuba.gui.data.Datasource
-import com.haulmont.cuba.gui.xml.layout.ComponentsFactory
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommandType
 
 import javax.inject.Inject
 import javax.inject.Named
+import java.util.function.Consumer
 
 class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
 
   @Inject
   protected FieldGroup screenFieldGroup
   @Inject
-  protected ComponentsFactory componentsFactory
+  protected UiComponents uiComponents
 
   @Inject
   protected Datasource<ScreenLauncherCommand> launcherCommandDs
@@ -28,7 +28,7 @@ class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
   MetadataSelector metadataSelector
 
   @Named('screenFieldGroup.screenLauncherCommandType')
-  LookupField screenTypeLookupField
+  LookupField<ScreenLauncherCommandType> screenTypeLookupField
 
   private final String SCREEN_ENTITIY_ATTRIBUTE = 'screenEntity'
   private final String SCREEN_ENTITY_ATTRIBUTE = 'screenId'
@@ -44,7 +44,7 @@ class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
   private void initScreenEntityLookupField() {
     FieldConfig screenEntityFieldConfig = screenFieldGroup.getField(SCREEN_ENTITIY_ATTRIBUTE)
 
-    LookupField lookupField = componentsFactory.createComponent(LookupField)
+    LookupField lookupField = uiComponents.create(LookupField)
     lookupField.optionsMap = metadataSelector.entitiesLookupFieldOptions
     lookupField.setDatasource(launcherCommandDs, SCREEN_ENTITIY_ATTRIBUTE)
     screenEntityFieldConfig.setComponent(lookupField)
@@ -54,18 +54,20 @@ class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
   }
 
   protected registerVisibilityChangeForEntityScreen(screenEntityFieldConfig) {
-    screenTypeLookupField.addValueChangeListener(new ValueChangeListener() {
+
+    screenTypeLookupField.addValueChangeListener(new Consumer<HasValue.ValueChangeEvent<ScreenLauncherCommandType>>() {
       @Override
-      void valueChanged(ValueChangeEvent e) {
-        screenEntityFieldConfig.visible = e.value == ScreenLauncherCommandType.EDITOR
+      void accept(HasValue.ValueChangeEvent<ScreenLauncherCommandType> event) {
+        screenEntityFieldConfig.visible = event.value == ScreenLauncherCommandType.EDITOR
       }
     })
+
   }
 
   protected void initScreenIdLookupField() {
 
     FieldConfig fieldConfig = screenFieldGroup.getField(SCREEN_ENTITY_ATTRIBUTE)
-    LookupField screenField = componentsFactory.createComponent(LookupField)
+    LookupField screenField = uiComponents.create(LookupField)
 
     screenField.setOptionsMap(metadataSelector.sceenLookupFieldOptions)
     screenField.setDatasource(launcherCommandDs, SCREEN_ENTITY_ATTRIBUTE)
@@ -79,6 +81,8 @@ class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
       showNotification('Screen Entity is required for Screen Type: Editor', NotificationType.TRAY)
       return false
     }
+
+
 
     super.preCommit()
   }
