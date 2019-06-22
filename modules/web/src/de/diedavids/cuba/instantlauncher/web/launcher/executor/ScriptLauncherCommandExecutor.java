@@ -44,7 +44,7 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
     protected Binding createBinding() {
         Binding binding = new Binding();
 
-        ScreenContext screenContext = UiControllerUtils.getScreenContext(getFrame().getFrameOwner());
+        ScreenContext screenContext = getScreenContext();
 
         binding.setVariable("frame", getFrame());
         binding.setVariable("notifications", screenContext.getNotifications());
@@ -58,6 +58,10 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
 
         addAdditionalBindings(binding);
         return binding;
+    }
+
+    protected ScreenContext getScreenContext() {
+        return UiControllerUtils.getScreenContext(getFrame().getFrameOwner());
     }
 
     protected void addAdditionalBindings(Binding binding) {
