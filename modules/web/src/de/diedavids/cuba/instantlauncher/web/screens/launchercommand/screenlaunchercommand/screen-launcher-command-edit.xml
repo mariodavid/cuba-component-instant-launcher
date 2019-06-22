@@ -66,6 +66,7 @@
                                   handleTabKey="true"
                                   mode="Groovy"
                                   property="screenParametersScript"
+                                  contextHelpText="msg://screenParametersScriptHelptext"
                                   width="100%"/>
             </tab>
             <tab id="translationTab"

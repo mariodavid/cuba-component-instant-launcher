@@ -18,6 +18,7 @@ Instant launcher uses [rich-search](https://github.com/cuba-platform/rich-search
 
 | Platform Version | Add-on Version |
 | ---------------- | -------------- |
+| 7.0.x            | 0.2.x          |
 | 6.10.x           | 0.1.x          |
 
 

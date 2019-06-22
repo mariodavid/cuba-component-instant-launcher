@@ -47,6 +47,7 @@
                                   handleTabKey="true"
                                   mode="Groovy"
                                   property="launchScript"
+                                  contextHelpText="msg://scriptLauncherHelpText"
                                   width="100%"/>
             </tab>
             <tab id="translationTab"
