@@ -22,7 +22,7 @@ buildscript {
 
 
 plugins {
-    id 'net.researchgate.release' version '2.6.0'
+    id 'net.researchgate.release' version '2.8.0'
 }
 
 apply plugin: "com.github.kt3k.coveralls"
@@ -48,17 +48,14 @@ cuba {
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
     }
-    ide {
-        vcs = 'Git'
-    }
 }
 
 subprojects {
     apply plugin: 'com.jfrog.bintray'
 
     bintray {
-        user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('UPLOAD_REPOSITORY_USERNAME')
-        key = project.hasProperty('bintrayApiKey') ? project.property('bintrayApiKey') : System.getenv('UPLOAD_REPOSITORY_PASSWORD')
+        user = System.getenv('BINTRAY_USERNAME')
+        key = System.getenv('BINTRAY_PASSWORD')
 
         configurations = ['archives']
 
@@ -101,6 +98,7 @@ dependencies {
 def hsql = 'org.hsqldb:hsqldb:2.4.1'
 
 
+
 allprojects {
     apply plugin: 'net.saliman.cobertura'
 }
@@ -137,10 +135,11 @@ configure([globalModule, coreModule, webModule]) {
     apply(plugin: 'cuba')
 
     dependencies {
+
         testCompile('junit:junit:4.12')
         testCompile 'org.assertj:assertj-core:2.9.0'
 
-        testCompile('org.spockframework:spock-core:1.2-groovy-2.4')
+        testCompile('org.spockframework:spock-core:1.2-groovy-2.5')
         testCompile('org.springframework:spring-test:4.3.1.RELEASE')
         testRuntime "cglib:cglib-nodep:3.2.4"
     }
@@ -155,50 +154,6 @@ configure([globalModule, coreModule, webModule]) {
     }
 }
 
-configure([globalModule, coreModule, webModule]) {
-    apply(plugin: 'groovy')
-    apply plugin: 'net.saliman.cobertura'
-    apply plugin: 'codenarc'
-
-    codenarc {
-        toolVersion = "0.24"
-        ignoreFailures = false
-        reportFormat = 'html'
-        reportsDir = new File("./build/reports/codenarc")
-    }
-
-    codenarcMain {
-        configFile = rootProject.file("config/codenarc/rulesMain.groovy")
-    }
-    codenarcTest {
-        configFile = rootProject.file("config/codenarc/rulesTests.groovy")
-    }
-
-
-    cobertura {
-        coverageFormats = ['html', 'xml']
-        coverageIgnoreTrivial = true
-        coverageIgnores = ['org.slf4j.Logger.*']
-        coverageReportDir = new File("$buildDir/reports/cobertura")
-
-        coverageExcludes = [
-                '.*Enum',
-        ]
-    }
-
-    test.finalizedBy(project.tasks.cobertura)
-    test.finalizedBy(project.tasks.coberturaCheck)
-
-    sourceSets {
-        main { groovy { srcDirs = ["src"] } }
-        test { groovy { srcDirs = ["test"] } }
-    }
-
-    sourceSets.main.output.classesDir = new File(project.buildDir, "classes/main")
-    sourceSets.test.output.classesDir = new File(project.buildDir, "classes/test")
-
-}
-
 configure(globalModule) {
     dependencies {
         if (!JavaVersion.current().isJava8()) {
@@ -206,13 +161,10 @@ configure(globalModule) {
             runtime('org.glassfish.jaxb:jaxb-runtime:2.3.1')
         }
     }
+
     entitiesEnhancing {
         main {
             enabled = true
-        }
-         test {
-            enabled = true
-//            persistenceConfig = 'instantlauncher-test-persistence.xml'
         }
     }
 
@@ -225,15 +177,6 @@ configure(globalModule) {
 }
 
 configure(coreModule) {
-
-    entitiesEnhancing {
-        main { enabled = true }
-        test {
-            enabled = true
-//            persistenceConfig = 'instantlauncher-test-persistence.xml'
-        }
-
-    }
 
     configurations {
         jdbc
@@ -360,6 +303,10 @@ configure(webModule) {
     }
 }
 
+
+
+
+
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf") {
     delete("$cuba.tomcat.dir/shared")
     delete("$cuba.tomcat.dir/webapps/${modulePrefix}-core")
@@ -376,6 +323,7 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
         start.execute()
     }
 }
+
 
 
 clean {
