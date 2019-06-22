@@ -6,7 +6,6 @@ import com.haulmont.cuba.gui.components.FieldGroup
 import com.haulmont.cuba.gui.components.FieldGroup.FieldConfig
 import com.haulmont.cuba.gui.components.HasValue
 import com.haulmont.cuba.gui.components.LookupField
-import com.haulmont.cuba.gui.components.filter.dateinterval.DateInIntervalComponent
 import com.haulmont.cuba.gui.data.Datasource
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommandType
@@ -82,6 +81,8 @@ class ScreenLauncherCommandEdit extends AbstractEditor<ScreenLauncherCommand> {
       showNotification('Screen Entity is required for Screen Type: Editor', NotificationType.TRAY)
       return false
     }
+
+
 
     super.preCommit()
   }
