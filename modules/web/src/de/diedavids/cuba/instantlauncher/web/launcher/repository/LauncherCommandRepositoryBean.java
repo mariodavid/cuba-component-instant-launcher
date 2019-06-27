@@ -9,8 +9,8 @@ import java.util.UUID;
 import javax.inject.Inject;
 import org.springframework.stereotype.Component;
 
-@Component(LauncherCommmandRepository.NAME)
-public class LauncherCommandRepositoryBean implements LauncherCommmandRepository {
+@Component(LauncherCommandRepository.NAME)
+public class LauncherCommandRepositoryBean implements LauncherCommandRepository {
 
   @Inject
   private DataManager dataManager;
@@ -36,6 +36,13 @@ public class LauncherCommandRepositoryBean implements LauncherCommmandRepository
         .view("launcherCommandTranslation-with-launcherCommand")
         .one();
     return launcherCommandTranslation.getLauncherCommand();
+  }
+
+  @Override
+  public List<LauncherCommand> findAllLauncherCommandsWithShortcuts() {
+    return dataManager.load(LauncherCommand.class)
+            .query("select e from ddcil$LauncherCommand e where e.shortcut is not null")
+            .list();
   }
 
 

@@ -14,6 +14,7 @@ create table DDCIL_LAUNCHER_CMD (
     GROUP_ID varchar(36),
     DESCRIPTION longvarchar,
     TYPE_ varchar(50) not null,
+    SHORTCUT varchar(255),
     --
     primary key (ID)
 )^
