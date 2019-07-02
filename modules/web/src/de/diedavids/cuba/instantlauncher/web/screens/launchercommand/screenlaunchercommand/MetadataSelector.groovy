@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component
 
 import javax.inject.Inject
 
-@Component('ddcdi_MetadataSelector')
+@Component('ddcil_MetadataSelector')
 @CompileStatic
 class MetadataSelector {
 
