@@ -37,6 +37,9 @@
                                rows="5"/>
                         <field optionsDatasource="groupsDs"
                                property="group"/>
+                        <field property="shortcut" contextHelpText="mainMsg://instantLauncherShortcutHelp">
+                            <validator class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator" />
+                        </field>
                     </column>
                 </fieldGroup>
             </tab>

@@ -154,6 +154,19 @@ configure([globalModule, coreModule, webModule]) {
     }
 }
 
+configure([globalModule, coreModule, webModule]) {
+    apply(plugin: 'groovy')
+
+    sourceSets {
+        main { groovy { srcDirs = ["src"] } }
+        test { groovy { srcDirs = ["test"] } }
+    }
+
+    sourceSets.main.output.classesDir = new File(project.buildDir, "classes/main")
+    sourceSets.test.output.classesDir = new File(project.buildDir, "classes/test")
+
+}
+
 configure(globalModule) {
     dependencies {
         if (!JavaVersion.current().isJava8()) {

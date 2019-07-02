@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-public interface LauncherCommmandRepository {
+public interface LauncherCommandRepository {
 
   String NAME = "ddcil_LauncherCommandRepositoryBean";
 
@@ -14,4 +14,6 @@ public interface LauncherCommmandRepository {
       Locale locale);
 
   LauncherCommand findLauncherCommandByTranslationId(UUID id);
+
+  List<LauncherCommand> findAllLauncherCommandsWithShortcuts();
 }

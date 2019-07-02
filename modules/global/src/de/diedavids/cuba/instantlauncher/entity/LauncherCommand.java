@@ -1,34 +1,24 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
-import com.haulmont.cuba.core.entity.StandardEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import com.haulmont.chile.core.annotations.Composition;
-import com.haulmont.cuba.core.entity.annotation.OnDelete;
-import com.haulmont.cuba.core.global.DeletePolicy;
-import java.util.List;
-import javax.persistence.OneToMany;
-import javax.persistence.InheritanceType;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Inheritance;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
+import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.Lookup;
 import com.haulmont.cuba.core.entity.annotation.LookupType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @DiscriminatorValue("LAUNCHER")
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "DDCIL_LAUNCHER_CMD")
 @Entity(name = "ddcil$LauncherCommand")
-public class LauncherCommand extends StandardEntity {    @NotNull
+public class LauncherCommand extends StandardEntity {
+
+    @NotNull
     @Column(name = "NAME", nullable = false)
     protected String name;
 
@@ -50,7 +40,16 @@ public class LauncherCommand extends StandardEntity {    @NotNull
     @OneToMany(mappedBy = "launcherCommand")
     protected List<LauncherCommandTranslation> translations;
 
+    @Column(name = "SHORTCUT")
+    protected String shortcut;
 
+    public String getShortcut() {
+        return shortcut;
+    }
+
+    public void setShortcut(String shortcut) {
+        this.shortcut = shortcut;
+    }
 
 
     public void setGroup(LauncherCommandGroup group) {

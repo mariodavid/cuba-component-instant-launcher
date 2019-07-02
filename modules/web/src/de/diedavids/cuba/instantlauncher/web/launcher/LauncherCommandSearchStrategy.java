@@ -8,7 +8,7 @@ import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
-import de.diedavids.cuba.instantlauncher.web.launcher.repository.LauncherCommmandRepository;
+import de.diedavids.cuba.instantlauncher.web.launcher.repository.LauncherCommandRepository;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -32,7 +32,7 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
   LauncherCommandExecutorAPI launcherCommandExecutorAPI;
 
   @Inject
-  protected LauncherCommmandRepository launcherCommmandRepository;
+  protected LauncherCommandRepository launcherCommandRepository;
 
   @Inject
   protected UserSessionSource userSessionSource;
@@ -66,7 +66,7 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
 
   private List<LauncherCommandTranslation> findMatchingLauncherCommands(String query,
       Locale currentLocale) {
-    return launcherCommmandRepository.findAllLauncherCommandTranslationByTextAndLocale(query, currentLocale);
+    return launcherCommandRepository.findAllLauncherCommandTranslationByTextAndLocale(query, currentLocale);
   }
 
   private Locale getCurrentLocale() {
@@ -99,7 +99,7 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
   }
 
   private LauncherCommand findLauncherCommandByTranslationId(String launchCommandTranslationId) {
-    return launcherCommmandRepository.findLauncherCommandByTranslationId(UUID.fromString(launchCommandTranslationId));
+    return launcherCommandRepository.findLauncherCommandByTranslationId(UUID.fromString(launchCommandTranslationId));
   }
 
 
