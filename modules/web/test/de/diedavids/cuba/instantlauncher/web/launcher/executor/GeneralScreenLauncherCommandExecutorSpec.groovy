@@ -34,6 +34,19 @@ class GeneralScreenLauncherCommandExecutorSpec extends Specification {
     1 * scripting.evaluateGroovy("return [foo:'bar']",_)
   }
 
+  def "execute executes no groovy evaluation if the screen params script is empty"() {
+    given:
+    def launcherCommand = new ScreenLauncherCommand(
+        screenParametersScript: null,
+        openType: ScreenLauncherOpenType.DIALOG
+    )
+
+    when:
+    sut.execute(launcherCommand)
+    then:
+    0 * scripting.evaluateGroovy(_,_)
+  }
+
   def "execute passes the result of the params script to the screen"() {
     given:
     def launcherCommand = new ScreenLauncherCommand(
