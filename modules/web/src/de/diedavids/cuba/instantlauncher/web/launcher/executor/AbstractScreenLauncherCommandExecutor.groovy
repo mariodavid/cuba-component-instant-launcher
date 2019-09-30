@@ -21,6 +21,10 @@ abstract class AbstractScreenLauncherCommandExecutor implements LauncherCommandE
 
   protected Map<String, Object> getScreenParameters(ScreenLauncherCommand screenLauncherCommand) {
 
+    if (!screenLauncherCommand.screenParametersScript) {
+      return [:]
+    }
+
     try {
       def screenParameters = scripting.evaluateGroovy(screenLauncherCommand.screenParametersScript, new Binding())
 
