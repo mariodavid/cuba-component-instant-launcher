@@ -1,11 +1,12 @@
 package de.diedavids.cuba.instantlauncher.web.launcher
 
 import com.haulmont.cuba.core.global.DataManager
+import com.haulmont.cuba.core.global.MessageTools
+import com.haulmont.cuba.core.global.UserSessionSource
 import com.haulmont.cuba.gui.Dialogs
 import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions
 import com.haulmont.cuba.gui.app.core.inputdialog.InputDialog
 import com.haulmont.cuba.gui.app.core.inputdialog.InputParameter
-import com.haulmont.cuba.gui.components.Frame
 import com.haulmont.cuba.gui.screen.FrameOwner
 import com.haulmont.cuba.gui.screen.UiControllerUtils
 import com.haulmont.cuba.web.AppUI
@@ -26,6 +27,11 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
   @Inject
   LauncherCommandExecutorFactory launcherCommandExecutorFactory
 
+  @Inject
+  protected UserSessionSource userSessionSource
+  @Inject
+  protected MessageTools messageTools
+
 
   void launchCommand(LauncherCommand launcherCommand) {
 
@@ -37,8 +43,10 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
 
     def inputParameters = reloadedLauncherCommand.getInputParameters();
 
-    List<InputParameter> inputParameterObjects = inputParameters.collect {
-      InputParameter.parameter(it.name)
+    List<InputParameter> inputParameterObjects = inputParameters.collect { inputParameter ->
+      def inputParameterTranslation = inputParameter.translations.find { it.locale == getCurrentLocale() }
+      InputParameter.parameter(inputParameter.name)
+      .withCaption(inputParameterTranslation.text)
     } as List<InputParameter>
 
     if (inputParameterObjects) {
@@ -76,4 +84,13 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
     AppUI.current.topLevelWindow.getFrameOwner()
   }
 
+
+  private Locale getCurrentLocale() {
+
+    if (userSessionSource.checkCurrentUserSession()) {
+      return userSessionSource.getLocale();
+    } else {
+      return messageTools.getDefaultLocale();
+    }
+  }
 }

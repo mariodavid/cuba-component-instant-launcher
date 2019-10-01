@@ -11,6 +11,10 @@
                     view="launcherCommand-with-details">
             <collectionDatasource id="translationsDs"
                                   property="translations"/>
+            <collectionDatasource id="inputParametersDs"
+                                  property="inputParameters">
+                <collectionDatasource id="inputParametersTranslationsDs" property="translations" />
+            </collectionDatasource>
         </datasource>
         <collectionDatasource id="groupsDs"
                               class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
@@ -54,6 +58,33 @@
                                   property="launchScript"
                                   contextHelpText="msg://scriptLauncherHelpText"
                                   width="100%"/>
+            </tab>
+
+            <tab id="inputParametersTab"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters"
+                 margin="true"
+                 spacing="true">
+                <table id="inputParametersTable"
+                       height="200px"
+                       width="100%">
+                    <actions>
+                        <action id="create"
+                                openType="DIALOG"/>
+                        <action id="edit"
+                                openType="DIALOG"/>
+                        <action id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="name"/>
+                        <column id="type"/>
+                    </columns>
+                    <rows datasource="inputParametersDs"/>
+                    <buttonsPanel>
+                        <button action="inputParametersTable.create"/>
+                        <button action="inputParametersTable.edit"/>
+                        <button action="inputParametersTable.remove"/>
+                    </buttonsPanel>
+                </table>
             </tab>
             <tab id="translationTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
