@@ -10,5 +10,7 @@
         <class>de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand</class>
         <class>de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand</class>
         <class>de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup</class>
+        <class>de.diedavids.cuba.instantlauncher.entity.InputParameter</class>
+        <class>de.diedavids.cuba.instantlauncher.entity.InputParameterTranslation</class>
     </persistence-unit>
 </persistence>

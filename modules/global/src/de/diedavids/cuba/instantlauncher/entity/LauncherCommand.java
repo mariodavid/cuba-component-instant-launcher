@@ -38,10 +38,23 @@ public class LauncherCommand extends StandardEntity {
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "launcherCommand")
+    protected List<InputParameter> inputParameters;
+
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    @OneToMany(mappedBy = "launcherCommand")
     protected List<LauncherCommandTranslation> translations;
 
     @Column(name = "SHORTCUT")
     protected String shortcut;
+
+    public List<InputParameter> getInputParameters() {
+        return inputParameters;
+    }
+
+    public void setInputParameters(List<InputParameter> inputParameters) {
+        this.inputParameters = inputParameters;
+    }
 
     public String getShortcut() {
         return shortcut;

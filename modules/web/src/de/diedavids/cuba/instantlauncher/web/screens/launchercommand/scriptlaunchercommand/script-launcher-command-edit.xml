@@ -8,7 +8,7 @@
     <dsContext>
         <datasource id="launcherCommandDs"
                     class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
-                    view="launcherCommand-with-translations">
+                    view="launcherCommand-with-details">
             <collectionDatasource id="translationsDs"
                                   property="translations"/>
         </datasource>

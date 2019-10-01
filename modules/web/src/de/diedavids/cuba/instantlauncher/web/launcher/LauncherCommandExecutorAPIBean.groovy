@@ -1,11 +1,20 @@
 package de.diedavids.cuba.instantlauncher.web.launcher
 
 import com.haulmont.cuba.core.global.DataManager
+import com.haulmont.cuba.gui.Dialogs
+import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions
+import com.haulmont.cuba.gui.app.core.inputdialog.InputDialog
+import com.haulmont.cuba.gui.app.core.inputdialog.InputParameter
+import com.haulmont.cuba.gui.components.Frame
+import com.haulmont.cuba.gui.screen.FrameOwner
+import com.haulmont.cuba.gui.screen.UiControllerUtils
+import com.haulmont.cuba.web.AppUI
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand
 import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Component
 
 import javax.inject.Inject
+import java.util.function.Consumer
 
 @Component(LauncherCommandExecutorAPI.NAME)
 @Slf4j
@@ -20,9 +29,51 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
 
   void launchCommand(LauncherCommand launcherCommand) {
 
-    LauncherCommand reloadedLauncherCommand = dataManager.reload(launcherCommand, 'launcherCommand-with-translations')
+    LauncherCommand reloadedLauncherCommand = dataManager.reload(launcherCommand, 'launcherCommand-with-details')
+
+
 
     def executor = launcherCommandExecutorFactory.create(reloadedLauncherCommand)
-    executor.execute(reloadedLauncherCommand)
+
+    def inputParameters = reloadedLauncherCommand.getInputParameters();
+
+    List<InputParameter> inputParameterObjects = inputParameters.collect {
+      InputParameter.parameter(it.name)
+    } as List<InputParameter>
+
+    if (inputParameterObjects) {
+      def inputDialogBuilder = dialogs.createInputDialog(frameOwner())
+      inputDialogBuilder
+              .withCaption("Input Parameters")
+              .withActions(DialogActions.OK_CANCEL)
+              .withCloseListener(new Consumer<InputDialog.InputDialogCloseEvent>() {
+                @Override
+                void accept(InputDialog.InputDialogCloseEvent closeEvent) {
+                  if (closeEvent.getCloseAction().equals(InputDialog.INPUT_DIALOG_OK_ACTION)) {
+                    executor.execute(reloadedLauncherCommand, closeEvent.getValues())
+                  }
+                }
+              })
+
+      inputParameterObjects.each {
+        inputDialogBuilder.withParameter(it)
+      }
+
+      inputDialogBuilder.show();
+    }
+    else {
+      executor.execute(reloadedLauncherCommand)
+    }
+
+
   }
+
+  private Dialogs getDialogs() {
+    UiControllerUtils.getScreenContext(frameOwner()).dialogs
+  }
+
+  private FrameOwner frameOwner() {
+    AppUI.current.topLevelWindow.getFrameOwner()
+  }
+
 }

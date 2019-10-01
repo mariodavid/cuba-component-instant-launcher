@@ -8,10 +8,15 @@ import org.springframework.stereotype.Component
 class GeneralScreenLauncherCommandExecutor extends AbstractScreenLauncherCommandExecutor {
 
   @Override
-  void execute(ScreenLauncherCommand launcherCommand) {
+  void execute(ScreenLauncherCommand launcherCommand, Map<String, Object> inputParams) {
     Map<String, Object> params = getScreenParameters(launcherCommand)
     OpenType openType = toOpenType(launcherCommand.openType)
 
     frame.openWindow(launcherCommand.screenId, openType, params)
+  }
+
+  @Override
+  void execute(ScreenLauncherCommand launcherCommand) {
+    execute(launcherCommand, [:])
   }
 }

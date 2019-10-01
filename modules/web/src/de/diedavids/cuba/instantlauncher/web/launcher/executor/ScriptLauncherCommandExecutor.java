@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.web.launcher.executor;
 
+import com.haulmont.bali.util.ParamsMap;
 import com.haulmont.cuba.core.global.BeanLocator;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
@@ -13,12 +14,15 @@ import com.haulmont.cuba.gui.screen.ScreenContext;
 import com.haulmont.cuba.gui.screen.UiControllerUtils;
 import com.haulmont.cuba.web.AppUI;
 import com.haulmont.cuba.web.app.mainwindow.AppMainWindow;
+import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand;
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutor;
 
 import groovy.lang.Binding;
 import javax.inject.Inject;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component("ddcil_ScriptLauncherCommandExecutor")
 public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<ScriptLauncherCommand> {
@@ -37,11 +41,17 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
 
 
     @Override
-    public void execute(ScriptLauncherCommand launcherCommand) {
-        scripting.evaluateGroovy(launcherCommand.getLaunchScript(), createBinding());
+    public void execute(ScriptLauncherCommand launcherCommand, Map<String, Object> inputParams) {
+
+        scripting.evaluateGroovy(launcherCommand.getLaunchScript(), createBinding(inputParams));
     }
 
-    protected Binding createBinding() {
+    @Override
+    public void execute(ScriptLauncherCommand launcherCommand) {
+        execute(launcherCommand, ParamsMap.empty());
+    }
+
+    protected Binding createBinding(Map<String, Object> inputParams) {
         Binding binding = new Binding();
 
         ScreenContext screenContext = getScreenContext();
@@ -55,6 +65,8 @@ public class ScriptLauncherCommandExecutor implements LauncherCommandExecutor<Sc
         binding.setVariable("dataManager", dataManager);
         binding.setVariable("messages", messages);
         binding.setVariable("beanLocator", beanLocator);
+
+        inputParams.forEach(binding::setVariable);
 
         addAdditionalBindings(binding);
         return binding;

@@ -26,7 +26,7 @@ class LauncherCommandExecutorAPIBeanSpec extends Specification {
     def launcherCommand = new ScreenLauncherCommand()
 
     and:
-    dataManager.reload(launcherCommand, 'launcherCommand-with-translations') >> launcherCommand
+    dataManager.reload(launcherCommand, 'launcherCommand-with-details') >> launcherCommand
     when:
     sut.launchCommand(launcherCommand)
     then:
@@ -38,7 +38,7 @@ class LauncherCommandExecutorAPIBeanSpec extends Specification {
     def launcherCommand = new ScreenLauncherCommand()
 
     and:
-    dataManager.reload(launcherCommand, 'launcherCommand-with-translations') >> launcherCommand
+    dataManager.reload(launcherCommand, 'launcherCommand-with-details') >> launcherCommand
     and:
     LauncherCommandExecutor executor = Mock(LauncherCommandExecutor)
     launcherCommandExecutorFactory.create(launcherCommand) >> executor
