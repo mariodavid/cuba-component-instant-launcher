@@ -20,6 +20,9 @@ public class InputParameter extends StandardEntity {
     @Column(name = "NAME", nullable = false)
     protected String name;
 
+    @Column(name = "REQUIRED")
+    protected Boolean required;
+
     @NotNull
     @Column(name = "TYPE_", nullable = false)
     protected String type;
@@ -33,6 +36,14 @@ public class InputParameter extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "inputParameter")
     protected List<InputParameterTranslation> translations;
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
 
     public List<InputParameterTranslation> getTranslations() {
         return translations;

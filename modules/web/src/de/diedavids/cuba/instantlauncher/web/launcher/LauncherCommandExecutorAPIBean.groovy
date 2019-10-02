@@ -1,8 +1,7 @@
 package de.diedavids.cuba.instantlauncher.web.launcher
 
+
 import com.haulmont.cuba.core.global.DataManager
-import com.haulmont.cuba.core.global.MessageTools
-import com.haulmont.cuba.core.global.UserSessionSource
 import com.haulmont.cuba.gui.Dialogs
 import com.haulmont.cuba.gui.app.core.inputdialog.DialogActions
 import com.haulmont.cuba.gui.app.core.inputdialog.InputDialog
@@ -28,9 +27,7 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
   LauncherCommandExecutorFactory launcherCommandExecutorFactory
 
   @Inject
-  protected UserSessionSource userSessionSource
-  @Inject
-  protected MessageTools messageTools
+  protected LauncherCommandInputParameterFactory launcherCommandInputParameterFactory
 
 
   void launchCommand(LauncherCommand launcherCommand) {
@@ -43,30 +40,10 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
 
     def inputParameters = reloadedLauncherCommand.getInputParameters();
 
-    List<InputParameter> inputParameterObjects = inputParameters.collect { inputParameter ->
-      def inputParameterTranslation = inputParameter.translations.find { it.locale == getCurrentLocale() }
-      InputParameter.parameter(inputParameter.name)
-      .withCaption(inputParameterTranslation.text)
-    } as List<InputParameter>
+    List<InputParameter> inputParameterObjects = transformPersistentInputParametersToInputParameters(inputParameters)
 
     if (inputParameterObjects) {
-      def inputDialogBuilder = dialogs.createInputDialog(frameOwner())
-      inputDialogBuilder
-              .withCaption("Input Parameters")
-              .withActions(DialogActions.OK_CANCEL)
-              .withCloseListener(new Consumer<InputDialog.InputDialogCloseEvent>() {
-                @Override
-                void accept(InputDialog.InputDialogCloseEvent closeEvent) {
-                  if (closeEvent.getCloseAction().equals(InputDialog.INPUT_DIALOG_OK_ACTION)) {
-                    executor.execute(reloadedLauncherCommand, closeEvent.getValues())
-                  }
-                }
-              })
-
-      inputParameterObjects.each {
-        inputDialogBuilder.withParameter(it)
-      }
-
+      Dialogs.InputDialogBuilder inputDialogBuilder = createInputDialogBuilder(executor, reloadedLauncherCommand, inputParameterObjects)
       inputDialogBuilder.show();
     }
     else {
@@ -76,21 +53,38 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
 
   }
 
+  private Dialogs.InputDialogBuilder createInputDialogBuilder(executor, reloadedLauncherCommand, List<InputParameter> inputParameterObjects) {
+    def inputDialogBuilder = dialogs.createInputDialog(frameOwner())
+    inputDialogBuilder
+            .withCaption("Input Parameters")
+            .withActions(DialogActions.OK_CANCEL)
+            .withCloseListener(new Consumer<InputDialog.InputDialogCloseEvent>() {
+              @Override
+              void accept(InputDialog.InputDialogCloseEvent closeEvent) {
+                if (closeEvent.getCloseAction().equals(InputDialog.INPUT_DIALOG_OK_ACTION)) {
+                  executor.execute(reloadedLauncherCommand, closeEvent.getValues())
+                }
+              }
+            })
+
+    inputParameterObjects.each {
+      inputDialogBuilder.withParameter(it)
+    }
+    inputDialogBuilder
+  }
+
+  private List<InputParameter> transformPersistentInputParametersToInputParameters(List<de.diedavids.cuba.instantlauncher.entity.InputParameter> inputParameters) {
+    List<InputParameter> inputParameterObjects = inputParameters.collect { inputParameter ->
+      launcherCommandInputParameterFactory.create(inputParameter)
+    } as List<InputParameter>
+    inputParameterObjects
+  }
+
   private Dialogs getDialogs() {
     UiControllerUtils.getScreenContext(frameOwner()).dialogs
   }
 
   private FrameOwner frameOwner() {
     AppUI.current.topLevelWindow.getFrameOwner()
-  }
-
-
-  private Locale getCurrentLocale() {
-
-    if (userSessionSource.checkCurrentUserSession()) {
-      return userSessionSource.getLocale();
-    } else {
-      return messageTools.getDefaultLocale();
-    }
   }
 }

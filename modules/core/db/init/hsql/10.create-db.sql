@@ -98,6 +98,7 @@ create table DDCIL_USER_INPUT_PARAMETER (
     DELETED_BY varchar(50),
     --
     NAME varchar(255) not null,
+    REQUIRED boolean,
     TYPE_ varchar(50) not null,
     LAUNCHER_COMMAND_ID varchar(36) not null,
     --

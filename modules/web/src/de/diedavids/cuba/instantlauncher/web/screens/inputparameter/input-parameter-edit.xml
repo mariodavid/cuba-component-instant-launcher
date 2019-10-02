@@ -16,6 +16,7 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <lookupField id="typeField" property="type"/>
+                <checkBox id="requiredField" property="required"/>
             </column>
         </form>
         <groupBox id="translationsBox"

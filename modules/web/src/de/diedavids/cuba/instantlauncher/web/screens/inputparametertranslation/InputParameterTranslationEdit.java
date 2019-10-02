@@ -24,6 +24,5 @@ public class InputParameterTranslationEdit extends StandardEditor<InputParameter
     protected void onAfterShow(AfterShowEvent event) {
         localeField.setOptionsMap(globalConfig.getAvailableLocales());
     }
-    
-    
+
 }
