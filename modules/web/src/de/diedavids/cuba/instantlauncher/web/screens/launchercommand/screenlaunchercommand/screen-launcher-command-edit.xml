@@ -11,6 +11,10 @@
                     view="launcherCommand-with-details">
             <collectionDatasource id="translationsDs"
                                   property="translations"/>
+            <collectionDatasource id="inputParametersDs"
+                                  property="inputParameters">
+                <collectionDatasource id="inputParametersTranslationsDs" property="translations" />
+            </collectionDatasource>
         </datasource>
         <collectionDatasource id="groupsDs"
                               class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
@@ -22,7 +26,7 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
+    <layout expand="mainTabSheet"
             spacing="true">
         <tabSheet id="mainTabSheet">
             <tab id="generalTab"
@@ -60,17 +64,54 @@
                     </column>
                 </fieldGroup>
             </tab>
-            <tab id="screenParametersScriptTab"
-                 caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand.screenParametersScript"
+            <tab id="parametersTab"
+                 caption="msg://parameters"
                  margin="true"
-                 spacing="true">
-                <sourceCodeEditor id="screenParametersScriptCodeEditor"
-                                  datasource="launcherCommandDs"
-                                  handleTabKey="true"
-                                  mode="Groovy"
-                                  property="screenParametersScript"
-                                  contextHelpText="msg://screenParametersScriptHelptext"
-                                  width="100%"/>
+                 spacing="true"
+                 expand="screenParametersScriptGroupBox"
+            >
+                <groupBox id="inputParametersGroupBox"
+                          caption="msg://inputParameters"
+                          expand="inputParametersTable"
+                          height="200px"
+                >
+                    <table id="inputParametersTable"
+                           width="100%">
+                        <actions>
+                            <action id="create"
+                                    openType="DIALOG"/>
+                            <action id="edit"
+                                    openType="DIALOG"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="name"/>
+                            <column id="type"/>
+                        </columns>
+                        <rows datasource="inputParametersDs"/>
+                        <buttonsPanel>
+                            <button action="inputParametersTable.create"/>
+                            <button action="inputParametersTable.edit"/>
+                            <button action="inputParametersTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
+
+                <groupBox
+                        id="screenParametersScriptGroupBox"
+                        caption="msg://screenParametersScript"
+                        expand="screenParametersScriptCodeEditor"
+                >
+
+                    <sourceCodeEditor id="screenParametersScriptCodeEditor"
+                                      datasource="launcherCommandDs"
+                                      handleTabKey="true"
+                                      mode="Groovy"
+                                      property="screenParametersScript"
+                                      contextHelpText="msg://screenParametersScriptHelptext"
+                                      width="100%"/>
+                </groupBox>
+
             </tab>
             <tab id="translationTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"

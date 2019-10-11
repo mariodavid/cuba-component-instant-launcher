@@ -13,34 +13,6 @@ import javax.inject.Inject
 
 @Slf4j
 @SuppressWarnings('AbstractClassWithoutAbstractMethod')
-abstract class AbstractScreenLauncherCommandExecutor implements LauncherCommandExecutor<ScreenLauncherCommand> {
+abstract class AbstractScreenLauncherCommandExecutor {
 
-  @Inject
-  Scripting scripting
-
-
-  protected Map<String, Object> getScreenParameters(ScreenLauncherCommand screenLauncherCommand) {
-
-    if (!screenLauncherCommand.screenParametersScript) {
-      return [:]
-    }
-
-    try {
-      def screenParameters = scripting.evaluateGroovy(screenLauncherCommand.screenParametersScript, new Binding())
-
-      return screenParameters instanceof Map ? screenParameters : [:]
-    }
-    catch (Exception e) {
-      log.error('Error while executing screen parameters script', e)
-      return [:]
-    }
-  }
-
-  protected OpenType toOpenType(ScreenLauncherOpenType screenLauncherOpenType) {
-    screenLauncherOpenType ? OpenType.valueOf(screenLauncherOpenType.toString()) : OpenType.NEW_TAB
-  }
-
-  protected Frame getFrame() {
-    AppUI.current.topLevelWindow
-  }
 }

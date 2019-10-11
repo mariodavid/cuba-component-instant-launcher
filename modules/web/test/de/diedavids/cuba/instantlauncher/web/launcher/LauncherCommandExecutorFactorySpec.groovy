@@ -1,14 +1,9 @@
 package de.diedavids.cuba.instantlauncher.web.launcher
 
 import com.haulmont.cuba.core.global.BeanLocator
-import de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand
-import de.diedavids.cuba.instantlauncher.entity.LauncherCommandType
-import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
-import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommandType
-import de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand
+import de.diedavids.cuba.instantlauncher.entity.*
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandExecutorFactory
-import de.diedavids.cuba.instantlauncher.web.launcher.executor.AbstractScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.EditorScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.GeneralScreenLauncherCommandExecutor
 import de.diedavids.cuba.instantlauncher.web.launcher.executor.ScriptLauncherCommandExecutor

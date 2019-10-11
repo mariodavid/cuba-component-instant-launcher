@@ -1,7 +1,6 @@
 package de.diedavids.cuba.instantlauncher.web.launcher.executor
 
 import com.haulmont.cuba.core.global.Metadata
-import com.haulmont.cuba.core.global.Scripting
 import com.haulmont.cuba.gui.WindowManager.OpenType
 import com.haulmont.cuba.gui.components.Frame
 import com.haulmont.cuba.security.entity.User
@@ -13,16 +12,22 @@ import spock.lang.Specification
 class EditorScreenLauncherCommandExecutorSpec extends Specification {
 
   EditorScreenLauncherCommandExecutor sut
-  private Scripting scripting = Mock(Scripting)
+  private ScreenParameterScriptEvaluation screenParameterScriptEvaluation = Mock(ScreenParameterScriptEvaluation)
   private Frame    frame    = Mock(Frame)
   private Metadata metadata = Mock(Metadata)
 
   def setup() {
     sut = new MockableEditorScreenLauncherCommandExecutor(
-        scripting: scripting,
         frame: frame,
-        metadata: metadata
+        metadata: metadata,
+            screenParameterScriptEvaluation: screenParameterScriptEvaluation
     )
+
+
+  }
+
+  private void paramsAreEvaluatedWith(Map<String, Object> params) {
+    screenParameterScriptEvaluation.evaluateScreenParameters(_, _) >> params
   }
 
   def "execute passes the result of the params script to the screen"() {
@@ -35,7 +40,7 @@ class EditorScreenLauncherCommandExecutorSpec extends Specification {
         screenEntity: 'sec$User'
     )
     and:
-    scripting.evaluateGroovy("return [foo:'bar']",_) >> [foo: 'bar']
+    paramsAreEvaluatedWith(foo: 'bar')
 
     and:
     def newUser = new User()
@@ -57,6 +62,9 @@ class EditorScreenLauncherCommandExecutorSpec extends Specification {
         screenLauncherCommandType: ScreenLauncherCommandType.EDITOR
     )
 
+    and:
+    paramsAreEvaluatedWith([:])
+
     when:
     sut.execute(launcherCommand)
 
@@ -73,6 +81,9 @@ class EditorScreenLauncherCommandExecutorSpec extends Specification {
         openType: ScreenLauncherOpenType.DIALOG,
         screenLauncherCommandType: ScreenLauncherCommandType.EDITOR
     )
+
+    and:
+    paramsAreEvaluatedWith([:])
     and:
     def newUser = new User()
     metadata.create('sec$User') >> newUser

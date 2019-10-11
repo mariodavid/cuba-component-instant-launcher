@@ -6,7 +6,7 @@
         <property name="translations"
                   view="_local"/>
         <property name="inputParameters"
-                  view="_local"/>
+                  view="inputParameter-view"/>
         <property name="group"
                   view="_minimal"/>
     </view>
@@ -26,7 +26,7 @@
         <property name="translations"
                   view="_local"/>
         <property name="inputParameters"
-                  view="_local"/>
+                  view="inputParameter-view"/>
         <property name="group"
           view="_minimal"/>
     </view>
@@ -36,7 +36,7 @@
         <property name="translations"
                   view="_local"/>
         <property name="inputParameters"
-                  view="_local"/>
+                  view="inputParameter-view"/>
         <property name="group"
           view="_minimal"/>
     </view>
