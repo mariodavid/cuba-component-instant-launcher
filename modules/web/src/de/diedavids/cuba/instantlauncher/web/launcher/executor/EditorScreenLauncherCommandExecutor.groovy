@@ -19,7 +19,6 @@ class EditorScreenLauncherCommandExecutor implements LauncherCommandExecutor<Scr
   @Inject
   Metadata metadata
 
-
   @Inject
   ScreenParameterScriptEvaluation screenParameterScriptEvaluation
 

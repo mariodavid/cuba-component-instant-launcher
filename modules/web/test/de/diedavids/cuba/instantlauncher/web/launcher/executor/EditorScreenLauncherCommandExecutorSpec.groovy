@@ -22,8 +22,6 @@ class EditorScreenLauncherCommandExecutorSpec extends Specification {
         metadata: metadata,
             screenParameterScriptEvaluation: screenParameterScriptEvaluation
     )
-
-
   }
 
   private void paramsAreEvaluatedWith(Map<String, Object> params) {
