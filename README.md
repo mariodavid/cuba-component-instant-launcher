@@ -51,7 +51,17 @@ The following databases are supported by this application component:
 
 ## Using the application component
 
-The `instant-launcher` application component let's you define `Launcher Commands` at runtime that can be executed via a search box.
+The `instant-launcher` application component let's you define `Launcher Commands` at runtime that can be 
+executed as shortcuts via the global search box or a global keyboard shortcut.
+
+Example Launcher Commands:
+
+* opening the screen to create a new user
+* shortcut for running a specific report and starts the download of the file
+* executing arbitrary business logic like 
+
+
+### Launcher Command Types
 
 The following types of instant launchers are supported: 
 
@@ -59,10 +69,50 @@ The following types of instant launchers are supported:
 * Script Launchers
 * Bean Launchers
 
-A `Launcher Command` can execute any kind of business logic via a groovy script. For certain specific use cases there are pre-defined Launchers like the Screen Launcher.  Here are some example use cases:
+### Keyboard Shortcuts for Launcher Commands
 
-* opening the screen to create a new user
-* shortcut for running a specific report and starts the download of the file
+It is possible to configure a Keyboard Shortcut to a particular Launcher Command. This Shortcut is globally
+available in the application. 
+
+Example:
+
+'CTRL-ALT-U' - Launcher Command: Create a new User
+
+Note: In order to leverage the capabilities of global keyboard shortcut binding, it is required to create
+an Application Main Window screen, that either extends `InstantLauncherAppMainWindow` or 
+alternatively initializes the Launcher Command Shortcuts like this:
+
+```
+public class MyAppMainWindow extends AppMainWindow {
+
+    @Inject
+    protected LauncherCommandShortcutInitializer launcherCommandShortcutInitializer;
+
+    @Override
+    public void ready() {
+        super.ready();
+        
+        launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
+                (RootWindow) getFrameOwner().getWindow()
+        );
+    }
+}
+```
+
+
+### Launcher Command Parameters
+
+It is also possible to parametrise Launcher Commands. Defining a parameter for a Launcher Command
+results in a Dialog window, that asks the user to enter values for the parameters. 
+
+A Launch Command can have multiple parameters, where a parameter can have the following types:
+
+* String
+* Number (Integer, Double, BigDecimal)
+* Boolean
+* Date (Date, DateTime, LocalDate, LocalDateTime)
+* Enum
+* Entity
 
 
 ### Example usage

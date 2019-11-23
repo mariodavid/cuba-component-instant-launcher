@@ -86,3 +86,42 @@ create table DDCIL_LAUNCHER_COMMAND_GROUP (
     primary key (ID)
 )^
 -- end DDCIL_LAUNCHER_COMMAND_GROUP
+-- begin DDCIL_USER_INPUT_PARAMETER
+create table DDCIL_USER_INPUT_PARAMETER (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    NAME varchar(255) not null,
+    REQUIRED boolean,
+    TYPE_ varchar(50) not null,
+    LAUNCHER_COMMAND_ID varchar(36) not null,
+    ENUMERATION_CLASS varchar(255),
+    ENTITY_CLASS varchar(255),
+    --
+    primary key (ID)
+)^
+-- end DDCIL_USER_INPUT_PARAMETER
+-- begin DDCIL_INPUT_PARAMETER_TRANSLATION
+create table DDCIL_INPUT_PARAMETER_TRANSLATION (
+    ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
+    --
+    TEST varchar(255) not null,
+    LOCALE varchar(255) not null,
+    INPUT_PARAMETER_ID varchar(36) not null,
+    --
+    primary key (ID)
+)^
+-- end DDCIL_INPUT_PARAMETER_TRANSLATION

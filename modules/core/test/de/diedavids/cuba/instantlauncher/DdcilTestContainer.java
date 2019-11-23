@@ -27,9 +27,9 @@ public class DdcilTestContainer extends TestContainer {
                 // in appPropertiesConfig context parameter of the core module
                 "de/diedavids/cuba/instantlauncher/app.properties",
                 // Add this file which is located in CUBA and defines some properties
-                // specifically for test environment. You can replace it with your own
+                // specifically for text environment. You can replace it with your own
                 // or add another one in the end.
-                "test-app.properties");
+                "text-app.properties");
         initDbProperties();
     }
 

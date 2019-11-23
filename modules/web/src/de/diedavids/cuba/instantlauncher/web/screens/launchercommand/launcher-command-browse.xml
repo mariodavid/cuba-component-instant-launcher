@@ -8,7 +8,7 @@
     <dsContext>
         <groupDatasource id="launcherCommandsDs"
                          class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"
-                         view="launcherCommand-with-translations">
+                         view="launcherCommand-with-details">
             <query>
                 <![CDATA[select e from ddcil$LauncherCommand e]]>
             </query>

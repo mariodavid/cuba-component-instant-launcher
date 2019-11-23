@@ -8,9 +8,13 @@
     <dsContext>
         <datasource id="launcherCommandDs"
                     class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
-                    view="launcherCommand-with-translations">
+                    view="launcherCommand-with-details">
             <collectionDatasource id="translationsDs"
                                   property="translations"/>
+            <collectionDatasource id="inputParametersDs"
+                                  property="inputParameters">
+                <collectionDatasource id="inputParametersTranslationsDs" property="translations" />
+            </collectionDatasource>
         </datasource>
         <collectionDatasource id="groupsDs"
                               class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
@@ -22,8 +26,9 @@
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
+    <layout expand="mainTabSheet"
+            spacing="true"
+    >
         <tabSheet id="mainTabSheet">
             <tab id="generalTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
@@ -46,6 +51,7 @@
             <tab id="contentTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/ScriptLauncherCommand.launchScript"
                  margin="true"
+                 expand="contentSourceCodeEditor"
                  spacing="true">
                 <sourceCodeEditor id="contentSourceCodeEditor"
                                   datasource="launcherCommandDs"
@@ -54,6 +60,39 @@
                                   property="launchScript"
                                   contextHelpText="msg://scriptLauncherHelpText"
                                   width="100%"/>
+            </tab>
+            <tab id="parametersTab"
+                 caption="msg://parameters"
+                 margin="true"
+                 spacing="true"
+                 expand="inputParametersGroupBox"
+            >
+                <groupBox id="inputParametersGroupBox"
+                          caption="msg://inputParameters"
+                          expand="inputParametersTable"
+                          height="200px"
+                >
+                    <table id="inputParametersTable"
+                           width="100%">
+                        <actions>
+                            <action id="create"
+                                    openType="DIALOG"/>
+                            <action id="edit"
+                                    openType="DIALOG"/>
+                            <action id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="name"/>
+                            <column id="type"/>
+                        </columns>
+                        <rows datasource="inputParametersDs"/>
+                        <buttonsPanel>
+                            <button action="inputParametersTable.create"/>
+                            <button action="inputParametersTable.edit"/>
+                            <button action="inputParametersTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
             </tab>
             <tab id="translationTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
