@@ -38,7 +38,14 @@ class LauncherCommandInputParameterFactory {
       case InputParameterType.INTEGER: return DialogInputParameter.intParameter(inputParameter.name)
       case InputParameterType.BOOLEAN: return DialogInputParameter.booleanParameter(inputParameter.name)
       case InputParameterType.DATE: return DialogInputParameter.dateParameter(inputParameter.name)
+      case InputParameterType.LOCAL_DATE: return DialogInputParameter.localDateParameter(inputParameter.name)
+      case InputParameterType.LOCAL_DATE_TIME: return DialogInputParameter.localDateTimeParameter(inputParameter.name)
+      case InputParameterType.LOCAL_TIME: return DialogInputParameter.localTimeParameter(inputParameter.name)
       case InputParameterType.DATETIME: return DialogInputParameter.dateTimeParameter(inputParameter.name)
+      case InputParameterType.DOUBLE: return DialogInputParameter.doubleParameter(inputParameter.name)
+      case InputParameterType.BIG_DECIMAL: return DialogInputParameter.bigDecimalParameter(inputParameter.name)
+      case InputParameterType.ENUMERATION: return DialogInputParameter.enumParameter(inputParameter.name, Class.forName(inputParameter.enumerationClass))
+      case InputParameterType.ENTITY: return DialogInputParameter.entityParameter(inputParameter.name, inputParameter.entityClass.getJavaClass())
       default: return DialogInputParameter.parameter(inputParameter.name)
     }
   }

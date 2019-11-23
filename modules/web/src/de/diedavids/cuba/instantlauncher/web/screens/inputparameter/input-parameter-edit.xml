@@ -12,10 +12,12 @@
         </instance>
     </data>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="inputParameterDc">
-            <column width="250px">
+        <form id="form" width="100%" dataContainer="inputParameterDc">
+            <column width="100%" childrenCaptionWidth="200px">
                 <textField id="nameField" property="name"/>
                 <lookupField id="typeField" property="type"/>
+                <lookupField visible="false" id="enumerationClassField" property="enumerationClass"/>
+                <lookupField visible="false" id="entityClassField" property="entityClass"/>
                 <checkBox id="requiredField" property="required"/>
             </column>
         </form>

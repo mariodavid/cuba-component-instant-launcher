@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component("ddcil_NotSuccessfulLauncher")
+@Component("ddcil_NotSuccessfulLauncherCommandExecutor")
 public class NotSuccessfulLauncherCommandExecutor implements LauncherCommandExecutor {
 
     @Override

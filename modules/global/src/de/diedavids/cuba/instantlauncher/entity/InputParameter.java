@@ -1,7 +1,9 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
 import com.haulmont.chile.core.annotations.Composition;
+import com.haulmont.chile.core.annotations.MetaProperty;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.chile.core.model.MetaClass;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
@@ -36,6 +38,29 @@ public class InputParameter extends StandardEntity {
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "inputParameter")
     protected List<InputParameterTranslation> translations;
+
+    @Column(name = "ENUMERATION_CLASS")
+    protected String enumerationClass;
+
+    @MetaProperty(datatype = "MetaClass")
+    @Column(name = "ENTITY_CLASS")
+    protected MetaClass entityClass;
+
+    public MetaClass getEntityClass() {
+        return entityClass;
+    }
+
+    public void setEntityClass(MetaClass entityClass) {
+        this.entityClass = entityClass;
+    }
+
+    public String getEnumerationClass() {
+        return enumerationClass;
+    }
+
+    public void setEnumerationClass(String enumerationClass) {
+        this.enumerationClass = enumerationClass;
+    }
 
     public Boolean getRequired() {
         return required;

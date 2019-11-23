@@ -19,6 +19,5 @@ public class InstantLauncherAppMainWindow extends AppMainWindow {
         launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
                 (RootWindow) getFrameOwner().getWindow()
         );
-
     }
 }

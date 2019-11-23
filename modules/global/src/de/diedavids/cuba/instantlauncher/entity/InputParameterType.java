@@ -11,7 +11,14 @@ public enum InputParameterType implements EnumClass<String> {
     INTEGER("INTEGER"),
     BOOLEAN("BOOLEAN"),
     DATE("DATE"),
-    DATETIME("DATETIME");
+    DATETIME("DATETIME"),
+    LOCAL_DATE("LOCAL_DATE"),
+    LOCAL_DATE_TIME("LOCAL_DATE_TIME"),
+    LOCAL_TIME("LOCAL_TIME"),
+    ENUMERATION("ENUMERATION"),
+    DOUBLE("DOUBLE"),
+    BIG_DECIMAL("BIG_DECIMAL"),
+    ENTITY("ENTITY");
 
     private String id;
 
