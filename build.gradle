@@ -102,7 +102,7 @@ dependencies {
     appComponent('de.diedavids.cuba.metadataextensions:metadataextensions-global:0.2.1')
 }
 
-def postgres = 'org.postgresql:postgresql:42.2.5'
+def hsql = 'org.hsqldb:hsqldb:2.4.1'
 
 
 
@@ -206,8 +206,8 @@ configure(coreModule) {
     dependencies {
         compile(globalModule)
         compileOnly(servletApi)
-        jdbc(postgres)
-        testRuntime(postgres)
+        jdbc(hsql)
+        testRuntime(hsql)
     }
 
     task cleanConf(description: 'Cleans up conf directory') {
@@ -250,19 +250,19 @@ configure(coreModule) {
 
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
-        dbms = 'postgres'
-        host = 'localhost'
-        dbName = 'postgres'
-        dbUser = 'postgres'
-        dbPassword = 'postgres'
+        dbms = 'hsql'
+        host = 'localhost:9010'
+        dbName = 'ddcil'
+        dbUser = 'sa'
+        dbPassword = ''
         }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
-        dbms = 'postgres'
-        host = 'localhost'
-        dbName = 'postgres'
-        dbUser = 'postgres'
-        dbPassword = 'postgres'
+        dbms = 'hsql'
+        host = 'localhost:9010'
+        dbName = 'ddcil'
+        dbUser = 'sa'
+        dbPassword = ''
         }
 
         task createTestDb(dependsOn: assembleDbScripts, description: 'Creates local HSQL database', type: CubaDbCreation) {
