@@ -2,7 +2,7 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://browseCaption"
         focusComponent="launcherCommandsTable"
-        messagesPack="de.diedavids.cuba.instantlauncher.web.screensv7.launchercommand">
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand">
     <data readOnly="true">
         <collection id="launcherCommandsDc"
                     class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"

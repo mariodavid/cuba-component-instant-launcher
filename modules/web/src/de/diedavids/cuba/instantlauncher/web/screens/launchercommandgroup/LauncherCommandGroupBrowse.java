@@ -1,6 +1,11 @@
 package de.diedavids.cuba.instantlauncher.web.screens.launchercommandgroup;
 
-import com.haulmont.cuba.gui.components.AbstractLookup;
+import com.haulmont.cuba.gui.screen.*;
+import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
 
-public class LauncherCommandGroupBrowse extends AbstractLookup {
+@UiController("ddcil$LauncherCommandGroup.browse")
+@UiDescriptor("launcher-command-group-browse.xml")
+@LookupComponent("launcherCommandGroupsTable")
+@LoadDataBeforeShow
+public class LauncherCommandGroupBrowse extends StandardLookup<LauncherCommandGroup> {
 }

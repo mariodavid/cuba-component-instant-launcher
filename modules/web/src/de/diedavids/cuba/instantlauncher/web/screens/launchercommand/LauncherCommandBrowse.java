@@ -43,6 +43,7 @@ public class LauncherCommandBrowse extends StandardLookup<LauncherCommand> {
                         .withField(() -> {
                             RadioButtonGroup field = uiComponents.create(RadioButtonGroup.class);
                             field.setOptionsEnum(LauncherCommandType.class);
+                            field.setRequired(true);
                             return field;
                         })
                 )
