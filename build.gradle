@@ -255,7 +255,7 @@ configure(coreModule) {
         dbName = 'ddcil'
         dbUser = 'sa'
         dbPassword = ''
-    }
+        }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
         dbms = 'hsql'
@@ -263,7 +263,7 @@ configure(coreModule) {
         dbName = 'ddcil'
         dbUser = 'sa'
         dbPassword = ''
-    }
+        }
 
         task createTestDb(dependsOn: assembleDbScripts, description: 'Creates local HSQL database', type: CubaDbCreation) {
         dbms = 'hsql'
