@@ -61,7 +61,7 @@
                                   width="100%"/>
             </tab>
             <tab id="parametersTab"
-                 caption="msg://parameters"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters"
                  margin="true"
                  spacing="true"
                  expand="inputParametersGroupBox"

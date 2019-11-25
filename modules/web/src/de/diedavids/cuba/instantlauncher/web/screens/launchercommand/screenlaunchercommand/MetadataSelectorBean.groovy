@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component
 
 import javax.inject.Inject
 
-@Component('ddcil_MetadataSelector')
+@Component(MetadataSelector.NAME)
 @CompileStatic
-class MetadataSelector {
+class MetadataSelectorBean implements MetadataSelector {
 
   @Inject
   Metadata metadata
@@ -36,8 +36,8 @@ class MetadataSelector {
   private static final String OPEN_BRACKET = ' ('
   private static final String CLOSED_BRACKET = ')'
 
-  Map<String, Object> getEntitiesLookupFieldOptions() {
-    Map<String, Object> options = new TreeMap<>()
+  Map<String, String> getEntitiesLookupFieldOptions() {
+    Map<String, String> options = new TreeMap<>()
 
     for (MetaClass metaClass : metadataTools.allPersistentMetaClasses) {
       if (readPermitted(metaClass)) {
@@ -67,9 +67,9 @@ class MetadataSelector {
     metadata.tools
   }
 
-  Map<String, Object> getSceenLookupFieldOptions() {
+  Map<String, String> getScreenLookupFieldOptions() {
     Collection<WindowInfo> windows = sortWindowInfos(windowConfig.windows)
-    Map<String, Object> screens = [:]
+    Map<String, String> screens = [:]
 
     windows.each { WindowInfo windowInfo ->
       String id = windowInfo.id

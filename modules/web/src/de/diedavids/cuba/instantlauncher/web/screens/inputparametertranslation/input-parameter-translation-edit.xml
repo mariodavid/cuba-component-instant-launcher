@@ -10,11 +10,14 @@
             <loader/>
         </instance>
     </data>
+    <dialogMode
+            forceDialog="true"
+    />
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="inputParameterTranslationDc">
             <column width="250px">
-                <textField id="textField" property="text"/>
                 <lookupField id="localeField" property="locale" />
+                <textField id="textField" property="text"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">
