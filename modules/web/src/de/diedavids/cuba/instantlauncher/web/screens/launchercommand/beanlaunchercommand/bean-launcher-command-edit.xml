@@ -1,78 +1,113 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand.BeanLauncherCommandEdit"
-        datasource="launcherCommandDs"
-        focusComponent="fieldGroup"
+        focusComponent="form"
         messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.beanlaunchercommand">
-    <dsContext>
-        <datasource id="launcherCommandDs"
-                    class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
-                    view="launcherCommand-with-details">
-            <collectionDatasource id="translationsDs"
-                                  property="translations"/>
-        </datasource>
-        <collectionDatasource id="groupsDs"
-                              class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
-                              view="_minimal">
-            <query>
-                <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
-            </query>
-        </collectionDatasource>
-    </dsContext>
+    <data>
+        <instance id="beanLauncherCommandDc"
+                  class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
+                  view="launcherCommand-with-details">
+            <loader/>
+            <collection id="inputParametersDc" property="inputParameters"/>
+            <collection id="translationsDc" property="translations"/>
+        </instance>
+        <collection id="groupsDc" class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup" view="_minimal">
+            <loader id="groupsLc">
+                <query>
+                    <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="windowActions"
-            spacing="true">
+    <layout expand="mainTabSheet" spacing="true">
         <tabSheet id="mainTabSheet">
             <tab id="generalTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
                  margin="true"
                  spacing="true">
-                <fieldGroup id="fieldGroup"
-                            datasource="launcherCommandDs">
+
+                <form id="form" dataContainer="beanLauncherCommandDc">
                     <column width="250px">
-                        <field property="name"/>
-                        <field property="description"
-                               rows="5"/>
-                        <field optionsDatasource="groupsDs"
-                               property="group"/>
-                        <field property="shortcut" contextHelpText="mainMsg://instantLauncherShortcutHelp">
-                            <validator class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator" />
-                        </field>
+                        <textField id="nameField" property="name"/>
+                        <textArea id="descriptionField" property="description" rows="5"/>
+                        <lookupPickerField id="groupField" optionsContainer="groupsDc" property="group">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                            </actions>
+                        </lookupPickerField>
+                        <textField id="shortcutField"
+                                   property="shortcut"
+                                   contextHelpText="mainMsg://instantLauncherShortcutHelp"
+                        >
+                            <validator class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator"  />
+                        </textField>
                     </column>
-                </fieldGroup>
+                </form>
             </tab>
             <tab id="contentTab"
-                 caption="msg://de.diedavids.cuba.instantlauncher.entity/BeanLauncherCommand"
+                 caption="msg://content"
                  margin="true"
+                 expand="contentForm"
                  spacing="true">
-                <fieldGroup id="beanFieldGroup"
-                            datasource="launcherCommandDs">
+
+                <form id="contentForm" dataContainer="beanLauncherCommandDc">
                     <column width="250px">
-                        <field property="beanName"/>
+                        <textField id="beanNameField" property="beanName"/>
                     </column>
-                </fieldGroup>
+                </form>
+            </tab>
+            <tab id="parametersTab"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters"
+                 margin="true"
+                 spacing="true"
+                 expand="inputParametersGroupBox"
+            >
+                <groupBox id="inputParametersGroupBox"
+                          caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters"
+                          expand="inputParametersTable"
+                          height="200px"
+                >
+                    <table id="inputParametersTable"
+                           dataContainer="inputParametersDc"
+                           width="100%">
+                        <actions>
+                            <action type="create" id="create" />
+                            <action type="edit" id="edit" />
+                            <action type="remove" id="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="name"/>
+                            <column id="type"/>
+                        </columns>
+                        <rowsCount />
+                        <buttonsPanel>
+                            <button action="inputParametersTable.create"/>
+                            <button action="inputParametersTable.edit"/>
+                            <button action="inputParametersTable.remove"/>
+                        </buttonsPanel>
+                    </table>
+                </groupBox>
             </tab>
             <tab id="translationTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
                  margin="true"
                  spacing="true">
                 <table id="translationsTable"
-                       height="200px"
+                       dataContainer="translationsDc"
+                       height="100%"
                        width="100%">
                     <actions>
-                        <action id="create"
-                                openType="DIALOG"/>
-                        <action id="edit"
-                                openType="DIALOG"/>
-                        <action id="remove"/>
+                        <action type="create" id="create" />
+                        <action type="edit" id="edit" />
+                        <action type="remove" id="remove"/>
                     </actions>
                     <columns>
                         <column id="locale"/>
                         <column id="text"/>
                     </columns>
-                    <rows datasource="translationsDs"/>
+                    <rowsCount />
                     <buttonsPanel>
                         <button action="translationsTable.create"/>
                         <button action="translationsTable.edit"/>
@@ -81,7 +116,9 @@
                 </table>
             </tab>
         </tabSheet>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>

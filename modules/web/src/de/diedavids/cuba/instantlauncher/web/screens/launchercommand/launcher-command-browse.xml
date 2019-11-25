@@ -1,64 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://browseCaption"
-        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.LauncherCommandBrowse"
         focusComponent="launcherCommandsTable"
-        lookupComponent="launcherCommandsTable"
         messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand">
-    <dsContext>
-        <groupDatasource id="launcherCommandsDs"
-                         class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"
-                         view="launcherCommand-with-details">
-            <query>
-                <![CDATA[select e from ddcil$LauncherCommand e]]>
-            </query>
-        </groupDatasource>
-    </dsContext>
+    <data readOnly="true">
+        <collection id="launcherCommandsDc"
+                    class="de.diedavids.cuba.instantlauncher.entity.LauncherCommand"
+                    view="launcherCommand-with-details">
+            <loader id="launcherCommandsDl">
+                <query>
+                    <![CDATA[select e from ddcil$LauncherCommand e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="launcherCommandsTable"
             spacing="true">
         <filter id="filter"
                 applyTo="launcherCommandsTable"
-                datasource="launcherCommandsDs">
+                dataLoader="launcherCommandsDl">
             <properties include=".*"/>
         </filter>
         <groupTable id="launcherCommandsTable"
-                    width="100%">
+                    width="100%"
+                    dataContainer="launcherCommandsDc">
             <actions>
-                <action id="edit"/>
-                <action id="remove"/>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="type"/>
-                <column id="description"/>
                 <column id="group"/>
+                <column id="description"/>
+                <column id="type"/>
+                <column id="shortcut"/>
             </columns>
-            <rows datasource="launcherCommandsDs"/>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <popupButton id="createPopupBtn"
-                             caption="msg://create"
-                             icon="CREATE_ACTION">
-                    <actions>
-                        <action id="createScreenLauncher"
-                                caption="msg://createScreen"
-                                invoke="createScreen"/>
-                        <action id="createScriptLauncher"
-                                caption="msg://createScript"
-                                invoke="createScript"/>
-                        <action id="createBeanLauncher"
-                                caption="msg://createBean"
-                                invoke="createBean"/>
-                    </actions>
-                </popupButton>
-                <button id="editBtn"
-                        action="launcherCommandsTable.edit"/>
-                <button id="removeBtn"
-                        action="launcherCommandsTable.remove"/>
+                <button id="createBtn" action="launcherCommandsTable.create"/>
+                <button id="editBtn" action="launcherCommandsTable.edit"/>
+                <button id="removeBtn" action="launcherCommandsTable.remove"/>
             </buttonsPanel>
         </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
     </layout>
 </window>

@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand.ScreenLauncherCommandEdit"
-        datasource="launcherCommandDs"
-        focusComponent="fieldGroup"
-        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand">
-    <dsContext>
-        <datasource id="launcherCommandDs"
-                    class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
-                    view="launcherCommand-with-details">
-            <collectionDatasource id="translationsDs"
-                                  property="translations"/>
-            <collectionDatasource id="inputParametersDs"
-                                  property="inputParameters">
-                <collectionDatasource id="inputParametersTranslationsDs" property="translations" />
-            </collectionDatasource>
-        </datasource>
-        <collectionDatasource id="groupsDs"
-                              class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
-                              view="_minimal">
-            <query>
-                <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
-            </query>
-        </collectionDatasource>
-    </dsContext>
+        focusComponent="form"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.screenlaunchercommand">
+
+    <data>
+        <instance id="screenLauncherCommandDc"
+                  class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
+                  view="launcherCommand-with-details">
+            <loader/>
+            <collection id="inputParametersDc" property="inputParameters"/>
+            <collection id="translationsDc" property="translations"/>
+        </instance>
+        <collection id="groupsDc" class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup" view="_minimal">
+            <loader id="groupsLc">
+                <query>
+                    <![CDATA[select e from ddcil$LauncherCommandGroup e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="mainTabSheet"
@@ -33,62 +29,56 @@
                  caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
                  margin="true"
                  spacing="true">
-                <fieldGroup id="fieldGroup"
-                            datasource="launcherCommandDs">
+                <form id="form" dataContainer="screenLauncherCommandDc">
                     <column width="250px">
-                        <field property="name"/>
-                        <field property="description"
-                               rows="5"/>
-                        <field optionsDatasource="groupsDs"
-                               property="group"/>
-                        <field property="shortcut" contextHelpText="mainMsg://instantLauncherShortcutHelp">
-                            <validator class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator" />
-                        </field>
+                        <textField id="nameField" property="name"/>
+                        <textArea id="descriptionField" property="description" rows="5"/>
+                        <lookupPickerField id="groupField" optionsContainer="groupsDc" property="group">
+                            <actions>
+                                <action id="lookup" type="picker_lookup"/>
+                            </actions>
+                        </lookupPickerField>
+                        <textField id="shortcutField"
+                                   property="shortcut"
+                                   contextHelpText="mainMsg://instantLauncherShortcutHelp"
+                        >
+                            <validator
+                                    class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator"/>
+                        </textField>
                     </column>
-                </fieldGroup>
+                </form>
             </tab>
             <tab id="contentTab"
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/ScreenLauncherCommand"
                  margin="true"
                  spacing="true">
-                <fieldGroup id="screenFieldGroup"
-                            datasource="launcherCommandDs">
+                <form id="contentForm" dataContainer="screenLauncherCommandDc">
                     <column width="250px">
-                        <field custom="true"
-                               property="screenId"/>
-                        <field property="openType"/>
-                        <field property="screenLauncherCommandType"/>
-                        <field custom="true"
-                               property="screenEntity"
-                               visible="false"/>
+                        <lookupField id="screenLauncherCommandTypeField" property="screenLauncherCommandType"/>
+                        <lookupField id="screenIdField" property="screenId"/>
+                        <lookupField id="openTypeField" property="openType"/>
+                        <lookupField id="screenEntityField" property="screenEntity" visible="false"/>
                     </column>
-                </fieldGroup>
+                </form>
             </tab>
             <tab id="parametersTab"
-                 caption="msg://parameters"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters"
                  margin="true"
                  spacing="true"
                  expand="screenParametersScriptGroupBox"
             >
-                <groupBox id="inputParametersGroupBox"
-                          caption="msg://inputParameters"
-                          expand="inputParametersTable"
-                          height="200px"
-                >
-                    <table id="inputParametersTable"
-                           width="100%">
+                <groupBox id="inputParametersBox"
+                          caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.inputParameters">
+                    <table id="inputParametersTable" dataContainer="inputParametersDc" width="100%" height="200px">
                         <actions>
-                            <action id="create"
-                                    openType="DIALOG"/>
-                            <action id="edit"
-                                    openType="DIALOG"/>
-                            <action id="remove"/>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
                         </actions>
                         <columns>
                             <column id="name"/>
                             <column id="type"/>
                         </columns>
-                        <rows datasource="inputParametersDs"/>
                         <buttonsPanel>
                             <button action="inputParametersTable.create"/>
                             <button action="inputParametersTable.edit"/>
@@ -104,7 +94,7 @@
                 >
 
                     <sourceCodeEditor id="screenParametersScriptCodeEditor"
-                                      datasource="launcherCommandDs"
+                                      dataContainer="screenLauncherCommandDc"
                                       handleTabKey="true"
                                       mode="Groovy"
                                       property="screenParametersScript"
@@ -117,21 +107,16 @@
                  caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommand.translations"
                  margin="true"
                  spacing="true">
-                <table id="translationsTable"
-                       height="200px"
-                       width="100%">
+                <table id="translationsTable" dataContainer="translationsDc" width="100%" height="200px">
                     <actions>
-                        <action id="create"
-                                openType="DIALOG"/>
-                        <action id="edit"
-                                openType="DIALOG"/>
-                        <action id="remove"/>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="remove" type="remove"/>
                     </actions>
                     <columns>
                         <column id="locale"/>
                         <column id="text"/>
                     </columns>
-                    <rows datasource="translationsDs"/>
                     <buttonsPanel>
                         <button action="translationsTable.create"/>
                         <button action="translationsTable.edit"/>
@@ -140,7 +125,9 @@
                 </table>
             </tab>
         </tabSheet>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>

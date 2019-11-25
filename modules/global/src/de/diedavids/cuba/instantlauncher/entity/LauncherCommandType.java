@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 
 public enum LauncherCommandType implements EnumClass<String> {
 
-    BEAN_LAUNCHER("BEAN_LAUNCHER"),
+    SCREEN_LAUNCHER("SCREEN_LAUNCHER"),
     SCRIPT_LAUNCHER("SCRIPT_LAUNCHER"),
-    SCREEN_LAUNCHER("SCREEN_LAUNCHER");
+    BEAN_LAUNCHER("BEAN_LAUNCHER");
 
     private String id;
 

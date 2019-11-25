@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.instantlauncher.web.screens.launchercommandtranslation.LauncherCommandTranslationEdit"
-        datasource="launcherCommandTranslationDs"
-        focusComponent="fieldGroup"
+        focusComponent="form"
         messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommandtranslation">
-    <dsContext>
-        <datasource id="launcherCommandTranslationDs"
-                    class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"
-                    view="_local"/>
-    </dsContext>
-    <layout expand="windowActions"
-            spacing="true">
-        <fieldGroup id="fieldGroup"
-                    datasource="launcherCommandTranslationDs">
+    <data>
+        <instance id="launcherCommandTranslationDc"
+                  class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode
+                forceDialog="true"
+    />
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="launcherCommandTranslationDc">
             <column width="250px">
-                <field property="locale" custom="true"/>
-                <field property="text"/>
+                <lookupField id="localeField" property="locale"/>
+                <textField id="textField" property="text"/>
             </column>
-        </fieldGroup>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
     </layout>
 </window>

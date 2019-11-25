@@ -1,7 +1,11 @@
 package de.diedavids.cuba.instantlauncher.web.screens.launchercommandgroup;
 
-import com.haulmont.cuba.gui.components.AbstractEditor;
+import com.haulmont.cuba.gui.screen.*;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
 
-public class LauncherCommandGroupEdit extends AbstractEditor<LauncherCommandGroup> {
+@UiController("ddcil$LauncherCommandGroup.edit")
+@UiDescriptor("launcher-command-group-edit.xml")
+@EditedEntityContainer("launcherCommandGroupDc")
+@LoadDataBeforeShow
+public class LauncherCommandGroupEdit extends StandardEditor<LauncherCommandGroup> {
 }
