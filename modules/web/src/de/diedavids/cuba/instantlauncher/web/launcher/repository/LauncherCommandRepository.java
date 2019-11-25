@@ -10,10 +10,17 @@ public interface LauncherCommandRepository {
 
   String NAME = "ddcil_LauncherCommandRepositoryBean";
 
-  List<LauncherCommandTranslation> findAllLauncherCommandTranslationByTextAndLocale(String query,
-      Locale locale);
+  List<LauncherCommandTranslation> findAllLauncherCommandTranslationByTextAndLocale(
+          String query,
+          Locale locale
+  );
+
+
+  List<LauncherCommand> findAllLauncherCommandsByName(String query);
 
   LauncherCommand findLauncherCommandByTranslationId(UUID id);
 
   List<LauncherCommand> findAllLauncherCommandsWithShortcuts();
+
+  LauncherCommand findLauncherCommandById(UUID launcherCommandId);
 }
