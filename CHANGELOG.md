@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2019-11-26
+
+### Added
+- Ability to add Input Parameters to Launcher Commands
+- Launcher Commands are part of the search results (via the name) even if it contains no translations
+- support for MySQL
+
+### Changed
+- Screens are re-implemented with CUBA 7 APIs
+
+
+### Dependencies
+- CUBA 7.1.x
+- rich-search 1.5.0
+- metadataextensions 0.2.1
+
 ## [0.3.0] - 2019-07-02
 
 ### Added
