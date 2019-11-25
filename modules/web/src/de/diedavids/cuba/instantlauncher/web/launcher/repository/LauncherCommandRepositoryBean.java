@@ -18,14 +18,24 @@ public class LauncherCommandRepositoryBean implements LauncherCommandRepository 
   @Override
   public List<LauncherCommandTranslation> findAllLauncherCommandTranslationByTextAndLocale(
       String query,
-      Locale locale) {
+      Locale locale
+  ) {
     String queryString = "select e from ddcil$LauncherCommandTranslation e where e.text LIKE :query and e.locale = :locale";
-    return dataManager.load(
-        LauncherCommandTranslation.class)
+    return dataManager.load(LauncherCommandTranslation.class)
         .query(queryString)
         .parameter("query", "(?i)%" + query + "%")
         .parameter("locale", locale)
+            .view("launcherCommandTranslation-with-launcherCommand")
         .list();
+  }
+
+  @Override
+  public List<LauncherCommand> findAllLauncherCommandsByName(String query) {
+    String queryString = "select e from ddcil$LauncherCommand e where e.name LIKE :query";
+    return dataManager.load(LauncherCommand.class)
+            .query(queryString)
+            .parameter("query", "(?i)%" + query + "%")
+            .list();
   }
 
   @Override
@@ -43,6 +53,13 @@ public class LauncherCommandRepositoryBean implements LauncherCommandRepository 
     return dataManager.load(LauncherCommand.class)
             .query("select e from ddcil$LauncherCommand e where e.shortcut is not null")
             .list();
+  }
+
+  @Override
+  public LauncherCommand findLauncherCommandById(UUID launcherCommandId) {
+    return dataManager.load(LauncherCommand.class)
+            .id(launcherCommandId)
+            .one();
   }
 
 

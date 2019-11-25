@@ -2,8 +2,7 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://editorCaption"
         focusComponent="form"
-        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.screenlaunchercommand">
-
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommand.screenlaunchercommand">
     <data>
         <instance id="screenLauncherCommandDc"
                   class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
