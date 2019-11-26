@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+
+        xmlns:search="http://schemas.haulmont.com/cuba/search.xsd">
+        caption="mainMsg://application.caption">
+    <layout expand="foldersSplit">
+        <hbox id="titleBar"
+              stylename="c-app-menubar"
+              expand="mainMenu"
+              width="100%"
+              spacing="true"
+              margin="false;false;false;true">
+            <image id="logoImage"
+                   align="MIDDLE_LEFT"
+                   scaleMode="SCALE_DOWN"
+                   stylename="c-app-icon"/>
+            <menu id="mainMenu"
+                  align="MIDDLE_LEFT"/>
+
+            <search:richSearch id="search"
+                               align="MIDDLE_LEFT"
+                               inputPrompt="msg://search"
+                               suggestionsLimit="200">
+                <search:strategyBean name="search_MainMenuSearchStrategy"/>
+                <search:strategyBean name="ddcil_launcherCommandSearchStrategy" />
+            </search:richSearch>
+            <ftsField id="ftsField"
+                      align="MIDDLE_LEFT"/>
+            <userIndicator id="userIndicator"
+                           align="MIDDLE_LEFT"/>
+            <timeZoneIndicator id="timeZoneIndicator"
+                               align="MIDDLE_LEFT"/>
+            <hbox id="mainButtonsBox"
+                  stylename="c-main-buttons"
+                  align="MIDDLE_LEFT">
+                <newWindowButton id="newWindowButton"
+                                 icon="app/images/new-window.png"
+                                 description="mainMsg://newWindowBtnDescription"/>
+                <logoutButton id="logoutButton"
+                              icon="app/images/exit.png"
+                              description="mainMsg://logoutBtnDescription"/>
+            </hbox>
+        </hbox>
+        <split id="foldersSplit"
+               width="100%"
+               orientation="horizontal"
+               pos="200px">
+            <foldersPane id="foldersPane"
+                         width="100%"
+                         height="100%"/>
+            <workArea id="workArea"
+                      width="100%"
+                      height="100%">
+                <initialLayout spacing="true" margin="true">
+                    <!--
+                        This is the work area - central part of the screen.
+                        Put your components here.
+                    -->
+                </initialLayout>
+            </workArea>
+        </split>
+    </layout>
+</window>

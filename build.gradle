@@ -97,7 +97,6 @@ subprojects {
 
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
-    appComponent("com.haulmont.addon.search:search-global:1.5.0")
     appComponent('com.haulmont.addon.search:search-global:1.5.0')
     appComponent('de.diedavids.cuba.metadataextensions:metadataextensions-global:0.2.1')
 }
