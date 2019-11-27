@@ -20,9 +20,10 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 
-@UiController("instantLauncherMainScreen")
-@UiDescriptor("instant-launcher-main-screen.xml")
-public class InstantLauncherMainScreen extends MainScreen implements Window.HasFoldersPane {
+@UiController("instantLauncherTopMenuMainScreen")
+@UiDescriptor("instant-launcher-top-menu-main-screen.xml")
+public class InstantLauncherTopMenuMainScreen extends MainScreen implements Window.HasFoldersPane {
+
     @Inject
     private SplitPanel foldersSplit;
     @Inject
@@ -31,12 +32,20 @@ public class InstantLauncherMainScreen extends MainScreen implements Window.HasF
     private AppWorkArea workArea;
     @Inject
     private WebConfig webConfig;
+
     @Inject
     protected LauncherCommandShortcutInitializer launcherCommandShortcutInitializer;
 
 
+    @Subscribe
+    protected void onBeforeShow(BeforeShowEvent event) {
 
-    public InstantLauncherMainScreen() {
+        launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
+                (RootWindow) this.getWindow()
+        );
+    }
+
+    public InstantLauncherTopMenuMainScreen() {
         addInitListener(this::initLayout);
     }
 
@@ -68,13 +77,6 @@ public class InstantLauncherMainScreen extends MainScreen implements Window.HasF
         return foldersPane;
     }
 
-    @Subscribe
-    protected void onBeforeShow(BeforeShowEvent event) {
-
-        launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
-                (RootWindow) this.getWindow()
-        );
-    }
     
     
 }
