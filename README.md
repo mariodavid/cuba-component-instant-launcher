@@ -193,6 +193,9 @@ A Launch Command can have multiple parameters, where a parameter can have the fo
 * Enum
 * Entity
 
+#### Launcher with Parameters
+![launcher execution](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/3-launcher-execution.png)
+
 
 ### Example usage
 To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
@@ -207,3 +210,4 @@ To see this application component in action, check out this example: [cuba-examp
 
 #### Launcher execution
 ![launcher execution](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/3-launcher-execution.png)
+

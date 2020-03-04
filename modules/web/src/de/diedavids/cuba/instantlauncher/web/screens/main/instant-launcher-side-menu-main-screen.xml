@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
-        extends="/com/haulmont/cuba/web/app/main/main-screen.xml">
+        extends="/com/haulmont/cuba/web/app/main/main-screen.xml"
+        xmlns:ext="http://schemas.haulmont.com/cuba/window-ext.xsd"
+        xmlns:search="http://schemas.haulmont.com/cuba/search.xsd">
     <layout>
         <hbox id="horizontalWrap">
+            <vbox id="sideMenuPanel">
+                <vbox ext:index="4" margin="true">
+                    <search:richSearch id="search"
+                                       align="MIDDLE_LEFT"
+                                       width="100%"
+                                       inputPrompt="msg://search"
+                                       suggestionsLimit="200">
+                        <search:strategyBean name="search_SideMenuSearchStrategy"/>
+                        <search:strategyBean name="ddcil_launcherCommandSearchStrategy" />
+                    </search:richSearch>
+                </vbox>
+            </vbox>
             <workArea id="workArea">
                 <initialLayout>
-                    <!--
-                        This is the work area - central part of the screen.
-                        Put your components here.
-                    -->
+
                 </initialLayout>
             </workArea>
         </hbox>
