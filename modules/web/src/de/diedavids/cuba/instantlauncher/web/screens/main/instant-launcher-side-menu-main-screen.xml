@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        extends="/com/haulmont/cuba/web/app/main/main-screen.xml">
+    <layout>
+        <hbox id="horizontalWrap">
+            <workArea id="workArea">
+                <initialLayout>
+                    <!--
+                        This is the work area - central part of the screen.
+                        Put your components here.
+                    -->
+                </initialLayout>
+            </workArea>
+        </hbox>
+    </layout>
+</window>

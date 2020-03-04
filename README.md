@@ -83,27 +83,101 @@ Example:
 
 'CTRL-ALT-U' - Launcher Command: Create a new User
 
-Note: In order to leverage the capabilities of global keyboard shortcut binding, it is required to create
-an Application Main Window screen, that either extends `InstantLauncherAppMainWindow` or 
-alternatively initializes the Launcher Command Shortcuts like this:
+
+### Main Window Replacement
+
+In order to leverage the capabilities of the instant-launcher application component,
+it is required to activate it in the main window.
+
+
+#### Use default Main Windows of the addon
+
+The addon provides preconfigured main windows screens, that can be configured
+to activate the addon behavior:
+
+
+Set the mainScreenId for the application via `web-app.properties`: 
+
+`cuba.web.mainScreenId`
+
+* `cuba.web.mainScreenId=instantLauncherTopMenuMainScreen` - for Top Menu Layout
+* `cuba.web.mainScreenId=instantLauncherSideMenuMainScreen` - for Side Menu Layout
+* `cuba.web.mainScreenId=instantLauncherResponsiveSideMenuMainScreen` - for responsive Side Menu Layout
+
+
+#### Custom Main Window
+
+In case your application already contains a custom Main Window, the following code has to be placed
+in order to activate the desired behavior of the addon.
+
+
+1. before the main screen is shown, the shortcut initializer has to be triggered:
 
 ```
-public class MyAppMainWindow extends AppMainWindow {
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandShortcutInitializer;
 
+@UiController("customApplicationMainScreen")
+@UiDescriptor("custom-application-main-screen.xml")
+public class InstantLauncherTopMenuMainScreen extends MainScreen implements Window.HasFoldersPane {
+
+    // ...
+    
     @Inject
     protected LauncherCommandShortcutInitializer launcherCommandShortcutInitializer;
 
-    @Override
-    public void ready() {
-        super.ready();
-        
+
+    @Subscribe
+    protected void onBeforeShow(BeforeShowEvent event) {
+
         launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
-                (RootWindow) getFrameOwner().getWindow()
+                (RootWindow) this.getWindow()
         );
     }
+
+    // ...  
+    
 }
 ```
 
+2. the rich-search bar has to be placed in the main screen and the `ddcil_launcherCommandSearchStrategy` has to be activated for
+the search bar:
+
+```
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:search="http://schemas.haulmont.com/cuba/search.xsd">
+        caption="mainMsg://application.caption">
+    <layout expand="foldersSplit">
+        <hbox id="titleBar"
+              stylename="c-app-menubar"
+              expand="mainMenu"
+              width="100%"
+              spacing="true"
+              margin="false;false;false;true">
+            <image id="logoImage"
+                   align="MIDDLE_LEFT"
+                   scaleMode="SCALE_DOWN"
+                   stylename="c-app-icon"/>
+            <menu id="mainMenu"
+                  align="MIDDLE_LEFT"/>
+                  
+            <search:richSearch id="search"
+                               align="MIDDLE_LEFT"
+                               inputPrompt="msg://search"
+                               suggestionsLimit="200">
+                <search:strategyBean name="search_MainMenuSearchStrategy"/>
+                <search:strategyBean name="ddcil_launcherCommandSearchStrategy" />
+            </search:richSearch>
+            
+            <!-- ... -->
+        
+        </hbox>
+        
+        <!-- ... -->
+        
+    </layout>
+</window>
+```
 
 ### Launcher Command Parameters
 
