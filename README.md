@@ -194,7 +194,7 @@ A Launch Command can have multiple parameters, where a parameter can have the fo
 * Entity
 
 #### Launcher with Parameters
-![launcher execution](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/3-launcher-execution.png)
+![launcher execution with parameters](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/4-instant-launcher-parameters.gif)
 
 
 ### Example usage
