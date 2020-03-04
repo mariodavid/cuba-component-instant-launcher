@@ -82,7 +82,7 @@ available in the application.
 
 Example:
 
-'CTRL-ALT-U' - Launcher Command: Create a new User
+`CTRL-ALT-U` - Launcher Command: Create a new User
 
 
 ### Main Window Replacement
