@@ -17,6 +17,7 @@
             <column width="250px">
                 <textField id="nameField" property="name"/>
                 <textField id="codeField" property="code"/>
+                <checkBox id="showInMainMenuField" property="showInMainMenu"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

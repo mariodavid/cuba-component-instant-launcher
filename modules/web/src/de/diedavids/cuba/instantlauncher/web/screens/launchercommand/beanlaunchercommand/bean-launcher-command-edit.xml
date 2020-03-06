@@ -43,6 +43,7 @@
                         >
                             <validator class="de.diedavids.cuba.instantlauncher.web.screens.validation.LauncherCommandShortcutValidator"  />
                         </textField>
+                        <checkBox id="showInMainMenuField" property="showInMainMenu"/>
                     </column>
                 </form>
             </tab>

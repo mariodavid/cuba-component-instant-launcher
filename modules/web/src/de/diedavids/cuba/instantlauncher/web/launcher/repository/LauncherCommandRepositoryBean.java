@@ -56,6 +56,14 @@ public class LauncherCommandRepositoryBean implements LauncherCommandRepository 
   }
 
   @Override
+  public List<LauncherCommand> findAllMainMenuLauncherCommands(String view) {
+    return dataManager.load(LauncherCommand.class)
+            .query("select e from ddcil$LauncherCommand e where e.showInMainMenu = true")
+            .view(view)
+            .list();
+  }
+
+  @Override
   public LauncherCommand findLauncherCommandById(UUID launcherCommandId) {
     return dataManager.load(LauncherCommand.class)
             .id(launcherCommandId)

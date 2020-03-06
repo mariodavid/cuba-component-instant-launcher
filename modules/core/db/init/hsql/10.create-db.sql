@@ -14,6 +14,7 @@ create table DDCIL_LAUNCHER_CMD (
     GROUP_ID varchar(36),
     DESCRIPTION longvarchar,
     TYPE_ varchar(50) not null,
+    SHOW_IN_MAIN_MENU boolean,
     SHORTCUT varchar(255),
     --
     primary key (ID)
@@ -82,6 +83,7 @@ create table DDCIL_LAUNCHER_COMMAND_GROUP (
     --
     NAME varchar(255) not null,
     CODE varchar(255),
+    SHOW_IN_MAIN_MENU boolean,
     --
     primary key (ID)
 )^

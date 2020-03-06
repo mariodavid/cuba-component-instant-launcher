@@ -10,6 +10,7 @@ import com.haulmont.cuba.core.global.DeletePolicy;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Locale;
 
 @DiscriminatorValue("LAUNCHER")
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
@@ -22,7 +23,7 @@ public class LauncherCommand extends StandardEntity {
     @Column(name = "NAME", nullable = false)
     protected String name;
 
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup"})
+    @Lookup(type = LookupType.DROPDOWN, actions = "lookup")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GROUP_ID")
     protected LauncherCommandGroup group;
@@ -34,6 +35,9 @@ public class LauncherCommand extends StandardEntity {
     @NotNull
     @Column(name = "TYPE_", nullable = false)
     protected String type;
+
+    @Column(name = "SHOW_IN_MAIN_MENU")
+    protected Boolean showInMainMenu;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
@@ -47,6 +51,14 @@ public class LauncherCommand extends StandardEntity {
 
     @Column(name = "SHORTCUT")
     protected String shortcut;
+
+    public Boolean getShowInMainMenu() {
+        return showInMainMenu;
+    }
+
+    public void setShowInMainMenu(Boolean showInMainMenu) {
+        this.showInMainMenu = showInMainMenu;
+    }
 
     public List<InputParameter> getInputParameters() {
         return inputParameters;
@@ -107,6 +119,19 @@ public class LauncherCommand extends StandardEntity {
 
     public List<LauncherCommandTranslation> getTranslations() {
         return translations;
+    }
+
+
+
+
+    public String translationForLocale(Locale locale) {
+        return getTranslations()
+                .stream()
+                .filter(launcherCommandTranslation -> locale.equals(launcherCommandTranslation.getLocale()))
+                .map(LauncherCommandTranslation::getText)
+                .findFirst()
+                .orElse(getName());
+
     }
 
 }

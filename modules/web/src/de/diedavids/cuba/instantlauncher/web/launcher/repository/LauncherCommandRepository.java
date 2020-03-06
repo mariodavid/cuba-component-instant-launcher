@@ -22,5 +22,7 @@ public interface LauncherCommandRepository {
 
   List<LauncherCommand> findAllLauncherCommandsWithShortcuts();
 
+  List<LauncherCommand> findAllMainMenuLauncherCommands(String view);
+
   LauncherCommand findLauncherCommandById(UUID launcherCommandId);
 }

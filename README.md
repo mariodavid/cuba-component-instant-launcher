@@ -115,7 +115,7 @@ in order to activate the desired behavior of the addon.
 1. before the main screen is shown, the shortcut initializer has to be triggered:
 
 ```
-import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandShortcutInitializer;
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandsInitializer;
 
 @UiController("customApplicationMainScreen")
 @UiDescriptor("custom-application-main-screen.xml")
