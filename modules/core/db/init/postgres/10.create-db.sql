@@ -101,6 +101,7 @@ create table DDCIL_USER_INPUT_PARAMETER (
     TYPE_ varchar(50) not null,
     LAUNCHER_COMMAND_ID uuid not null,
     ENUMERATION_CLASS varchar(255),
+    ENTITY_CLASS varchar(255),
     --
     primary key (ID)
 )^
