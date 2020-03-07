@@ -26,6 +26,25 @@
             </map>
           </option>
         </SavedDbProperties>
+        <SavedDbProperties>
+          <option name="databaseName" value="ddcil-master-test" />
+          <option name="dbType" value="postgres" />
+          <option name="host" value="localhost" />
+          <option name="pass" value="postgres" />
+          <option name="systemPassword" value="" />
+          <option name="systemUser" value="" />
+          <option name="url" value="jdbc:postgresql://localhost/ddcil-master-test" />
+          <option name="user" value="postgres" />
+          <option name="additionalProperties">
+            <map>
+              <entry key="driverClassName" value="org.postgresql.Driver" />
+              <entry key="maxIdle" value="2" />
+              <entry key="maxTotal" value="20" />
+              <entry key="maxWaitMillis" value="5000" />
+              <entry key="type" value="javax.sql.DataSource" />
+            </map>
+          </option>
+        </SavedDbProperties>
       </list>
     </option>
   </component>

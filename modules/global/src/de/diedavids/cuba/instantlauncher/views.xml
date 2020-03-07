@@ -8,7 +8,7 @@
         <property name="inputParameters"
                   view="inputParameter-view"/>
         <property name="group"
-                  view="_minimal"/>
+                  view="_local"/>
     </view>
     <view class="de.diedavids.cuba.instantlauncher.entity.ScriptLauncherCommand"
           extends="_local"
@@ -18,7 +18,7 @@
         <property name="inputParameters"
                   view="inputParameter-view"/>
         <property name="group"
-          view="_minimal"/>
+                  view="_local"/>
     </view>
     <view class="de.diedavids.cuba.instantlauncher.entity.BeanLauncherCommand"
           extends="_local"
@@ -28,7 +28,7 @@
         <property name="inputParameters"
                   view="inputParameter-view"/>
         <property name="group"
-          view="_minimal"/>
+                  view="_local"/>
     </view>
     <view class="de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand"
           extends="_local"
@@ -38,7 +38,7 @@
         <property name="inputParameters"
                   view="inputParameter-view"/>
         <property name="group"
-          view="_minimal"/>
+                  view="_local"/>
     </view>
     <view class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation"
           extends="_local"

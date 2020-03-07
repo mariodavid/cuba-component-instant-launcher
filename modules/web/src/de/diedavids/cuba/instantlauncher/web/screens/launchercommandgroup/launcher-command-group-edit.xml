@@ -24,7 +24,7 @@
                     <column width="250px">
                         <textField id="nameField" property="name"/>
                         <textField id="codeField" property="code"/>
-                        <checkBox id="showInMainMenuField" property="showInMainMenu"/>
+                        <checkBox id="showInMainMenuField" property="showInMainMenu" contextHelpText="msg://showInMainMenu"/>
                     </column>
                 </form>
             </tab>

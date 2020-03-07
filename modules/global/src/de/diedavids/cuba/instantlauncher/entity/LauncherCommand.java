@@ -127,7 +127,7 @@ public class LauncherCommand extends StandardEntity {
     public String translationForLocale(Locale locale) {
         return getTranslations()
                 .stream()
-                .filter(launcherCommandTranslation -> locale.equals(launcherCommandTranslation.getLocale()))
+                .filter(translation -> locale.equals(translation.getLocale()))
                 .map(LauncherCommandTranslation::getText)
                 .findFirst()
                 .orElse(getName());

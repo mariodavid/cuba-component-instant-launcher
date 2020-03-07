@@ -80,12 +80,17 @@ public class LauncherCommandsInitializer {
 
     List<LauncherCommand> mainMenuLauncherCommands = launcherCommandRepository.findAllMainMenuLauncherCommands("launcherCommand-with-details");
 
+    List<LauncherCommandGroup> allMainMenuGroups = launcherCommandRepository.findAllMainMenuGroups("group-with-translations-view");
+
+
     mainMenuLauncherCommands
             .stream()
             .filter(launcherCommand -> launcherCommand.getGroup() != null)
+            .filter(launcherCommand -> Boolean.TRUE.equals(launcherCommand.getGroup().getShowInMainMenu()))
             .collect(groupingBy(LauncherCommand::getGroup))
             .forEach((launcherCommandGroup, launcherCommands) -> {
-              MenuItemAdapter groupItem = groupMenuItem(launcherCommandGroup, menu);
+              String groupCaption = groupCaption(allMainMenuGroups, launcherCommandGroup);
+              MenuItemAdapter groupItem = groupMenuItem(launcherCommandGroup, groupCaption, menu);
               addLauncherCommandsToMenu(launcherCommands, groupItem, menu);
               menu.addMenuItem(groupItem.getMenuItem(), 0);
             });
@@ -96,10 +101,18 @@ public class LauncherCommandsInitializer {
             .forEach(launcherCommand -> addLauncherCommandToMenu(launcherCommand, null, menu));
   }
 
-  private MenuItemAdapter groupMenuItem(LauncherCommandGroup launcherCommandGroup, MenuAdapter mainMenu) {
+  private String groupCaption(List<LauncherCommandGroup> allMainMenuGroups, LauncherCommandGroup groupToDisplay) {
+    return allMainMenuGroups.stream()
+            .filter(launcherCommandGroup -> launcherCommandGroup.equals(groupToDisplay))
+            .findFirst()
+            .map(launcherCommandGroup -> launcherCommandGroup.translationForLocale(userSessionSource.getLocale()))
+            .orElse(groupToDisplay.getName());
+  }
+
+  private MenuItemAdapter groupMenuItem(LauncherCommandGroup launcherCommandGroup, String groupCaption, MenuAdapter mainMenu) {
     return mainMenu.createMenuItem(
             launcherCommandGroup.getId().toString(),
-            launcherCommandGroup.getName()
+            groupCaption
     );
   }
 
@@ -119,7 +132,7 @@ public class LauncherCommandsInitializer {
   ) {
     MenuItemAdapter subItem = mainMenu.createMenuItem(
             launcherCommand.getName(),
-            launcherCommand.translationForLocale(userSessionSource.getUserSession().getLocale()),
+            launcherCommand.translationForLocale(userSessionSource.getLocale()),
             null,
             menuItem -> launcherCommandExecutorAPI.launchCommand(launcherCommand));
 
