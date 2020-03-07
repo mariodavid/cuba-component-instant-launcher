@@ -45,6 +45,25 @@
             </map>
           </option>
         </SavedDbProperties>
+        <SavedDbProperties>
+          <option name="databaseName" value="cuba" />
+          <option name="dbType" value="mysql" />
+          <option name="host" value="localhost" />
+          <option name="pass" value="mysql" />
+          <option name="systemPassword" value="" />
+          <option name="systemUser" value="" />
+          <option name="url" value="jdbc:mysql://localhost/cuba?useSSL=false&amp;allowMultiQueries=true&amp;allowPublicKeyRetrieval=true" />
+          <option name="user" value="root" />
+          <option name="additionalProperties">
+            <map>
+              <entry key="driverClassName" value="com.mysql.jdbc.Driver" />
+              <entry key="maxIdle" value="2" />
+              <entry key="maxTotal" value="20" />
+              <entry key="maxWaitMillis" value="5000" />
+              <entry key="type" value="javax.sql.DataSource" />
+            </map>
+          </option>
+        </SavedDbProperties>
       </list>
     </option>
   </component>
