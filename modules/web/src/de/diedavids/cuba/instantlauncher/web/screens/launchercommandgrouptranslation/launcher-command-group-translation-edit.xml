@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="de.diedavids.cuba.instantlauncher.web.screens.launchercommandgrouptranslation">
+    <data>
+        <instance id="launcherCommandGroupTranslationDc"
+                  class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroupTranslation"
+                  view="_local">
+            <loader/>
+        </instance>
+    </data>
+    <dialogMode
+            forceDialog="true"
+    />
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="launcherCommandGroupTranslationDc">
+            <column width="250px">
+                <lookupField id="localeField" property="locale" />
+                <textField id="textField" property="text"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

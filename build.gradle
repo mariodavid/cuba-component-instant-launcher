@@ -4,7 +4,7 @@ buildscript {
         maven {
 
             maven {
-                url  "https://dl.bintray.com/mariodavid/cuba-components"
+                url "https://dl.bintray.com/mariodavid/cuba-components"
             }
 
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -13,7 +13,7 @@ buildscript {
                 password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
             }
         }
-        
+
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
@@ -31,7 +31,6 @@ plugins {
 }
 
 apply plugin: "com.github.kt3k.coveralls"
-
 
 
 def modulePrefix = 'instantlauncher'
@@ -101,8 +100,7 @@ dependencies {
     appComponent('de.diedavids.cuba.metadataextensions:metadataextensions-global:0.2.1')
 }
 
-def hsql = 'org.hsqldb:hsqldb:2.4.1'
-
+def postgres = 'org.postgresql:postgresql:42.2.9'
 
 
 allprojects {
@@ -205,8 +203,8 @@ configure(coreModule) {
     dependencies {
         compile(globalModule)
         compileOnly(servletApi)
-        jdbc(hsql)
-        testRuntime(hsql)
+        jdbc(postgres)
+        testRuntime(postgres)
     }
 
     task cleanConf(description: 'Cleans up conf directory') {
@@ -249,22 +247,22 @@ configure(coreModule) {
 
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
-        dbms = 'hsql'
-        host = 'localhost:9010'
-        dbName = 'ddcil'
-        dbUser = 'sa'
-        dbPassword = ''
-        }
+        dbms = 'postgres'
+        host = 'localhost'
+        dbName = 'ddcil-master-test'
+        dbUser = 'postgres'
+        dbPassword = 'postgres'
+    }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
-        dbms = 'hsql'
-        host = 'localhost:9010'
-        dbName = 'ddcil'
-        dbUser = 'sa'
-        dbPassword = ''
-        }
+        dbms = 'postgres'
+        host = 'localhost'
+        dbName = 'ddcil-master-test'
+        dbUser = 'postgres'
+        dbPassword = 'postgres'
+    }
 
-        task createTestDb(dependsOn: assembleDbScripts, description: 'Creates local HSQL database', type: CubaDbCreation) {
+    task createTestDb(dependsOn: assembleDbScripts, description: 'Creates local HSQL database', type: CubaDbCreation) {
         dbms = 'hsql'
         host = "localhost:$hsqlPort"
         dbName = hsqlDbName
@@ -323,9 +321,6 @@ configure(webModule) {
 }
 
 
-
-
-
 task undeploy(type: Delete, dependsOn: ":${modulePrefix}-web:cleanConf") {
     delete("$cuba.tomcat.dir/shared")
     delete("$cuba.tomcat.dir/webapps/${modulePrefix}-core")
@@ -342,7 +337,6 @@ task restart(dependsOn: ['stop', ":${modulePrefix}-core:deploy", ":${modulePrefi
         start.execute()
     }
 }
-
 
 
 clean {

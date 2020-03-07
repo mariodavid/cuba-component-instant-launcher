@@ -50,4 +50,10 @@
         <property name="launcherCommand" view="_minimal"/>
         <property name="translations" view="_base"/>
     </view>
+    <view entity="ddcil_LauncherCommandGroupTranslation" name="translation-with-group-view" extends="_local">
+        <property name="launcherCommandGroup" view="_minimal"/>
+    </view>
+    <view entity="ddcil$LauncherCommandGroup" name="group-with-translations-view" extends="_local">
+        <property name="translations" view="_local"/>
+    </view>
 </views>

@@ -1,12 +1,17 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NamePattern("%s|name")
 @Table(name = "DDCIL_LAUNCHER_COMMAND_GROUP")
@@ -23,6 +28,19 @@ public class LauncherCommandGroup extends StandardEntity {
 
     @Column(name = "SHOW_IN_MAIN_MENU")
     protected Boolean showInMainMenu;
+
+    @OneToMany(mappedBy = "launcherCommandGroup")
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    protected List<LauncherCommandGroupTranslation> translations;
+
+    public void setTranslations(List<LauncherCommandGroupTranslation> translations) {
+        this.translations = translations;
+    }
+
+    public List<LauncherCommandGroupTranslation> getTranslations() {
+        return translations;
+    }
 
     public Boolean getShowInMainMenu() {
         return showInMainMenu;
