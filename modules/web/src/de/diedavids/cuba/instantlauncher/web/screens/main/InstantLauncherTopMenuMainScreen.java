@@ -16,6 +16,7 @@ import com.haulmont.cuba.web.gui.components.WebComponentsHelper;
 import com.haulmont.cuba.web.widgets.CubaHorizontalSplitPanel;
 import com.vaadin.server.Sizeable;
 import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandsInitializer;
+import de.diedavids.cuba.instantlauncher.web.launcher.menu.AppMenuAdapter;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -44,6 +45,10 @@ public class InstantLauncherTopMenuMainScreen extends MainScreen implements Wind
 
         launcherCommandShortcutInitializer.initKeyboardShortcuts(
                 (RootWindow) this.getWindow()
+        );
+
+        launcherCommandShortcutInitializer.initMenuLauncherCommands(
+                AppMenuAdapter.of(mainMenu)
         );
     }
 
