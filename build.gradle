@@ -282,6 +282,8 @@ configure(webModule) {
     dependencies {
         compileOnly(servletApi)
         compile(globalModule)
+
+        testCompile('de.diedavids.sneferu:sneferu:0.2.0')
     }
 
     task webArchive(type: Zip) {

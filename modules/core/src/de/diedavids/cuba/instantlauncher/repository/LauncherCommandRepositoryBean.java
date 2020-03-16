@@ -1,4 +1,4 @@
-package de.diedavids.cuba.instantlauncher.web.launcher.repository;
+package de.diedavids.cuba.instantlauncher.repository;
 
 import com.haulmont.cuba.core.global.DataManager;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;

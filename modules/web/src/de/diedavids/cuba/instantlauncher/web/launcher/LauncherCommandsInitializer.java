@@ -8,9 +8,9 @@ import com.haulmont.cuba.web.widgets.CubaOrderedActionsLayout;
 import com.vaadin.event.ShortcutListener;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
+import de.diedavids.cuba.instantlauncher.service.LauncherCommandService;
 import de.diedavids.cuba.instantlauncher.web.launcher.menu.MenuAdapter;
 import de.diedavids.cuba.instantlauncher.web.launcher.menu.MenuItemAdapter;
-import de.diedavids.cuba.instantlauncher.web.launcher.repository.LauncherCommandRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,8 +29,7 @@ public class LauncherCommandsInitializer {
   protected LauncherCommandExecutorAPI launcherCommandExecutorAPI;
 
   @Inject
-  protected LauncherCommandRepository launcherCommandRepository;
-
+  protected LauncherCommandService launcherCommandService;
   @Inject
   protected UserSessionSource userSessionSource;
 
@@ -38,7 +37,7 @@ public class LauncherCommandsInitializer {
 
     CubaOrderedActionsLayout actionsLayout = topLevelWindow.unwrap(CubaOrderedActionsLayout.class);
 
-    launcherCommandRepository.findAllLauncherCommandsWithShortcuts()
+    launcherCommandService.findAllLauncherCommandsWithShortcuts()
             .stream()
             .filter(this::hasValidShortcut)
             .forEach(launcherCommand -> actionsLayout.addShortcutListener(createShortcutFor(launcherCommand)));
@@ -78,9 +77,9 @@ public class LauncherCommandsInitializer {
 
   public void initMenuLauncherCommands(MenuAdapter menu) {
 
-    List<LauncherCommand> mainMenuLauncherCommands = launcherCommandRepository.findAllMainMenuLauncherCommands("launcherCommand-with-details");
+    List<LauncherCommand> mainMenuLauncherCommands = launcherCommandService.findAllMainMenuLauncherCommands("launcherCommand-with-details");
 
-    List<LauncherCommandGroup> allMainMenuGroups = launcherCommandRepository.findAllMainMenuGroups("group-with-translations-view");
+    List<LauncherCommandGroup> allMainMenuGroups = launcherCommandService.findAllMainMenuGroups("group-with-translations-view");
 
 
     mainMenuLauncherCommands

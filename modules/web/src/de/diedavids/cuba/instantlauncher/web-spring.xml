@@ -6,6 +6,15 @@
     <!-- Annotation-based beans -->
     <context:component-scan base-package="de.diedavids.cuba.instantlauncher"/>
     <gui:screens base-packages="de.diedavids.cuba.instantlauncher.web"/>
+    <bean id="ddcil_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="ddcil_LauncherCommandService"
+                       value="de.diedavids.cuba.instantlauncher.service.LauncherCommandService"/>
+            </map>
+        </property>
+    </bean>
 
 
 </beans>
