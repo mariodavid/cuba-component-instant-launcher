@@ -31,6 +31,7 @@ class CreateLauncherCommandGroupSpec extends Specification {
   SneferuTestUiEnvironment environment =
       new SneferuTestUiEnvironment(InstantLauncherWebTestContainer.Common.INSTANCE)
           .withScreenPackages(
+                  "com.haulmont.cuba.web.app.main",
                   "de.diedavids.cuba.instantlauncher.web"
           )
           .withUserLogin("admin")
