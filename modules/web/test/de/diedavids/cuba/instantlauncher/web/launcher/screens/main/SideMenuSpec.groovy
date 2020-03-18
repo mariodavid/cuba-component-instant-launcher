@@ -43,7 +43,11 @@ class SideMenuSpec extends Specification {
 
     void cleanup() {
         uiTestAPI.closeAllScreens()
-   }
+    }
+
+    void cleanupSpec() {
+        TestServiceProxy.clear()
+    }
 
     def "side menu shows a launcher command that is activated for main menu and has no group assigned as a top level menu item"() {
 

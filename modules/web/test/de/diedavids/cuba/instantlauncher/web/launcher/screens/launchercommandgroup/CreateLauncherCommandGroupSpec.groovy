@@ -1,11 +1,14 @@
-package de.diedavids.cuba.instantlauncher.web.launcher.screens.launchercommandgroup;
+package de.diedavids.cuba.instantlauncher.web.launcher.screens.launchercommandgroup
 
+import com.haulmont.cuba.gui.screen.OpenMode;
 import com.haulmont.cuba.gui.util.OperationResult
+import com.haulmont.cuba.web.app.main.MainScreen
 import com.haulmont.cuba.web.testsupport.proxy.TestServiceProxy
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup
 import de.diedavids.cuba.instantlauncher.web.launcher.InstantLauncherWebTestContainer
 import de.diedavids.cuba.instantlauncher.web.screens.launchercommandgroup.LauncherCommandGroupBrowse
 import de.diedavids.cuba.instantlauncher.web.screens.launchercommandgroup.LauncherCommandGroupEdit
+import de.diedavids.cuba.instantlauncher.web.screens.main.InstantLauncherSideMenuMainScreen
 import de.diedavids.cuba.instantlauncher.web.screens.main.InstantLauncherTopMenuMainScreen
 import de.diedavids.sneferu.UiTestAPI
 import de.diedavids.sneferu.environment.SneferuTestUiEnvironment
@@ -31,7 +34,7 @@ class CreateLauncherCommandGroupSpec extends Specification {
                   "de.diedavids.cuba.instantlauncher.web"
           )
           .withUserLogin("admin")
-          .withMainScreen(InstantLauncherTopMenuMainScreen)
+          .withMainScreen(MainScreen)
 
   UiTestAPI uiTestAPI
 
@@ -40,6 +43,7 @@ class CreateLauncherCommandGroupSpec extends Specification {
 
   def setup() {
     uiTestAPI = environment.getUiTestAPI()
+
 
     browse = uiTestAPI.openStandardLookup(LauncherCommandGroup, LauncherCommandGroupBrowse)
 
@@ -51,6 +55,9 @@ class CreateLauncherCommandGroupSpec extends Specification {
 
   void cleanup() {
     uiTestAPI.closeAllScreens()
+  }
+
+  void cleanupSpec() {
     TestServiceProxy.clear()
   }
 
