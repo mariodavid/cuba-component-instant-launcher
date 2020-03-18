@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @DiscriminatorValue("LAUNCHER")
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
@@ -125,12 +126,16 @@ public class LauncherCommand extends StandardEntity {
 
 
     public String translationForLocale(Locale locale) {
-        return getTranslations()
-                .stream()
-                .filter(translation -> locale.equals(translation.getLocale()))
-                .map(LauncherCommandTranslation::getText)
-                .findFirst()
+        return Optional.ofNullable(getTranslations())
+                .map(launcherCommandTranslations ->
+                        launcherCommandTranslations
+                                .stream()
+                        .filter(translation -> locale.equals(translation.getLocale()))
+                        .map(LauncherCommandTranslation::getText)
+                        .findFirst()
+                        .orElse(getName()))
                 .orElse(getName());
+
 
     }
 

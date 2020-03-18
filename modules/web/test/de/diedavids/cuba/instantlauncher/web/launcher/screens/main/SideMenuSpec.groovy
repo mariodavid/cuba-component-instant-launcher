@@ -1,103 +1,119 @@
 package de.diedavids.cuba.instantlauncher.web.launcher.screens.main
 
-import com.haulmont.cuba.core.app.DataService
+
 import com.haulmont.cuba.gui.components.mainwindow.SideMenu
 import com.haulmont.cuba.gui.screen.OpenMode
-import com.haulmont.cuba.web.testsupport.TestUiEnvironment
+import com.haulmont.cuba.gui.screen.Screen
 import com.haulmont.cuba.web.testsupport.proxy.TestServiceProxy
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand
+import de.diedavids.cuba.instantlauncher.service.LauncherCommandService
 import de.diedavids.cuba.instantlauncher.web.launcher.InstantLauncherWebTestContainer
 import de.diedavids.cuba.instantlauncher.web.screens.main.InstantLauncherSideMenuMainScreen
-import de.diedavids.sneferu.ControllableDataServiceProxy
 import de.diedavids.sneferu.UiTestAPI
 import de.diedavids.sneferu.components.descriptor.GenericComponentDescriptor
 import de.diedavids.sneferu.components.testapi.GenericComponentTestAPI
 import de.diedavids.sneferu.environment.SneferuTestUiEnvironment
+import de.diedavids.sneferu.screen.ScreenTestAPI
 import org.junit.ClassRule
 import spock.lang.Shared
 import spock.lang.Specification
 
 class SideMenuSpec extends Specification {
 
-  @Shared @ClassRule
-  SneferuTestUiEnvironment environment =
-      new SneferuTestUiEnvironment(InstantLauncherWebTestContainer.Common.INSTANCE)
-          .withScreenPackages(
-                  "de.diedavids.cuba.instantlauncher.web"
-          )
-          .withUserLogin("admin")
-          .withMainScreen(InstantLauncherSideMenuMainScreen)
+    @Shared
+    @ClassRule
+    SneferuTestUiEnvironment environment =
+            new SneferuTestUiEnvironment(InstantLauncherWebTestContainer.Common.INSTANCE)
+                    .withScreenPackages(
+                            "de.diedavids.cuba.instantlauncher.web"
+                    )
+                    .withUserLogin("admin")
+                    .withMainScreen(InstantLauncherSideMenuMainScreen)
 
-  UiTestAPI uiTestAPI
+    UiTestAPI uiTestAPI
 
-  private ControllableDataServiceProxy dataServiceProxy
+    LauncherCommandService launcherCommandService
 
-  def setup() {
-    dataServiceProxy = new ControllableDataServiceProxy(environment.container)
-    uiTestAPI = environment.getUiTestAPI()
-  }
+    def setup() {
+        launcherCommandService = Mock(LauncherCommandService)
+        launcherCommandService.findAllLauncherCommandsWithShortcuts() >> []
+        TestServiceProxy.mock(LauncherCommandService, launcherCommandService)
+        uiTestAPI = environment.getUiTestAPI()
+    }
 
-  void cleanup() {
-    uiTestAPI.closeAllScreens()
-    TestServiceProxy.clear()
-  }
+    void cleanup() {
+        uiTestAPI.closeAllScreens()
+        TestServiceProxy.clear()
+    }
 
-  def "the Side Menu contains the a configure instant launcher"() {
+    def "side menu shows a launcher command that is activated for main menu and has no group assigned as a top level menu item"() {
 
-    given:
+        given:
+        mainMenuLauncherCommands([
+                new LauncherCommand(
+                        showInMainMenu: true,
+                        name: "dynamic launcher"
+                )
+        ])
 
-    dataServiceProxy.returnEntitiesOnLoadList(
-            LauncherCommand,
-            [new LauncherCommand(
-                    showInMainMenu: true,
-                    name: "dynamic launcher"
-            )]
-    )
-    TestServiceProxy.mock(DataService.class, this.dataServiceProxy)
+        when:
+        ScreenTestAPI mainScreen = showSideMenuRootScreen()
+        SideMenu sideMenu = sideMenu(mainScreen)
+
+        then:
+
+        sideMenu.menuItems.any { it.caption == "dynamic launcher" }
+    }
+
+    def "side menu shows a launcher command that is activated for main menu and has a group assigned as a menu item of that group"() {
+
+        given:
+        mainMenuLauncherCommands([])
+
+        when:
+        ScreenTestAPI mainScreen = showSideMenuRootScreen()
+
+        then:
+        SideMenu sideMenu = sideMenu(mainScreen)
+
+        sideMenu.menuItems[0].caption == "Administration"
+    }
+
+    private void mainMenuLauncherCommands(List<LauncherCommand> commands) {
+        launcherCommandService.findAllMainMenuLauncherCommands(_ as String) >> commands
+    }
+
+    private static SideMenu sideMenu(ScreenTestAPI mainScreen) {
+        mainScreen
+                .rawComponent(new SideMenuComponentDescriptor("sideMenu")) as SideMenu
+    }
+
+    private ScreenTestAPI showSideMenuRootScreen() {
+
+        environment.getScreens()
+                .create(InstantLauncherSideMenuMainScreen, OpenMode.ROOT)
+                .show()
 
 
-    environment.getScreens()
-            .create(InstantLauncherSideMenuMainScreen, OpenMode.ROOT)
-            .show();
+        new ScreenTestAPI(
+                InstantLauncherSideMenuMainScreen,
+                environment.getScreens()
+                        .getOpenedScreens()
+                        .rootScreen
+        )
 
-    def rootScreen = uiTestAPI.getOpenedScreen(InstantLauncherSideMenuMainScreen)
-    // def rootScreen = environment.getScreens().getOpenedScreens().rootScreen
-    /*
-    def mainScreen = new ScreenTestAPI(
-            InstantLauncherSideMenuMainScreen,
-            environment.getScreens()
-                    .getOpenedScreens()
-                    .rootScreen
-    )
-     */
-
-    when:
-    def sideMenu = rootScreen
-            //.component(sideMenu("sideMenu"))
-
-    then:
-    /*
-    ((SideMenu) sideMenu.rawComponent())
-        .getMenuItems().size() == 12
-         */
-    true
-  }
-
-  SideMenuComponentDescriptor sideMenu(String componentId) {
-    new SideMenuComponentDescriptor(componentId)
-  }
-
+    }
 
 }
 
 class SideMenuComponentDescriptor extends GenericComponentDescriptor<SideMenu, GenericComponentTestAPI> {
 
-  SideMenuComponentDescriptor(String componentId) {
-    super(SideMenu, componentId)
-  }
+    SideMenuComponentDescriptor(String componentId) {
+        super(SideMenu, componentId)
+    }
 
-  @Override
-  GenericComponentTestAPI createTestAPI(SideMenu component) {
-    new GenericComponentTestAPI(component)
-  }
+    @Override
+    GenericComponentTestAPI createTestAPI(SideMenu component) {
+        new GenericComponentTestAPI(component)
+    }
 }
