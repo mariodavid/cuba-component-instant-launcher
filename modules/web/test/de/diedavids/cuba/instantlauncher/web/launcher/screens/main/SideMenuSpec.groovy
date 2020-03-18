@@ -64,7 +64,7 @@ class SideMenuSpec extends Specification {
         sideMenu.menuItems.any { it.caption == "dynamic launcher" }
     }
 
-    def "side menu shows a launcher command that is activated for main menu and has a group assigned as a menu item of that group"() {
+    def "side menu shows no launcher command in case no main menu launcher commands are available"() {
 
         given:
         mainMenuLauncherCommands([])
