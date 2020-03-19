@@ -53,7 +53,7 @@ The following databases are supported by this application component:
 * PostgreSQL
 * MySQL
 
-All other DMBS systems are also possible to work with by the fact that CUBA studio generates the corresponding 
+All other DBMS systems are also possible to work with by the fact that CUBA studio generates the corresponding 
 init / update scripts within the application.
 
 ## Using the application component
@@ -86,16 +86,29 @@ Example:
 `CTRL-ALT-U` - Launcher Command: Create a new User
 
 
+### Launcher Commands from Application Menu
+
+Next to performing a launcher command via a Keyboard Shortcut, it is also possible to enable Launcher Commands in the
+Main Menu of the application. In this case the Launcher Command is shown as a Menu item that is executed on clicking
+the menu item.
+
+With this in combination with Screen Launcher Commands it is possible to e.g. define "Menu-Favorites" or any other quick
+action, that should be available via the Main Menu.
+
+In case the Launcher Command is organized in a Launcher Command Group, the corresponding group acts as a Main Menu Entry,
+which then as Sub Menu Items contains all launcher commands that are associated to the group.
+
+
 ### Main Window Replacement
 
 In order to leverage the capabilities of the instant-launcher application component,
 it is required to activate it in the main window.
 
 
-#### Use default Main Windows of the addon
+#### Use default Main Windows of the add-on
 
-The addon provides preconfigured main windows screens, that can be configured
-to activate the addon behavior:
+The add-on provides preconfigured main windows screens, that can be configured
+to activate the add-on behavior:
 
 
 Set the mainScreenId for the application via `web-app.properties`: 
@@ -110,7 +123,7 @@ Set the mainScreenId for the application via `web-app.properties`:
 #### Custom Main Window
 
 In case your application already contains a custom Main Window, the following code has to be placed
-in order to activate the desired behavior of the addon.
+in order to activate the desired behavior of the add-on.
 
 
 1. before the main screen is shown, the shortcut initializer has to be triggered:
