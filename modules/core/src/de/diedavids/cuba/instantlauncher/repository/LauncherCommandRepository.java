@@ -1,6 +1,7 @@
-package de.diedavids.cuba.instantlauncher.web.launcher.repository;
+package de.diedavids.cuba.instantlauncher.repository;
 
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
+import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
 import java.util.List;
 import java.util.Locale;
@@ -22,5 +23,9 @@ public interface LauncherCommandRepository {
 
   List<LauncherCommand> findAllLauncherCommandsWithShortcuts();
 
+  List<LauncherCommand> findAllMainMenuLauncherCommands(String view);
+
   LauncherCommand findLauncherCommandById(UUID launcherCommandId);
+
+  List<LauncherCommandGroup> findAllMainMenuGroups(String view);
 }

@@ -10,6 +10,7 @@ import com.haulmont.cuba.gui.screen.FrameOwner
 import com.haulmont.cuba.gui.screen.UiControllerUtils
 import com.haulmont.cuba.web.AppUI
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand
+import de.diedavids.cuba.instantlauncher.service.LauncherCommandService
 import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Component
 
@@ -23,15 +24,19 @@ class LauncherCommandExecutorAPIBean implements LauncherCommandExecutorAPI {
     @Inject
     DataManager dataManager
 
+
+
     @Inject
     LauncherCommandExecutorFactory launcherCommandExecutorFactory
 
     @Inject
     LauncherCommandInputParameterDialogFactory launcherCommandInputParameterDialogFactory
+    @Inject
+    protected LauncherCommandService launcherCommandService
 
     void launchCommand(LauncherCommand launcherCommand) {
 
-        LauncherCommand reloadedLauncherCommand = dataManager.reload(launcherCommand, 'launcherCommand-with-details')
+        LauncherCommand reloadedLauncherCommand = launcherCommandService.loadWithDetails(launcherCommand)
 
         def executor = launcherCommandExecutorFactory.create(reloadedLauncherCommand)
 

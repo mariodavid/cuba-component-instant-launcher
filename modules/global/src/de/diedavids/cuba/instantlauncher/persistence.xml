@@ -12,5 +12,6 @@
         <class>de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup</class>
         <class>de.diedavids.cuba.instantlauncher.entity.InputParameter</class>
         <class>de.diedavids.cuba.instantlauncher.entity.InputParameterTranslation</class>
+        <class>de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroupTranslation</class>
     </persistence-unit>
 </persistence>

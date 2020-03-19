@@ -8,17 +8,16 @@ import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
-import de.diedavids.cuba.instantlauncher.web.launcher.repository.LauncherCommandRepository;
+import de.diedavids.cuba.instantlauncher.service.LauncherCommandService;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-
-import org.springframework.stereotype.Component;
 
 @Component("ddcil_launcherCommandSearchStrategy")
 public class LauncherCommandSearchStrategy implements SearchStrategy {
@@ -35,7 +34,7 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
     LauncherCommandExecutorAPI launcherCommandExecutorAPI;
 
     @Inject
-    protected LauncherCommandRepository launcherCommandRepository;
+    protected LauncherCommandService launcherCommandService;
 
     @Inject
     protected UserSessionSource userSessionSource;
@@ -95,13 +94,13 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
             String query,
             Locale currentLocale
     ) {
-        return launcherCommandRepository.findAllLauncherCommandTranslationByTextAndLocale(query, currentLocale);
+        return launcherCommandService.findAllLauncherCommandTranslationByTextAndLocale(query, currentLocale);
     }
 
     private List<LauncherCommand> findLauncherCommandsByName(
             String query
     ) {
-        return launcherCommandRepository.findAllLauncherCommandsByName(query);
+        return launcherCommandService.findAllLauncherCommandsByName(query);
     }
 
     private Locale getCurrentLocale() {
@@ -160,11 +159,11 @@ public class LauncherCommandSearchStrategy implements SearchStrategy {
     }
 
     private LauncherCommand findLauncherCommandById(String launcherCommandId) {
-        return launcherCommandRepository.findLauncherCommandById(UUID.fromString(launcherCommandId));
+        return launcherCommandService.findLauncherCommandById(UUID.fromString(launcherCommandId));
     }
 
     private LauncherCommand findLauncherCommandByTranslationId(String launchCommandTranslationId) {
-        return launcherCommandRepository.findLauncherCommandByTranslationId(UUID.fromString(launchCommandTranslationId));
+        return launcherCommandService.findLauncherCommandByTranslationId(UUID.fromString(launchCommandTranslationId));
     }
 
 

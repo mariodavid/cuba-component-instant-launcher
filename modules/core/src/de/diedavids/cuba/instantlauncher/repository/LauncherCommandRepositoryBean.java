@@ -1,7 +1,8 @@
-package de.diedavids.cuba.instantlauncher.web.launcher.repository;
+package de.diedavids.cuba.instantlauncher.repository;
 
 import com.haulmont.cuba.core.global.DataManager;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
+import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
 import java.util.List;
 import java.util.Locale;
@@ -56,10 +57,26 @@ public class LauncherCommandRepositoryBean implements LauncherCommandRepository 
   }
 
   @Override
+  public List<LauncherCommand> findAllMainMenuLauncherCommands(String view) {
+    return dataManager.load(LauncherCommand.class)
+            .query("select e from ddcil$LauncherCommand e where e.showInMainMenu = true")
+            .view(view)
+            .list();
+  }
+
+  @Override
   public LauncherCommand findLauncherCommandById(UUID launcherCommandId) {
     return dataManager.load(LauncherCommand.class)
             .id(launcherCommandId)
             .one();
+  }
+
+  @Override
+  public List<LauncherCommandGroup> findAllMainMenuGroups(String view) {
+    return dataManager.load(LauncherCommandGroup.class)
+            .query("select e from ddcil$LauncherCommandGroup e where e.showInMainMenu = true")
+            .view(view)
+            .list();
   }
 
 

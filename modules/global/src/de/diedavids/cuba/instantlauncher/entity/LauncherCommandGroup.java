@@ -1,11 +1,19 @@
 package de.diedavids.cuba.instantlauncher.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDelete;
+import com.haulmont.cuba.core.global.DeletePolicy;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @NamePattern("%s|name")
 @Table(name = "DDCIL_LAUNCHER_COMMAND_GROUP")
@@ -19,6 +27,30 @@ public class LauncherCommandGroup extends StandardEntity {
 
     @Column(name = "CODE")
     protected String code;
+
+    @Column(name = "SHOW_IN_MAIN_MENU")
+    protected Boolean showInMainMenu;
+
+    @OneToMany(mappedBy = "launcherCommandGroup")
+    @Composition
+    @OnDelete(DeletePolicy.CASCADE)
+    protected List<LauncherCommandGroupTranslation> translations;
+
+    public void setTranslations(List<LauncherCommandGroupTranslation> translations) {
+        this.translations = translations;
+    }
+
+    public List<LauncherCommandGroupTranslation> getTranslations() {
+        return translations;
+    }
+
+    public Boolean getShowInMainMenu() {
+        return showInMainMenu;
+    }
+
+    public void setShowInMainMenu(Boolean showInMainMenu) {
+        this.showInMainMenu = showInMainMenu;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -36,5 +68,19 @@ public class LauncherCommandGroup extends StandardEntity {
         return code;
     }
 
+
+    public String translationForLocale(Locale locale) {
+
+        return Optional.ofNullable(getTranslations())
+                .map(translations ->
+                        translations
+                                .stream()
+                                .filter(translation -> locale.equals(translation.getLocale()))
+                                .map(LauncherCommandGroupTranslation::getText)
+                                .findFirst()
+                                .orElse(getName()))
+                .orElse(getName());
+
+    }
 
 }

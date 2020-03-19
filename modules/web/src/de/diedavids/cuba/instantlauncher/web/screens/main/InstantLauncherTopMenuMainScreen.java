@@ -4,6 +4,7 @@ import com.haulmont.cuba.gui.components.RootWindow;
 import com.haulmont.cuba.gui.components.SizeUnit;
 import com.haulmont.cuba.gui.components.SplitPanel;
 import com.haulmont.cuba.gui.components.Window;
+import com.haulmont.cuba.gui.components.mainwindow.AppMenu;
 import com.haulmont.cuba.gui.components.mainwindow.AppWorkArea;
 import com.haulmont.cuba.gui.components.mainwindow.FoldersPane;
 import com.haulmont.cuba.gui.screen.Subscribe;
@@ -14,7 +15,8 @@ import com.haulmont.cuba.web.app.main.MainScreen;
 import com.haulmont.cuba.web.gui.components.WebComponentsHelper;
 import com.haulmont.cuba.web.widgets.CubaHorizontalSplitPanel;
 import com.vaadin.server.Sizeable;
-import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandShortcutInitializer;
+import de.diedavids.cuba.instantlauncher.web.launcher.LauncherCommandsInitializer;
+import de.diedavids.cuba.instantlauncher.web.launcher.menu.AppMenuAdapter;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -34,14 +36,19 @@ public class InstantLauncherTopMenuMainScreen extends MainScreen implements Wind
     private WebConfig webConfig;
 
     @Inject
-    protected LauncherCommandShortcutInitializer launcherCommandShortcutInitializer;
-
+    protected LauncherCommandsInitializer launcherCommandShortcutInitializer;
+    @Inject
+    protected AppMenu mainMenu;
 
     @Subscribe
     protected void onBeforeShow(BeforeShowEvent event) {
 
-        launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
+        launcherCommandShortcutInitializer.initKeyboardShortcuts(
                 (RootWindow) this.getWindow()
+        );
+
+        launcherCommandShortcutInitializer.initMenuLauncherCommands(
+                AppMenuAdapter.of(mainMenu)
         );
     }
 

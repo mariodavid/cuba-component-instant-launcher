@@ -6,19 +6,54 @@
     <data>
         <instance id="launcherCommandGroupDc"
                   class="de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup"
-                  view="_local">
+                  view="group-with-translations-view">
             <loader/>
+            <collection id="translationsDc" property="translations"/>
         </instance>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="launcherCommandGroupDc">
-            <column width="250px">
-                <textField id="nameField" property="name"/>
-                <textField id="codeField" property="code"/>
-            </column>
-        </form>
+
+        <tabSheet id="mainTabSheet">
+            <tab id="generalTab"
+                 caption="msg://de.diedavids.cuba.instantlauncher.web.screens.launchercommand/general"
+                 margin="true"
+                 spacing="true">
+                <form id="form" dataContainer="launcherCommandGroupDc">
+                    <column width="250px">
+                        <textField id="nameField" property="name"/>
+                        <textField id="codeField" property="code"/>
+                        <checkBox id="showInMainMenuField" property="showInMainMenu" contextHelpText="msg://showInMainMenu"/>
+                    </column>
+                </form>
+            </tab>
+            <tab id="translationTab"
+                 caption="msg://de.diedavids.cuba.instantlauncher.entity/LauncherCommandGroup.translations"
+                 margin="true"
+                 spacing="true">
+                <table id="translationsTable"
+                       dataContainer="translationsDc"
+                       height="100%"
+                       width="100%">
+                    <actions>
+                        <action type="create" id="create" />
+                        <action type="edit" id="edit" />
+                        <action type="remove" id="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="locale"/>
+                        <column id="text"/>
+                    </columns>
+                    <rowsCount />
+                    <buttonsPanel>
+                        <button action="translationsTable.create"/>
+                        <button action="translationsTable.edit"/>
+                        <button action="translationsTable.remove"/>
+                    </buttonsPanel>
+                </table>
+            </tab>
+        </tabSheet>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

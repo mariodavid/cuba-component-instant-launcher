@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2020-03-19
+
+### Added
+- Translations for Launcher Command Groups
+- Launcher commands as Main Menu entries (#11)
+
+
+### Dependencies
+- CUBA 7.2.0
+- metadata-extensions: 0.3.1
+- rich-search: 1.6.0
+
 ## [0.4.2] - 2020-03-07
 
 ### Bugfix
