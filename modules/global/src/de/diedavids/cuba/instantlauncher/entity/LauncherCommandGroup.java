@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @NamePattern("%s|name")
 @Table(name = "DDCIL_LAUNCHER_COMMAND_GROUP")
@@ -69,11 +70,15 @@ public class LauncherCommandGroup extends StandardEntity {
 
 
     public String translationForLocale(Locale locale) {
-        return getTranslations()
-                .stream()
-                .filter(translation -> locale.equals(translation.getLocale()))
-                .map(LauncherCommandGroupTranslation::getText)
-                .findFirst()
+
+        return Optional.ofNullable(getTranslations())
+                .map(translations ->
+                        translations
+                                .stream()
+                                .filter(translation -> locale.equals(translation.getLocale()))
+                                .map(LauncherCommandGroupTranslation::getText)
+                                .findFirst()
+                                .orElse(getName()))
                 .orElse(getName());
 
     }

@@ -18,6 +18,7 @@ public interface LauncherCommandService {
             Locale locale
     );
 
+    LauncherCommand loadWithDetails(LauncherCommand launcherCommand);
 
     List<LauncherCommand> findAllLauncherCommandsByName(String query);
 

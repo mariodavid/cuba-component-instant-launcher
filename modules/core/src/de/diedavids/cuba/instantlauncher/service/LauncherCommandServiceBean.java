@@ -1,5 +1,6 @@
 package de.diedavids.cuba.instantlauncher.service;
 
+import com.haulmont.cuba.core.global.DataManager;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommand;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandGroup;
 import de.diedavids.cuba.instantlauncher.entity.LauncherCommandTranslation;
@@ -16,10 +17,17 @@ public class LauncherCommandServiceBean implements LauncherCommandService {
 
     @Inject
     protected LauncherCommandRepository launcherCommandRepository;
+    @Inject
+    protected DataManager dataManager;
 
     @Override
     public List<LauncherCommandTranslation> findAllLauncherCommandTranslationByTextAndLocale(String query, Locale locale) {
         return launcherCommandRepository.findAllLauncherCommandTranslationByTextAndLocale(query, locale);
+    }
+
+    @Override
+    public LauncherCommand loadWithDetails(LauncherCommand launcherCommand) {
+        return dataManager.reload(launcherCommand, "launcherCommand-with-details");
     }
 
     @Override

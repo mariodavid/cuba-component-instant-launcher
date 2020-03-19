@@ -6,20 +6,21 @@ import de.diedavids.cuba.instantlauncher.entity.InputParameter
 import de.diedavids.cuba.instantlauncher.entity.InputParameterTranslation
 import de.diedavids.cuba.instantlauncher.entity.InputParameterType
 import de.diedavids.cuba.instantlauncher.entity.ScreenLauncherCommand
+import de.diedavids.cuba.instantlauncher.service.LauncherCommandService
 import spock.lang.Specification
 
 class LauncherCommandExecutorAPIBeanSpec extends Specification {
 
     LauncherCommandExecutorAPI sut
     LauncherCommandExecutorFactory executorFactory = Mock(LauncherCommandExecutorFactory)
-    DataManager dataManager = Mock(DataManager)
+    LauncherCommandService launcherCommandService = Mock(LauncherCommandService)
     LauncherCommandInputParameterDialogFactory inputParameterDialogFactory
     Dialogs.InputDialogBuilder inputDialog
 
     def setup() {
         inputParameterDialogFactory = Mock(LauncherCommandInputParameterDialogFactory)
         sut = new LauncherCommandExecutorAPIBean(
-                dataManager: dataManager,
+                launcherCommandService: launcherCommandService,
                 launcherCommandExecutorFactory: executorFactory,
                 launcherCommandInputParameterDialogFactory: inputParameterDialogFactory
         )
@@ -30,7 +31,7 @@ class LauncherCommandExecutorAPIBeanSpec extends Specification {
         def launcherCommand = new ScreenLauncherCommand()
 
         and:
-        dataManager.reload(launcherCommand, 'launcherCommand-with-details') >> launcherCommand
+        launcherCommandService.loadWithDetails(launcherCommand) >> launcherCommand
         when:
         sut.launchCommand(launcherCommand)
         then:
@@ -42,7 +43,7 @@ class LauncherCommandExecutorAPIBeanSpec extends Specification {
         def launcherCommand = new ScreenLauncherCommand()
 
         and:
-        dataManager.reload(launcherCommand, 'launcherCommand-with-details') >> launcherCommand
+        launcherCommandService.loadWithDetails(launcherCommand) >> launcherCommand
         and:
         LauncherCommandExecutor executor = Mock(LauncherCommandExecutor)
         executorFactory.create(launcherCommand) >> executor
@@ -67,7 +68,7 @@ class LauncherCommandExecutorAPIBeanSpec extends Specification {
         inputParameterDialogFactory.create(_, _) >> inputDialog
 
         and:
-        dataManager.reload(launcherCommand, 'launcherCommand-with-details') >> launcherCommand
+        launcherCommandService.loadWithDetails(launcherCommand) >> launcherCommand
         and:
         LauncherCommandExecutor executor = Mock(LauncherCommandExecutor)
         executorFactory.create(launcherCommand) >> executor

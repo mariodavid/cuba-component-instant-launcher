@@ -123,17 +123,15 @@ public class LauncherCommand extends StandardEntity {
     }
 
 
-
-
     public String translationForLocale(Locale locale) {
         return Optional.ofNullable(getTranslations())
-                .map(launcherCommandTranslations ->
-                        launcherCommandTranslations
+                .map(translations ->
+                        translations
                                 .stream()
-                        .filter(translation -> locale.equals(translation.getLocale()))
-                        .map(LauncherCommandTranslation::getText)
-                        .findFirst()
-                        .orElse(getName()))
+                                .filter(translation -> locale.equals(translation.getLocale()))
+                                .map(LauncherCommandTranslation::getText)
+                                .findFirst()
+                                .orElse(getName()))
                 .orElse(getName());
 
 
