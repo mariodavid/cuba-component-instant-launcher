@@ -98,6 +98,8 @@ action, that should be available via the Main Menu.
 In case the Launcher Command is organized in a Launcher Command Group, the corresponding group acts as a Main Menu Entry,
 which then as Sub Menu Items contains all launcher commands that are associated to the group.
 
+![launcher command from main menu](img/launcher-command-main-menu.gif)
+
 
 ### Main Window Replacement
 
@@ -137,16 +139,23 @@ public class InstantLauncherTopMenuMainScreen extends MainScreen implements Wind
 
     // ...
     
-    @Inject
-    protected LauncherCommandShortcutInitializer launcherCommandShortcutInitializer;
 
+    @Inject
+    protected LauncherCommandsInitializer launcherCommandShortcutInitializer;
+
+    @Inject
+    protected AppMenu mainMenu;
 
     @Subscribe
     protected void onBeforeShow(BeforeShowEvent event) {
 
-        launcherCommandShortcutInitializer.initInstantLauncherShortcuts(
+        launcherCommandShortcutInitializer.initKeyboardShortcuts(
                 (RootWindow) this.getWindow()
         );
+        launcherCommandShortcutInitializer.initMenuLauncherCommands(
+                AppMenuAdapter.of(mainMenu)
+        );
+
     }
 
     // ...  
