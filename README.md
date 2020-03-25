@@ -38,6 +38,9 @@ dependencies {
 }
 ```
 
+### Example Usage
+
+To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
 
 ### CHANGELOG
 
@@ -45,7 +48,6 @@ Information on changes that happen through the different versions of the applica
 The Changelog also contains information about breaking changes and tips on how to resolve them.
 
 ## Supported DBMS
-
 
 The following databases are supported by this application component:
 
@@ -220,9 +222,6 @@ A Launch Command can have multiple parameters, where a parameter can have the fo
 #### Launcher with Parameters
 ![launcher execution with parameters](https://github.com/mariodavid/cuba-component-instant-launcher/blob/master/img/4-instant-launcher-parameters.gif)
 
-
-### Example usage
-To see this application component in action, check out this example: [cuba-example-using-instant-launcher](https://github.com/mariodavid/cuba-example-using-instant-launcher).
 
 ### Screenshots
 
